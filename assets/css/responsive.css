@@ -1,0 +1,339 @@
+/* 
+ * Responsive CSS for JungleCode
+ * Media queries for mobile and tablet 
+ */
+
+/* ===== Media Queries ===== */
+
+/* Larger desktop and laptops */
+@media (max-width: 1200px) {
+    .container {
+        max-width: 100%;
+        padding: 0 var(--spacing-md);
+    }
+    
+    .hero-title {
+        font-size: 3rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.3rem;
+    }
+}
+
+/* Tablets and small laptops */
+@media (max-width: 992px) {
+    h1 {
+        font-size: 2.5rem;
+    }
+    
+    h2 {
+        font-size: 2rem;
+    }
+    
+    h3 {
+        font-size: 1.75rem;
+    }
+    
+    .hero-title {
+        font-size: 2.5rem;
+    }
+    
+    .navbar-menu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-color: white;
+        padding: var(--spacing-md) 0;
+        box-shadow: var(--shadow-md);
+        flex-direction: column;
+        align-items: center;
+        z-index: 100;
+    }
+    
+    .navbar-menu.active {
+        display: flex;
+    }
+    
+    .navbar-nav {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .nav-item {
+        margin: var(--spacing-xs) 0;
+    }
+    
+    .mobile-menu-toggle {
+        display: block;
+    }
+    
+    .mobile-menu-toggle.active .bar:nth-child(1) {
+        transform: rotate(-45deg) translate(-5px, 6px);
+    }
+    
+    .mobile-menu-toggle.active .bar:nth-child(2) {
+        opacity: 0;
+    }
+    
+    .mobile-menu-toggle.active .bar:nth-child(3) {
+        transform: rotate(45deg) translate(-5px, -6px);
+    }
+    
+    /* Process timeline adjustments */
+    .process-timeline:before {
+        left: 45px;
+    }
+    
+    .process-step {
+        padding-left: 130px !important;
+    }
+    
+    .step-number {
+        left: 15px;
+        width: 60px;
+        height: 60px;
+        font-size: 1.4rem;
+    }
+    
+    /* Key points adjustments - ensure they stay in 3 columns */
+    .key-points {
+        grid-template-columns: repeat(3, 1fr) !important;
+    }
+    
+    .mission-statement p {
+        font-size: 1.4rem;
+        max-width: 90%;
+    }
+    
+    /* Language toggle adjustments */
+    .language-toggle {
+        font-size: 0.9rem;
+        margin-right: var(--spacing-sm);
+    }
+    
+    .language-notification {
+        bottom: 15px;
+        right: 15px;
+        padding: 10px 20px;
+        font-size: 0.9rem;
+    }
+}
+
+/* Mobile landscape */
+@media (max-width: 768px) {
+    section {
+        padding: var(--spacing-lg) 0;
+    }
+    
+    .navbar {
+        padding: 0.8rem 1rem;
+    }
+    
+    .navbar-brand {
+        flex: 2;
+    }
+    
+    .navbar-actions {
+        flex: 1;
+    }
+    
+    .logo {
+        font-size: 1.5rem;
+    }
+    
+    .navbar-actions .cta-button {
+        display: none;
+    }
+    
+    .hero-section {
+        min-height: 600px;
+    }
+    
+    .animated-graphic {
+        height: 150px;
+        margin-bottom: var(--spacing-md);
+    }
+    
+    .japan-map {
+        width: 80px;
+        height: 120px;
+    }
+    
+    .pulse-circle {
+        width: 80px;
+        height: 80px;
+    }
+    
+    @keyframes expandPulse {
+        100% {
+            width: 150px;
+            height: 150px;
+        }
+    }
+    
+    .hero-title {
+        font-size: 2rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.1rem;
+    }
+    
+    .cta-button {
+        font-size: 0.9rem;
+        padding: 0.7rem 1.5rem;
+    }
+    
+    /* Key points fall to one column */
+    .key-points {
+        grid-template-columns: 1fr !important;
+    }
+    
+    /* Update spacing in all card sections */
+    .about-content,
+    .services-container,
+    .opportunity-container,
+    .consultation-steps,
+    .team-container {
+        gap: var(--spacing-md);
+    }
+    
+    .service-card.primary {
+        margin-bottom: 0;
+    }
+    
+    /* Process timeline adjustments */
+    .process-timeline:before {
+        left: 35px;
+    }
+    
+    .process-step {
+        padding-left: 110px !important;
+    }
+    
+    .step-number {
+        left: 10px;
+        width: 50px;
+        height: 50px;
+        font-size: 1.2rem;
+    }
+    
+    /* Footer adjustments */
+    .footer-content {
+        flex-direction: column;
+        gap: var(--spacing-md);
+    }
+    
+    .footer-language {
+        text-align: left;
+    }
+    
+    .language-options {
+        justify-content: flex-start;
+    }
+    
+    .mission-statement {
+        padding: var(--spacing-md);
+    }
+    
+    .mission-statement p {
+        font-size: 1.2rem;
+        max-width: 100%;
+    }
+    
+    /* Language notification adjustments */
+    .language-notification {
+        bottom: 10px;
+        right: 10px;
+        padding: 8px 16px;
+        font-size: 0.8rem;
+        max-width: 80%;
+    }
+}
+
+/* Mobile portrait */
+@media (max-width: 576px) {
+    .animated-graphic {
+        height: 120px;
+    }
+    
+    .japan-map {
+        width: 60px;
+        height: 90px;
+    }
+    
+    .pulse-circle {
+        width: 60px;
+        height: 60px;
+    }
+    
+    @keyframes expandPulse {
+        100% {
+            width: 100px;
+            height: 100px;
+        }
+    }
+    
+    .container {
+        padding: 0 var(--spacing-sm);
+    }
+    
+    h1 {
+        font-size: 2rem;
+    }
+    
+    h2 {
+        font-size: 1.8rem;
+    }
+    
+    h3 {
+        font-size: 1.5rem;
+    }
+    
+    h4 {
+        font-size: 1.3rem;
+    }
+    
+    .section-header {
+        margin-bottom: var(--spacing-md);
+    }
+    
+    .hero-title {
+        font-size: 1.8rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 1rem;
+    }
+    
+    /* Process timeline adjustments */
+    .process-step {
+        padding-left: 90px !important;
+    }
+    
+    .process-timeline:before {
+        left: 30px;
+    }
+    
+    /* Footer adjustments */
+    .footer-bottom {
+        flex-direction: column-reverse;
+        gap: var(--spacing-md);
+        text-align: center;
+    }
+    
+    .footer-links {
+        justify-content: center;
+    }
+    
+    .mission-statement h3 {
+        font-size: 1.6rem;
+    }
+    
+    .mission-statement p {
+        font-size: 1.2rem;
+    }
+}

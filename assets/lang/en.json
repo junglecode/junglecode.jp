@@ -1,0 +1,332 @@
+{
+  "siteTitle": "JungleCode - Navigate Japan's Market with Confidence for AI Companies",
+  "hero": {
+    "title": "Want to Succeed in Japan? Start Here.",
+    "subtitle": "Tap into Asia's most mature $9 trillion economy with local insights, strategic guidance, and deep market knowledge.",
+    "cta": "Plan Your Japan Expansion"
+  },
+  "about": {
+    "title": "You Bring the AI Vision. We’ll Help You Land It in Japan.",
+    "description": "JungleCode offers strategic insight rooted in lived experience — bridging cultural expectations, business norms, and legal frameworks so your AI venture can succeed in Japan. Whether you're exploring the market or ready to scale, we help you move with clarity, purpose, and momentum.",
+    "mission": {
+      "title": "Our Mission",
+      "text": "To support AI ventures as they grow into Japan — not just with answers, but with context, partnership, and care."
+    },
+    "keyPoints": [
+      {
+        "title": "Cultural Insight",
+        "description": "We’ve built in Japan — and we understand what it takes to succeed here."
+      },
+      {
+        "title": "Strategic Guidance",
+        "description": "Whether you’re exploring or already expanding, we meet you where you are."
+      },
+      {
+        "title": "Trusted Access",
+        "description": "We bring you into the room with people who matter — and help you make it count."
+      }
+    ]
+  },
+  "challenges": {
+    "title": "Challenges We Help You Navigate",
+    "intro": "Entering Japan means facing unique friction points — from slow-moving buyers to regulatory intricacies and high-context communication. We help you break through each one, with local context and executional clarity.",
+    "label": {
+    "challenge": "Challenge:",
+    "solution": "Solution:"
+  },
+    "categories": {
+      "marketNavigation": {
+        "title": "Market Access",
+        "challenges": [
+          {
+            "title": "Local Insight",
+            "challenge": "It’s hard to know what’s working — or even who to talk to.",
+            "solution": "We help you understand how the market works and where your opportunity actually lies."
+          },
+          {
+            "title": "Warm Leads",
+            "challenge": "No matter how great your offering is, cold starts rarely go anywhere.",
+            "solution": "We bring you into trusted conversations that lead to real traction."
+          }
+        ]
+      },
+      "culturalIntegration": {
+        "title": "Cultural Fit",
+        "challenges": [
+          {
+            "title": "Showing Respect",
+            "challenge": "Even small things — like silence or seating — carry meaning here.",
+            "solution": "We coach you on the unspoken rules that build confidence and trust."
+          },
+          {
+            "title": "Saying Less",
+            "challenge": "Overexplaining can come off as insecure or pushy.",
+            "solution": "We help you strike the right balance — clear, calm, and intentional."
+          }
+        ]
+      },
+      "regulatoryCompliance": {
+        "title": "Staying Compliant",
+        "challenges": [
+          {
+            "title": "Legal Boundaries",
+            "challenge": "The rules aren’t always obvious — until they stop your momentum.",
+            "solution": "We give you clarity early, so you can move forward without worry."
+          },
+          {
+            "title": "Trust Expectations",
+            "challenge": "Japan expects more than just a good product — they expect reliability.",
+            "solution": "We help you show you’re serious — and build the kind of trust that lasts."
+          }
+        ]
+      }
+    }
+  },
+  "services": {
+    "title": "Our Services",
+    "subtitle": "We walk with you through every step of your Japan journey — from planning to partnerships to presence.",
+    "primary": {
+      "title": "Entry Planning",
+      "description": "We help you move forward with clarity — building a foundation that respects the market and sets you up for growth.",
+      "features": [
+        "Clarity on what Japan really needs",
+        "Legal and cultural alignment",
+        "Strategy grounded in timing and context",
+        "Team and resource planning"
+      ],
+      "cta": "Start Your Journey"
+    },
+    "secondary": [
+      {
+        "title": "Local Traction",
+        "description": "We help you show up well — and get into the right rooms with the right people.",
+        "features": [
+          "Warm intros and guidance",
+          "Hiring and presence planning",
+          "Long-term relationship strategy"
+        ],
+        "cta": "Build Connections"
+      },
+      {
+        "title": "Market Fit",
+        "description": "We help your work make sense here — not just in words, but in tone, format, and trust signals.",
+        "features": [
+          "Message and tone calibration",
+          "Cultural expectation alignment",
+          "Lightweight compliance review"
+        ],
+        "cta": "Get Aligned"
+      }
+    ]
+  },
+  "process": {
+    "title": "Our Market Entry Process",
+    "deliverableLabel": "Deliverable:",
+    "steps": [
+      {
+        "title": "Early Discovery",
+        "duration": "2–3 weeks",
+        "deliverable": "Opportunity Brief",
+        "description": "We start by understanding what you’re building — and whether Japan’s a good fit right now.",
+        "number": "1",
+        "ctaText": "Start Exploring"
+      },
+      {
+        "title": "Thoughtful Planning",
+        "duration": "3–4 weeks",
+        "deliverable": "Strategy Outline",
+        "description": "Together, we build a practical roadmap that fits your team, your vision, and this market.",
+        "number": "2",
+        "ctaText": "View Strategy"
+      },
+      {
+        "title": "Hands-On Support",
+        "duration": "Ongoing",
+        "deliverable": "Launch Guidance",
+        "description": "From setup to partner meetings, we help you move forward with confidence — and avoid stalling out.",
+        "number": "3",
+        "ctaText": "Get Support"
+      },
+      {
+        "title": "Long-Term Growth",
+        "duration": "Ongoing",
+        "deliverable": "Scaling Plan",
+        "description": "As you grow, we help you adapt to what’s changing — and keep building momentum.",
+        "number": "4",
+        "ctaText": "Plan to Scale"
+      }
+    ]
+  },
+  "whyJapan": {
+    "title": "Why Japan Matters",
+    "intro": "Japan is one of the world’s most advanced economies — with the structure, trust, and appetite for innovation that make it ideal for market expansion.",
+    "sections": [
+      {
+        "title": "Market Dynamics",
+        "items": [
+          "$9T economy with deep investments in automation and productivity",
+          "Large enterprise sector seeking scalable, long-term solutions",
+          "Strong alignment between public policy and innovation",
+          "Tech-savvy buyers who demand precision and trust",
+          "Strategic entry point for expansion across Asia"
+        ]
+      },
+      {
+        "title": "Key Advantages",
+        "items": [
+          "High IP protection and low tolerance for bad actors",
+          "Government support for AI-driven transformation",
+          "Reliable, modern infrastructure across industries",
+          "High brand loyalty for trusted partners",
+          "Premium pricing accepted for proven performance"
+        ]
+      },
+      {
+        "title": "Success Factors",
+        "items": [
+          "Long-term partnerships built on credibility",
+          "High standards for transparency and reliability",
+          "Deep respect for quality, ethics, and craft",
+          "Preference for structured onboarding and integration",
+          "Clear expectations for support, compliance, and continuity"
+        ]
+      }
+    ]
+  },
+  "getStarted": {
+    "title": "Getting Started",
+    "subtitle": "Take the first step toward entering Japan with purpose, clarity, and an experienced local partner.",
+    "consultationSteps": [
+      {
+        "title": "Discovery Call",
+        "items": [
+          "Understand your objectives and entry motivation",
+          "Assess market timing and strategic alignment",
+          "Identify major risks and blockers",
+          "Outline our working model"
+        ]
+      },
+      {
+        "title": "Strategic Review",
+        "items": [
+          "Evaluate possible entry pathways",
+          "Estimate resources and internal readiness",
+          "Map your positioning and messaging",
+          "Share early recommendations"
+        ]
+      },
+      {
+        "title": "Proposal Delivery",
+        "items": [
+          "Provide a structured roadmap",
+          "Detail services, scope, and timelines",
+          "Align on investment and team fit",
+          "Set the foundation for launch"
+        ]
+      }
+    ],
+    "cta": "Start the Conversation"
+  },
+  "contact": {
+    "title": "Request a Consultation",
+    "subtitle": "Tell us about your goals and timeline. We'll follow up with a structured plan to move forward.",
+    "formLabels": {
+      "name": "Your Name",
+      "email": "Email Address",
+      "company": "Company Name",
+      "website": "Company Website",
+      "industry": "AI Industry Focus",
+      "presence": "Current Market Presence",
+      "timeline": "Target Entry Timeline",
+      "objectives": "Primary Objectives"
+    },
+    "formPlaceholders": {
+      "name": "Full name",
+      "email": "Work email",
+      "company": "Organization you represent",
+      "website": "https://your.link",
+      "industry": "What area of AI are you focused on?",
+      "objectives": "Key outcomes you want to achieve in Japan"
+    },
+    "formOptions": {
+      "marketPresencePlaceholder": "Select your current presence",
+      "timelinePlaceholder": "Select your timeline",
+      "presence": [
+        "Select your current presence",
+        "No presence yet",
+        "Some early work",
+        "Already in-market"
+      ],
+      "timeline": [
+        {
+          "label": "0–6 months"
+        },
+        {
+          "label": "6–12 months"
+        },
+        {
+          "label": "12+ months"
+        }
+      ],
+      "marketPresence": [
+        {
+          "label": "No presence yet"
+        },
+        {
+          "label": "Some early work"
+        },
+        {
+          "label": "Already in-market"
+        }
+      ]
+    },
+    "submitButton": "Send Request"
+  },
+  "footer": {
+    "languages": "Languages:",
+    "companyName": "JungleCode",
+    "tagline": "Your guide to entering Japan with clarity.",
+    "copyright": "© JungleCode. All rights reserved.",
+    "links": [
+      {
+        "label": "Privacy Policy"
+      },
+      {
+        "label": "Terms of Service"
+      }
+    ],
+    "languageToggle": "EN | JP"
+  },
+  "navItems": [
+    [
+      "Home"
+    ],
+    [
+      "About"
+    ],
+    [
+      "Challenges"
+    ],
+    [
+      "Services"
+    ],
+    [
+      "Contact"
+    ]
+  ],
+  "en": "English",
+  "jp": "日本語",
+  "leadership": {
+    "title": "Leadership",
+    "team": [
+      {
+        "name": "Jet Villegas",
+        "bio": "A senior engineering leader with 6+ years directing global engineering operations from Tokyo, where he leads teams across three continents. During his 25+ year career, he has built technology reaching billions of people worldwide, from pioneering browser platforms to transforming job advertising systems that process billions of daily requests while helping millions find work. His experience with AI technologies provides valuable insights for startups entering the Japanese market."
+      },
+      {
+        "name": "Aditya Pandya",
+        "bio": "A product leader with 5+ years in Japan who scaled a global job platform from 150M to 2.1B annual applications while based in Tokyo. During his 15+ year career, he has built products reaching over 100M people and generating $6B+ in revenue, while leading international teams of 150+ people and pioneering innovations that have helped tens of millions find work. He brings deep expertise in AI product strategy for the Japanese market."
+      }
+    ]
+  }
+}

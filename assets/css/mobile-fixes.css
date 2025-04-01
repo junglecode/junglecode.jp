@@ -1,0 +1,198 @@
+/* 
+ * JungleCode Mobile-specific fixes
+ * These styles address issues seen in the mobile version of the site
+ */
+
+/* ===== 1. Fix Japan Map SVG Height ===== */
+@media (max-width: 768px) {
+  .japan-map {
+    width: 240px !important;  /* Increased to 3x original size */
+    height: 360px !important; /* Increased to 3x original size */
+    opacity: 0.9; /* Better visibility */
+    transform: translate(-50%, -50%) scale(1.5); /* Scale up the map further */
+  }
+  
+  .animated-graphic {
+    height: 350px !important; /* Increased to accommodate the much larger map */
+    margin-bottom: 1rem !important; /* Adjust spacing */
+    overflow: visible !important; /* Ensure map is not cut off */
+  }
+    
+  /* Adjust Japan map container to handle the larger map */
+  .japan-map img {
+    max-width: none !important; /* Override max-width constraint */
+    width: 100% !important;
+    height: 100% !important;
+  }
+  
+  /* Ensure hero content accommodates the larger graphic */
+  .hero-content {
+    padding-top: 2rem !important;
+  }
+}
+
+/* ===== 2. Leadership Section Bio Padding ===== */
+@media (max-width: 768px) {
+  .member-bio {
+    padding-left: var(--spacing-sm);
+    padding-right: var(--spacing-sm);
+    font-size: 0.95rem; /* Slightly smaller text to fit better */
+    line-height: 1.5;
+  }
+  
+  .team-member {
+    padding: var(--spacing-sm);
+  }
+}
+
+/* ===== 3. Process Section Alignment Fixes ===== */
+@media (max-width: 768px) {
+  /* Reduce space between circle and content */
+  .process-step {
+    padding-left: 85px !important; /* Reduced from original padding to bring cards closer */
+  }
+  
+  /* Better align the timeline vertical line */
+  .process-timeline:before {
+    left: 38px !important; /* More precisely centered */
+  }
+  
+  /* Fix number centering in circles */
+  .step-number {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 60px !important;
+    height: 60px !important;
+    line-height: 60px !important;
+    text-align: center !important;
+    left: 8px !important; /* Adjusted to align with the line */
+  }
+  
+  /* Ensure step content has enough padding and width */
+  .step-content {
+    padding: var(--spacing-md) !important;
+    width: calc(100% - 10px) !important; /* Make cards slightly wider */
+    max-width: 100% !important;
+    margin-left: -10px !important; /* Pull cards slightly closer to circles */
+  }
+}
+
+/* More extreme adjustments for smallest screens */
+@media (max-width: 576px) {
+  .process-step {
+    padding-left: 80px !important;
+  }
+  
+  .process-timeline:before {
+    left: 32px !important;
+  }
+  
+  .step-number {
+    width: 50px !important;
+    height: 50px !important;
+    font-size: 1.2rem !important;
+    left: 7px !important;
+  }
+}
+
+/* ===== 4. Contact Form Dropdown Height ===== */
+@media (max-width: 768px) {
+  /* Make all form elements consistent height */
+  .contact-form input,
+  .contact-form select,
+  .contact-form textarea {
+    height: 50px !important; /* Fixed height for consistency */
+    padding: 0.8rem !important; 
+    font-size: 16px !important; /* Better for mobile */
+  }
+  
+  /* Fix for iOS form elements */
+  .contact-form select {
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='6'%3E%3Cpath d='M0 0h12L6 6z' fill='%23ffffff'/%3E%3C/svg%3E") !important;
+    background-repeat: no-repeat !important;
+    background-position: right 1rem center !important;
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
+    appearance: none !important;
+  }
+  
+  .contact-form textarea {
+    height: auto !important;
+    min-height: 120px !important;
+  }
+}
+
+/* ===== 5. Larger Tap Targets for Language Switchers ===== */
+@media (max-width: 768px) {
+  /* Navbar language toggle */
+  .language-toggle {
+    font-size: 1rem !important;
+    padding: 8px 12px !important;
+    margin-right: 10px !important;
+    min-width: 70px !important;
+    text-align: center !important;
+  }
+  
+  /* Footer language options */
+  .language-option {
+    padding: 10px 15px !important;
+    font-size: 1rem !important;
+    min-width: 60px !important;
+    text-align: center !important;
+  }
+  
+  /* Add some space between language options */
+  .language-options {
+    gap: 10px !important;
+  }
+}
+
+/* ===== Fix Button Text Size ===== */
+@media (max-width: 768px) {
+  /* Increase button text size for all buttons */
+  .cta-button, 
+  .submit-button, 
+  .language-toggle, 
+  .language-option,
+  .text-link,
+  .step-content .text-link {
+    font-size: 1.1rem !important;
+    font-weight: 600 !important;
+    padding: 0.9rem 1.5rem !important;
+    letter-spacing: 0.02em !important;
+  }
+  
+  /* Specific adjustment for text-links */
+  .text-link {
+    padding: 0.5rem 0 !important;
+    font-size: 1.05rem !important;
+  }
+  
+  /* For step numbers inside process circles */
+  .step-number {
+    font-size: 1.5rem !important;
+    font-weight: 700 !important;
+  }
+}
+
+/* Additional Loading Performance Optimizations */
+@media (max-width: 768px) {
+  /* Optimize animations for mobile */
+  .animated-graphic * {
+    will-change: transform, opacity;
+  }
+  
+  /* Reduce animation complexity on mobile */
+  @media (prefers-reduced-motion: reduce) {
+    .animated-graphic {
+      animation: none !important;
+    }
+    
+    .hero-title, .hero-subtitle, .hero-section .cta-button {
+      opacity: 1 !important;
+      animation: none !important;
+    }
+  }
+}

@@ -1,0 +1,30 @@
+/* 
+ * Main CSS for JungleCode
+ * This file imports all modular CSS files
+ */
+
+/* Base Styles */
+@import 'variables.css';
+@import 'base.css';
+@import 'typography.css';
+@import 'components.css';
+@import 'fixes.css';
+@import 'mobile-fixes.css';
+@import 'animation-fix.css';
+
+/* Section Specific Styles */
+@import 'sections/header.css';
+@import 'sections/hero.css';
+@import 'sections/about.css';
+@import 'sections/challenges.css';
+@import 'sections/services.css';
+@import 'sections/process.css';
+@import 'sections/leadership.css';
+@import 'sections/why-japan.css';
+@import 'sections/get-started.css';
+@import 'sections/contact.css';
+@import 'sections/footer.css';
+
+/* Animations and Responsive Styles */
+@import 'animations.css';
+@import 'responsive.css';

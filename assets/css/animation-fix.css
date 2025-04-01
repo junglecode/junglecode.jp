@@ -1,0 +1,42 @@
+/* 
+ * Clean Japan Map Animation Solution
+ */
+
+/* First disable any existing pulse animations */
+.pulse-circle {
+  display: none !important;
+}
+
+/* Add the clean pulse circle */
+.hero-section .animated-graphic::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 77, 77, 0.7);
+  z-index: 1;
+  animation: cleanPulse 3s infinite;
+}
+
+@keyframes cleanPulse {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.7;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(2.5);
+    opacity: 0;
+  }
+}
+
+/* Adjust size for mobile */
+@media (max-width: 768px) {
+  .hero-section .animated-graphic::after {
+    width: 100px;
+    height: 100px;
+  }
+}

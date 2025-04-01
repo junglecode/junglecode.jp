@@ -1,0 +1,51 @@
+/* 
+ * CSS Variables for JungleCode
+ * All global variables to maintain consistent design
+ */
+
+:root {
+    /* Color palette */
+    --primary: #2D46B9;         /* Primary blue - vibrant but professional */
+    --primary-light: #5C73E6;
+    --primary-dark: #1A2D8A;
+    --accent: #FF4D4D;          /* Accent red - inspired by Japanese aesthetics */
+    --accent-light: #FF7A7A;
+    --accent-dark: #CC2E2E;
+    --dark: #1A1A2E;            /* Dark blue/black for text */
+    --light: #F0F4FF;           /* Light blue/white for backgrounds */
+    --gray-light: #E6E9F5;
+    --gray: #9AA1B9;
+    --gray-dark: #5D6585;
+    
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    --gradient-accent: linear-gradient(135deg, var(--accent), var(--accent-dark));
+    --gradient-light: linear-gradient(135deg, var(--light), var(--gray-light));
+    
+    /* Typography */
+    --font-heading-serif: 'Playfair Display', 'Noto Serif JP', serif;
+    --font-heading-sans: 'Raleway', 'Noto Sans JP', sans-serif;
+    --font-body: 'Raleway', 'Noto Sans JP', sans-serif;
+    
+    /* Spacing */
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 1rem;
+    --spacing-md: 2rem;
+    --spacing-lg: 3rem;
+    --spacing-xl: 5rem;
+    
+    /* Border Radius */
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 16px;
+    
+    /* Transitions */
+    --transition-fast: 0.2s ease;
+    --transition-normal: 0.3s ease;
+    --transition-slow: 0.5s ease;
+    
+    /* Shadows */
+    --shadow-sm: 0 2px 5px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 10px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
