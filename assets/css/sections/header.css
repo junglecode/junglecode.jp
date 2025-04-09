@@ -105,22 +105,25 @@
 .navbar-actions {
     display: flex;
     align-items: center;
-    flex: 1;
-    justify-content: flex-end;
+    margin-left: auto;
 }
 
 .language-toggle {
-    background: none;
-    border: none;
-    color: var(--primary);
-    font-weight: 500;
-    cursor: pointer;
-    margin-right: var(--spacing-md);
-    transition: color var(--transition-fast);
+  background: none;
+  border: none;
+  color: var(--primary);
+  font-weight: 500;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-sm);
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+  white-space: nowrap;
+  padding: 0.5rem 0.75rem; /* Reduce horizontal padding slightly */
+  font-size: 0.9rem; /* Slightly reduce font size if needed */
 }
 
 .language-toggle:hover {
-    color: var(--primary-light);
+  background-color: rgba(45, 70, 185, 0.1);
 }
 
 .mobile-menu-toggle {
