@@ -1,0 +1,332 @@
+{
+  "siteTitle": "JungleCode - Your Strategic Partner for Japan Market Entry",
+  "hero": {
+    "title": "Let's Build Your Japan Success",
+    "subtitle": "Together we'll navigate Japan's $9 trillion economy, combining your vision with our local market knowledge.",
+    "cta": "Begin Our Partnership"
+  },
+  "about": {
+    "title": "We'll Land Your Vision Together",
+    "description": "Our partnership offers strategic insights rooted in shared experience. Together we'll navigate cultural expectations, business norms, and legal frameworks for your AI success in Japan. Whether you're exploring or scaling, we'll move forward together with purpose and momentum.",
+    "mission": {
+      "title": "Our Commitment",
+      "text": "To grow alongside your AI venture in Japan through mutual understanding and collaborative support."
+    },
+    "keyPoints": [
+      {
+        "title": "Cultural Insight",
+        "description": "Our success in Japan becomes yours."
+      },
+      {
+        "title": "Strategic Guidance",
+        "description": "We meet you at your journey stage."
+      },
+      {
+        "title": "Trusted Access",
+        "description": "We open doors to valuable relationships."
+      }
+    ]
+  },
+  "challenges": {
+    "title": "Challenges We Navigate Together",
+    "intro": "Our journey into Japan involves unique challenges—from relationship-based buying to regulatory complexities and cultural communication. We'll overcome each barrier together, combining your vision with our local context.",
+    "label": {
+      "challenge": "Challenge:",
+      "solution": "Solution:"
+    },
+    "categories": {
+      "marketNavigation": {
+        "title": "Our Market Approach",
+        "challenges": [
+          {
+            "title": "Shared Market Knowledge",
+            "challenge": "It's hard to know what's working — or even who to talk to.",
+            "solution": "We help you understand how the market works and where your opportunity actually lies."
+          },
+          {
+            "title": "Relationship Building",
+            "challenge": "No matter how great your offering is, cold starts rarely go anywhere.",
+            "solution": "We bring you into trusted conversations that lead to real traction."
+          }
+        ]
+      },
+      "culturalIntegration": {
+        "title": "Our Cultural Bridge",
+        "challenges": [
+          {
+            "title": "Cultural Alignment",
+            "challenge": "Even small things — like silence or seating — carry meaning here.",
+            "solution": "We coach you on the unspoken rules that build confidence and trust."
+          },
+          {
+            "title": "Communication Balance",
+            "challenge": "Overexplaining can come off as insecure or pushy.",
+            "solution": "We help you strike the right balance — clear, calm, and intentional."
+          }
+        ]
+      },
+      "regulatoryCompliance": {
+        "title": "Our Compliance Path",
+        "challenges": [
+          {
+            "title": "Regulatory Partnership",
+            "challenge": "The rules aren't always obvious — until they stop your momentum.",
+            "solution": "We give you clarity early, so you can move forward without worry."
+          },
+          {
+            "title": "Trust Development",
+            "challenge": "Japan expects more than just a good product — they expect reliability.",
+            "solution": "We help you show you're serious — and build the kind of trust that lasts."
+          }
+        ]
+      }
+    }
+  },
+  "services": {
+    "title": "Our Partnership Services",
+    "subtitle": "We'll walk this journey together—from initial planning to lasting partnerships and sustainable growth.",
+    "primary": {
+      "title": "Entry Planning",
+      "description": "Together we'll build your foundation—creating a market approach that honors local context and supports your growth.",
+      "features": [
+        "Clarity on what Japan really needs",
+        "Legal and cultural alignment",
+        "Strategy grounded in timing and context",
+        "Team and resource planning"
+      ],
+      "cta": "Plan Our Journey"
+    },
+    "secondary": [
+      {
+        "title": "Connection Building",
+        "description": "We'll introduce you to our network and help you develop meaningful relationships.",
+        "features": [
+          "Warm intros and guidance",
+          "Hiring and presence planning",
+          "Long-term relationship strategy"
+        ],
+        "cta": "Build Our Network"
+      },
+      {
+        "title": "Market Alignment",
+        "description": "We'll adapt your message together to resonate with local expectations and values.",
+        "features": [
+          "Message and tone calibration",
+          "Cultural expectation alignment",
+          "Lightweight compliance review"
+        ],
+        "cta": "Align Our Approach"
+      }
+    ]
+  },
+  "process": {
+    "title": "Our Partnership Journey",
+    "deliverableLabel": "Deliverable:",
+    "steps": [
+      {
+        "title": "Mutual Discovery",
+        "duration": "2–3 weeks",
+        "deliverable": "Opportunity Brief",
+        "description": "We explore your vision and assess our market fit together.",
+        "number": "1",
+        "ctaText": "Begin Our Discovery"
+      },
+      {
+        "title": "Collaborative Planning",
+        "duration": "3–4 weeks",
+        "deliverable": "Strategy Outline",
+        "description": "We develop our shared roadmap based on mutual strengths.",
+        "number": "2",
+        "ctaText": "Create Our Plan"
+      },
+      {
+        "title": "Joint Implementation",
+        "duration": "Ongoing",
+        "deliverable": "Launch Guidance",
+        "description": "We support your team through each step of market entry.",
+        "number": "3",
+        "ctaText": "Implement Together"
+      },
+      {
+        "title": "Shared Growth",
+        "duration": "Ongoing",
+        "deliverable": "Scaling Plan",
+        "description": "We evolve our approach as your market presence develops.",
+        "number": "4",
+        "ctaText": "Grow Together"
+      }
+    ]
+  },
+  "whyJapan": {
+    "title": "Our Japan Opportunity",
+    "intro": "Together we'll access Japan's advanced economy with its established structures, mutual trust, and collaborative innovation approach ideal for our market expansion.",
+    "sections": [
+      {
+        "title": "Our Market Potential",
+        "items": [
+          "$9T economy with deep investments in automation and productivity",
+          "Large enterprise sector seeking scalable, long-term solutions",
+          "Strong alignment between public policy and innovation",
+          "Tech-savvy buyers who demand precision and trust",
+          "Strategic entry point for expansion across Asia"
+        ]
+      },
+      {
+        "title": "Our Shared Advantages",
+        "items": [
+          "High IP protection and low tolerance for bad actors",
+          "Government support for AI-driven transformation",
+          "Reliable, modern infrastructure across industries",
+          "High brand loyalty for trusted partners",
+          "Premium pricing accepted for proven performance"
+        ]
+      },
+      {
+        "title": "Our Success Factors",
+        "items": [
+          "Long-term partnerships built on credibility",
+          "High standards for transparency and reliability",
+          "Deep respect for quality, ethics, and craft",
+          "Preference for structured onboarding and integration",
+          "Clear expectations for support, compliance, and continuity"
+        ]
+      }
+    ]
+  },
+  "getStarted": {
+    "title": "Begin Our Partnership",
+    "subtitle": "Take your first step toward Japan with a collaborative approach and shared expertise.",
+    "consultationSteps": [
+      {
+        "title": "Partnership Discussion",
+        "items": [
+          "Understand your objectives and entry motivation",
+          "Assess market timing and strategic alignment",
+          "Identify major risks and blockers",
+          "Outline our working model"
+        ]
+      },
+      {
+        "title": "Mutual Assessment",
+        "items": [
+          "Evaluate possible entry pathways",
+          "Estimate resources and internal readiness",
+          "Map your positioning and messaging",
+          "Share early recommendations"
+        ]
+      },
+      {
+        "title": "Collaborative Roadmap",
+        "items": [
+          "Provide a structured roadmap",
+          "Detail services, scope, and timelines",
+          "Align on investment and team fit",
+          "Set the foundation for launch"
+        ]
+      }
+    ],
+    "cta": "Start Our Conversation"
+  },
+  "contact": {
+    "title": "Start Your Japan Partnership",
+    "subtitle": "Share your vision and timeline. We'll respond with a collaborative approach within 48 hours.",
+    "formLabels": {
+      "name": "Your Name",
+      "email": "Email Address",
+      "company": "Company Name",
+      "website": "Company Website",
+      "industry": "AI Industry Focus",
+      "presence": "Current Market Presence",
+      "timeline": "Target Entry Timeline",
+      "objectives": "Primary Objectives"
+    },
+    "formPlaceholders": {
+      "name": "Full name",
+      "email": "Work email",
+      "company": "Organization you represent",
+      "website": "https://your.link",
+      "industry": "What area of AI are you focused on?",
+      "objectives": "Key outcomes you want to achieve in Japan"
+    },
+    "formOptions": {
+      "marketPresencePlaceholder": "Select your current presence",
+      "timelinePlaceholder": "Select your timeline",
+      "presence": [
+        "Select your current presence",
+        "No presence yet",
+        "Some early work",
+        "Already in-market"
+      ],
+      "timeline": [
+        {
+          "label": "0–6 months"
+        },
+        {
+          "label": "6–12 months"
+        },
+        {
+          "label": "12+ months"
+        }
+      ],
+      "marketPresence": [
+        {
+          "label": "No presence yet"
+        },
+        {
+          "label": "Some early work"
+        },
+        {
+          "label": "Already in-market"
+        }
+      ]
+    },
+    "submitButton": "Begin Partnership"
+  },
+  "footer": {
+    "languages": "Languages:",
+    "companyName": "JungleCode",
+    "tagline": "Your trusted Japan market ally.",
+    "copyright": "© JungleCode. All rights reserved.",
+    "links": [
+      {
+        "label": "Privacy Policy"
+      },
+      {
+        "label": "Terms of Service"
+      }
+    ],
+    "languageToggle": "EN | JP"
+  },
+  "navItems": [
+    [
+      "Home"
+    ],
+    [
+      "About"
+    ],
+    [
+      "Challenges"
+    ],
+    [
+      "Services"
+    ],
+    [
+      "Contact"
+    ]
+  ],
+  "en": "English",
+  "jp": "日本語",
+  "leadership": {
+    "title": "Your Japan Partners",
+    "team": [
+      {
+        "name": "Jet Villegas",
+        "bio": "We bring you 6+ years of engineering leadership experience in Tokyo, where we've directed global teams across three continents. Our work has reached billions worldwide, from browser innovations to job platforms. Together, we'll apply our AI insights to your Japan market journey."
+      },
+      {
+        "name": "Aditya Pandya",
+        "bio": "Our partnership offers 5+ years of product leadership in Japan, where we've scaled platforms from 150M to 2.1B applications. We've built products reaching over 100M people and generating $6B+ revenue. Together, we'll develop your AI product strategy for Japanese success."
+      }
+    ]
+  }
+}

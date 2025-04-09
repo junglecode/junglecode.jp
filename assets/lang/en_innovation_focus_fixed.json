@@ -1,0 +1,332 @@
+{
+  "siteTitle": "JungleCode - Transforming AI Technology for Japan's Market",
+  "hero": {
+    "title": "Transform Your AI in Japan",
+    "subtitle": "Unlock breakthrough growth in Japan's innovation-ready $9 trillion economy with market-specific strategies.",
+    "cta": "Accelerate Your Transformation"
+  },
+  "about": {
+    "title": "AI Innovation Transforms in Japan",
+    "description": "JungleCode unlocks strategic market insights through technology-focused experience. We transform cultural barriers, business norms, and legal frameworks into growth opportunities for your AI venture. Accelerate your market position with future-ready strategies at any development stage.",
+    "mission": {
+      "title": "Our Vision",
+      "text": "To accelerate AI transformation in Japan through forward-thinking partnership and innovation pathways."
+    },
+    "keyPoints": [
+      {
+        "title": "Cultural Insight",
+        "description": "We've pioneered technology success in Japan."
+      },
+      {
+        "title": "Strategic Guidance",
+        "description": "We accelerate your market trajectory."
+      },
+      {
+        "title": "Trusted Access",
+        "description": "We connect you to innovation networks."
+      }
+    ]
+  },
+  "challenges": {
+    "title": "Transforming Market Challenges",
+    "intro": "Japan's innovation landscape presents unique friction points—from technology adoption cycles to future-focused regulations and precision communication. We transform each barrier into competitive advantage through forward-thinking solutions.",
+    "label": {
+      "challenge": "Challenge:",
+      "solution": "Solution:"
+    },
+    "categories": {
+      "marketNavigation": {
+        "title": "Market Transformation",
+        "challenges": [
+          {
+            "title": "Innovation Intelligence",
+            "challenge": "It's hard to know what's working — or even who to talk to.",
+            "solution": "We help you understand how the market works and where your opportunity actually lies."
+          },
+          {
+            "title": "Technology Network Access",
+            "challenge": "No matter how great your offering is, cold starts rarely go anywhere.",
+            "solution": "We bring you into trusted conversations that lead to real traction."
+          }
+        ]
+      },
+      "culturalIntegration": {
+        "title": "Cultural Innovation",
+        "challenges": [
+          {
+            "title": "Future-Ready Protocols",
+            "challenge": "Even small things — like silence or seating — carry meaning here.",
+            "solution": "We coach you on the unspoken rules that build confidence and trust."
+          },
+          {
+            "title": "Next-Gen Communication",
+            "challenge": "Overexplaining can come off as insecure or pushy.",
+            "solution": "We help you strike the right balance — clear, calm, and intentional."
+          }
+        ]
+      },
+      "regulatoryCompliance": {
+        "title": "Regulatory Innovation",
+        "challenges": [
+          {
+            "title": "Compliance Advancement",
+            "challenge": "The rules aren't always obvious — until they stop your momentum.",
+            "solution": "We give you clarity early, so you can move forward without worry."
+          },
+          {
+            "title": "Trust Technology",
+            "challenge": "Japan expects more than just a good product — they expect reliability.",
+            "solution": "We help you show you're serious — and build the kind of trust that lasts."
+          }
+        ]
+      }
+    }
+  },
+  "services": {
+    "title": "Transformation Services",
+    "subtitle": "We accelerate your technology journey—from market strategy to innovation partnerships and future growth.",
+    "primary": {
+      "title": "Future Strategy",
+      "description": "We design your innovation pathway—creating a foundation that leverages market dynamics for technological advancement.",
+      "features": [
+        "Clarity on what Japan really needs",
+        "Legal and cultural alignment",
+        "Strategy grounded in timing and context",
+        "Team and resource planning"
+      ],
+      "cta": "Launch Your Future"
+    },
+    "secondary": [
+      {
+        "title": "Innovation Networks",
+        "description": "We connect your technology with forward-thinking decision-makers and innovation partners.",
+        "features": [
+          "Warm intros and guidance",
+          "Hiring and presence planning",
+          "Long-term relationship strategy"
+        ],
+        "cta": "Access Innovation Ecosystem"
+      },
+      {
+        "title": "Technology Adaptation",
+        "description": "We transform your offering to align with next-generation expectations and trust frameworks.",
+        "features": [
+          "Message and tone calibration",
+          "Cultural expectation alignment",
+          "Lightweight compliance review"
+        ],
+        "cta": "Transform Your Approach"
+      }
+    ]
+  },
+  "process": {
+    "title": "Technology Market Transformation",
+    "deliverableLabel": "Deliverable:",
+    "steps": [
+      {
+        "title": "Innovation Assessment",
+        "duration": "2–3 weeks",
+        "deliverable": "Opportunity Brief",
+        "description": "We evaluate your technology's transformative potential in Japan.",
+        "number": "1",
+        "ctaText": "Assess Your Impact"
+      },
+      {
+        "title": "Future Roadmapping",
+        "duration": "3–4 weeks",
+        "deliverable": "Strategy Outline",
+        "description": "We design your technology adoption pathway for maximum impact.",
+        "number": "2",
+        "ctaText": "Map Your Future"
+      },
+      {
+        "title": "Technology Launch",
+        "duration": "Ongoing",
+        "deliverable": "Launch Guidance",
+        "description": "We accelerate your solution with targeted implementation support.",
+        "number": "3",
+        "ctaText": "Launch Your Technology"
+      },
+      {
+        "title": "Market Evolution",
+        "duration": "Ongoing",
+        "deliverable": "Scaling Plan",
+        "description": "We transform your strategy as technology landscapes shift.",
+        "number": "4",
+        "ctaText": "Evolve Your Position"
+      }
+    ]
+  },
+  "whyJapan": {
+    "title": "Japan's Innovation Landscape",
+    "intro": "Japan represents a technology-forward economy with next-generation infrastructure, innovation frameworks, and digital transformation appetite perfect for future-focused expansion.",
+    "sections": [
+      {
+        "title": "Technology Market Dynamics",
+        "items": [
+          "$9T economy with deep investments in automation and productivity",
+          "Large enterprise sector seeking scalable, long-term solutions",
+          "Strong alignment between public policy and innovation",
+          "Tech-savvy buyers who demand precision and trust",
+          "Strategic entry point for expansion across Asia"
+        ]
+      },
+      {
+        "title": "Innovation Advantages",
+        "items": [
+          "High IP protection and low tolerance for bad actors",
+          "Government support for AI-driven transformation",
+          "Reliable, modern infrastructure across industries",
+          "High brand loyalty for trusted partners",
+          "Premium pricing accepted for proven performance"
+        ]
+      },
+      {
+        "title": "Transformation Factors",
+        "items": [
+          "Long-term partnerships built on credibility",
+          "High standards for transparency and reliability",
+          "Deep respect for quality, ethics, and craft",
+          "Preference for structured onboarding and integration",
+          "Clear expectations for support, compliance, and continuity"
+        ]
+      }
+    ]
+  },
+  "getStarted": {
+    "title": "Transform Your Market Reach",
+    "subtitle": "Take the first step toward technology transformation with future-focused Japan strategy.",
+    "consultationSteps": [
+      {
+        "title": "Innovation Discussion",
+        "items": [
+          "Understand your objectives and entry motivation",
+          "Assess market timing and strategic alignment",
+          "Identify major risks and blockers",
+          "Outline our working model"
+        ]
+      },
+      {
+        "title": "Technology Assessment",
+        "items": [
+          "Evaluate possible entry pathways",
+          "Estimate resources and internal readiness",
+          "Map your positioning and messaging",
+          "Share early recommendations"
+        ]
+      },
+      {
+        "title": "Transformation Blueprint",
+        "items": [
+          "Provide a structured roadmap",
+          "Detail services, scope, and timelines",
+          "Align on investment and team fit",
+          "Set the foundation for launch"
+        ]
+      }
+    ],
+    "cta": "Begin Your Transformation"
+  },
+  "contact": {
+    "title": "Transform Your Japan Approach",
+    "subtitle": "Share your innovation goals and timeline. Receive a technology-focused strategy within 48 hours.",
+    "formLabels": {
+      "name": "Your Name",
+      "email": "Email Address",
+      "company": "Company Name",
+      "website": "Company Website",
+      "industry": "AI Industry Focus",
+      "presence": "Current Market Presence",
+      "timeline": "Target Entry Timeline",
+      "objectives": "Primary Objectives"
+    },
+    "formPlaceholders": {
+      "name": "Full name",
+      "email": "Work email",
+      "company": "Organization you represent",
+      "website": "https://your.link",
+      "industry": "What area of AI are you focused on?",
+      "objectives": "Key outcomes you want to achieve in Japan"
+    },
+    "formOptions": {
+      "marketPresencePlaceholder": "Select your current presence",
+      "timelinePlaceholder": "Select your timeline",
+      "presence": [
+        "Select your current presence",
+        "No presence yet",
+        "Some early work",
+        "Already in-market"
+      ],
+      "timeline": [
+        {
+          "label": "0–6 months"
+        },
+        {
+          "label": "6–12 months"
+        },
+        {
+          "label": "12+ months"
+        }
+      ],
+      "marketPresence": [
+        {
+          "label": "No presence yet"
+        },
+        {
+          "label": "Some early work"
+        },
+        {
+          "label": "Already in-market"
+        }
+      ]
+    },
+    "submitButton": "Initiate Transformation"
+  },
+  "footer": {
+    "languages": "Languages:",
+    "companyName": "JungleCode",
+    "tagline": "Your Japan technology catalyst.",
+    "copyright": "© JungleCode. All rights reserved.",
+    "links": [
+      {
+        "label": "Privacy Policy"
+      },
+      {
+        "label": "Terms of Service"
+      }
+    ],
+    "languageToggle": "EN | JP"
+  },
+  "navItems": [
+    [
+      "Home"
+    ],
+    [
+      "About"
+    ],
+    [
+      "Challenges"
+    ],
+    [
+      "Services"
+    ],
+    [
+      "Contact"
+    ]
+  ],
+  "en": "English",
+  "jp": "日本語",
+  "leadership": {
+    "title": "Innovation Leaders",
+    "team": [
+      {
+        "name": "Jet Villegas",
+        "bio": "Technology pioneer with 6+ years transforming global engineering from Tokyo. Developed next-generation platforms reaching billions worldwide. Accelerates AI technology adoption through Japan-specific innovation frameworks."
+      },
+      {
+        "name": "Aditya Pandya",
+        "bio": "Digital transformation leader with 5+ years revolutionizing products from Japan. Scaled platform technology to 2.1B annual applications. Pioneers AI product innovation strategies for future-focused Japanese market entry."
+      }
+    ]
+  }
+}
