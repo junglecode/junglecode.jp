@@ -51,7 +51,14 @@ Headlines rise in on load, text rises and photographs unmask as they arrive, fig
 
 ## Images
 
-The photographs of Tokyo, its hospitals and a care home (`src/assets/photos/`) are generated placeholders, made to set the art direction. Replace them with licensed or commissioned photography before launch, keeping the same file names and roughly the same framing. `src/components/Photos.ts` holds each one's focal point.
+The home page hero uses two real photographs of Tokyo Tower over Minato by David Kernan, under CC BY 4.0, credited in the footer of every page:
+
+| Image | Source |
+| --- | --- |
+| `tokyo-tower-day.jpg`, Minato City at golden hour | [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Minato_City,_Tokyo,_Japan.jpg) |
+| `tokyo-tower-night.jpg`, Tokyo Tower at night | [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Tokyo_Tower,_Minato_City.jpg) |
+
+The other photographs of Tokyo, its hospitals and a care home (`src/assets/photos/`) are generated placeholders, made to set the art direction. Replace them with licensed or commissioned photography before launch, keeping the same file names and roughly the same framing. `src/components/Photos.ts` holds each one's focal point.
 
 Founder portraits start from colour masters in `assets-source/portraits/`. Each was made by editing that founder's own photo into one consistent studio session (the same grey backdrop, soft light and framing) while keeping the face unchanged. They were checked against the source photos side by side and with Apple Vision face geometry, landing within about 2% of the source on average. Both share one pose, light, backdrop and lens, and were cropped so the eyes sit level at the same height with the same head size. A final retouch, which never redraws a face, removed white specks from the hair and put back natural skin texture. `scripts/portraits.mjs` scales both to 640 × 800 in colour, since the site shows them small. Each founder should approve their portrait before launch, and real studio photos can replace the masters at any time.
 
@@ -65,7 +72,7 @@ Founder portraits start from colour masters in `assets-source/portraits/`. Each 
 - [ ] Paste the real booking link into `BOOKING_URL` in `src/data/config.ts` (until then, "Book 30 minutes" opens a prepared email)
 - [ ] Native-speaker review of everything in `src/data/ja.ts` and the `summary_ja` lines in the notes
 - [ ] Jet and Aditya review their bios, their portraits, the origin story and the sample Readiness Sprint agenda
-- [ ] Replace the generated Tokyo photographs with licensed or commissioned ones
+- [ ] Replace the generated photographs (everything in `src/assets/photos/` except the two Tokyo Tower views) with licensed or commissioned ones
 - [ ] Edit the three draft notes, replace the editor prompts with real examples, set `draft: false`
 - [ ] Confirm the anonymized engagement line ("a North American AI visual-inspection company")
 - [ ] Confirm the healthcare framing (specialist partners lead PMDA filings and reimbursement dossiers)

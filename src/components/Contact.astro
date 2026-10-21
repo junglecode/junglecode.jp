@@ -1,7 +1,7 @@
 ---
 import { Image } from 'astro:assets';
-import jet from '../assets/people/jet-villegas.jpg';
-import aditya from '../assets/people/aditya-pandya.jpg';
+import jet from '../assets/people/jet-villegas-avatar.jpg';
+import aditya from '../assets/people/aditya-pandya-avatar.jpg';
 import { EMAIL, FORM_ENDPOINT, PEOPLE, bookingHref } from '../data/config';
 import type { SiteCopy } from '../data/en';
 
@@ -141,7 +141,7 @@ const follow = cut > 0 ? c.statement.slice(cut).trim() : '';
   :global(:root[lang='ja']) .contact-statement { font-size: clamp(1.6rem, 1.1rem + 1.8vw, 2.6rem); line-height: 1.45; max-width: 13em; }
   .contact-people { display: grid; gap: 0.85rem; margin-top: 0.5rem; }
   .contact-people li { display: flex; align-items: center; gap: 0.9rem; }
-  .contact-people :global(img) { width: 3.5rem; height: 3.5rem; border-radius: 999px; object-fit: cover; object-position: 50% 3%; border: 2px solid var(--signal-ink); }
+  .contact-people :global(img) { width: 3.5rem; height: 3.5rem; border-radius: 999px; object-fit: cover; border: 2px solid var(--signal-ink); }
   .contact-people b { display: block; font-weight: 500; }
   .contact-time { font-size: var(--step-small); color: var(--soft); }
   .live { display: inline-block; width: 0.5rem; height: 0.5rem; margin-right: 0.45rem; border-radius: 999px; background: var(--signal-ink); vertical-align: 0.05em; }

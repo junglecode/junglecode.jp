@@ -38,8 +38,8 @@ export const ja: SiteCopy = {
     echo: 'Take your AI company to Japan',
     echoLang: 'en',
     place: '東京とニューヨーク',
-    photoAlt: '晴れた朝の東京都心のオフィスビル群',
-    photoAltDark: '夕暮れの東京都心、窓に明かりの灯るオフィスビル群',
+    photoAlt: '夕暮れ前の港区の街並みと、ビル群の間に立つ東京タワー',
+    photoAltDark: '夜の港区、高層ビルの間で金色に灯る東京タワー',
     builtAtLabel: '2人が携わってきた企業',
   },
   intro: {
@@ -239,6 +239,7 @@ export const ja: SiteCopy = {
       { title: '会社', links: [{ label: 'チーム', href: '/ja/#team' }, { label: 'プライバシー', href: '/ja/privacy/' }, { label: 'English', href: '/' }, { label: 'junglecode.net', href: 'https://junglecode.net' }] },
     ],
     credits: 'このサイトの黄色いタイルは点字ブロックです。1967年に岡山で初めて敷かれ、いまでは日本中の駅で人を導いています。',
+    photoCredit: { before: '東京タワーの写真：David Kernan', links: [{ label: '昼', href: 'https://commons.wikimedia.org/wiki/File:Minato_City,_Tokyo,_Japan.jpg' }, { label: '夜', href: 'https://commons.wikimedia.org/wiki/File:Tokyo_Tower,_Minato_City.jpg' }], licence: { label: 'CC BY 4.0', href: 'https://creativecommons.org/licenses/by/4.0/' } },
     top: 'ページの先頭へ',
     copyright: (y: number) => `© ${y} JungleCode`,
   },

@@ -2,8 +2,8 @@
 import { Picture, Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import { photos, focus } from './Photos';
-import jet from '../assets/people/jet-villegas.jpg';
-import aditya from '../assets/people/aditya-pandya.jpg';
+import jet from '../assets/people/jet-villegas-avatar.jpg';
+import aditya from '../assets/people/aditya-pandya-avatar.jpg';
 import type { SiteCopy } from '../data/en';
 
 interface Props { copy: SiteCopy }
@@ -56,7 +56,7 @@ const people = [
   .privacy-readers { font-family: var(--font-display); font-size: var(--step-lead); line-height: 1.25; letter-spacing: -0.015em; }
   .privacy-people { display: flex; gap: 1rem; }
   .privacy-people li { display: flex; align-items: center; gap: 0.6rem; font-size: var(--step-small); }
-  .privacy-people :global(img) { width: 2.5rem; height: 2.5rem; border-radius: 999px; object-fit: cover; object-position: 50% 3%; }
+  .privacy-people :global(img) { width: 2.5rem; height: 2.5rem; border-radius: 999px; object-fit: cover; }
   @media (max-width: 52rem) {
     .privacy-main, .privacy-side { grid-column: 1 / -1; }
     .privacy-side { position: static; margin-top: 3rem; }

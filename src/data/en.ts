@@ -37,8 +37,8 @@ export const en = {
     echo: '海外のAI企業を、日本市場へ。',
     echoLang: 'ja',
     place: 'Tokyo and New York',
-    photoAlt: 'Office towers in central Tokyo on a clear morning',
-    photoAltDark: 'Office towers in central Tokyo at dusk, with their windows lit',
+    photoAlt: 'The Minato skyline at golden hour, with Tokyo Tower among the office towers',
+    photoAltDark: 'Tokyo Tower lit gold among the high-rises of Minato at night',
     builtAtLabel: 'Built at',
   },
   intro: {
@@ -238,6 +238,7 @@ export const en = {
       { title: 'Company', links: [{ label: 'Team', href: '/#team' }, { label: 'Privacy', href: '/privacy/' }, { label: '日本語', href: '/ja/' }, { label: 'junglecode.net', href: 'https://junglecode.net' }] },
     ],
     credits: 'The yellow tiles on this site are tenji blocks, the tactile paving first laid in Okayama in 1967 that now guides people through every station in Japan.',
+    photoCredit: { before: 'Photographs of Tokyo Tower by David Kernan', links: [{ label: 'day', href: 'https://commons.wikimedia.org/wiki/File:Minato_City,_Tokyo,_Japan.jpg' }, { label: 'night', href: 'https://commons.wikimedia.org/wiki/File:Tokyo_Tower,_Minato_City.jpg' }], licence: { label: 'CC BY 4.0', href: 'https://creativecommons.org/licenses/by/4.0/' } },
     top: 'Back to top',
     copyright: (y: number) => `© ${y} JungleCode`,
   },
