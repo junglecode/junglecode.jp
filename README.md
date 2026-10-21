@@ -39,11 +39,10 @@ Front matter: `title`, `description`, `date`, `authors`, `summary_ja` (shown on 
 
 ## Fonts and the seal
 
-- Latin type is Bodoni Moda (display) and Jost (text), self-hosted through Fontsource. The site makes no third-party requests.
-- English pages use a 21 KB subset of Shippori Mincho B1 for the few Japanese characters they show. Japanese pages load the full Shippori Mincho B1 and Zen Kaku Gothic New from `src/styles/ja-fonts.css`.
+- Latin type is Newsreader (display, with optical sizes) and IBM Plex Sans (text), self-hosted through Fontsource. The site makes no third-party requests.
+- English pages use a 21 KB subset of Shippori Mincho B1 for the few Japanese characters they show. Japanese pages load the full Shippori Mincho B1 and IBM Plex Sans JP from `src/styles/ja-fonts.css`.
 - After changing Japanese text in `en.ts`, rebuild the subset with `node scripts/subset-jp.mjs`. It needs `uv` and the Shippori TTFs in `.taste-skill/fonts/` (instructions at the top of the script).
 - `public/favicon.svg` is the seal with its katakana converted to outlines (`scripts/seal-svg.py`). The PNG icons and the share images (`og.jpg`, `og-ja.jpg`) were rendered from it in Chrome.
-- English copy writes Japanese words without macrons (Tokaido, not Tōkaidō), because the variable Latin fonts draw the combining macron badly.
 
 ## Images
 

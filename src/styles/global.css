@@ -3,8 +3,8 @@
  * Every colour, size and space below is a token. Components reference tokens only.
  */
 
-@import '@fontsource-variable/bodoni-moda/opsz.css';
-@import '@fontsource-variable/jost/wght.css';
+@import '@fontsource-variable/newsreader/opsz.css';
+@import '@fontsource-variable/ibm-plex-sans/wght.css';
 
 /* The Japanese characters used on English pages (seal, vertical lines, terms), subset by
    scripts/subset-jp.mjs. Japanese pages add the full faces in ja-fonts.css. */
@@ -30,8 +30,8 @@
   --focus: #c3261d;
 
   /* Type */
-  --font-display: 'Bodoni Moda Variable', 'Shippori Mincho B1', 'Hiragino Mincho ProN', 'Yu Mincho', serif;
-  --font-text: 'Jost Variable', 'Zen Kaku Gothic New', 'Hiragino Sans', 'Yu Gothic', system-ui, sans-serif;
+  --font-display: 'Newsreader Variable', 'Shippori Mincho B1', 'Hiragino Mincho ProN', 'Yu Mincho', Georgia, serif;
+  --font-text: 'IBM Plex Sans Variable', 'IBM Plex Sans JP', 'Hiragino Sans', 'Yu Gothic', system-ui, sans-serif;
   --font-jp: 'Shippori Mincho B1', 'Hiragino Mincho ProN', 'Yu Mincho', serif;
 
   /* Five sizes do the visible work */
@@ -95,12 +95,12 @@
 
 :root[lang='ja'] {
   --font-display: 'Shippori Mincho B1', 'Hiragino Mincho ProN', 'Yu Mincho', serif;
-  --font-text: 'Zen Kaku Gothic New', 'Hiragino Sans', 'Yu Gothic', system-ui, sans-serif;
+  --font-text: 'IBM Plex Sans JP', 'IBM Plex Sans Variable', 'Hiragino Sans', 'Yu Gothic', system-ui, sans-serif;
 }
 
 :root[lang='ja'] [lang='en'] {
-  --font-display: 'Bodoni Moda Variable', 'Shippori Mincho B1', serif;
-  --font-text: 'Jost Variable', 'Zen Kaku Gothic New', sans-serif;
+  --font-display: 'Newsreader Variable', 'Shippori Mincho B1', Georgia, serif;
+  --font-text: 'IBM Plex Sans Variable', 'IBM Plex Sans JP', sans-serif;
 }
 :root[lang='ja'] :is(h1, h2, h3)[lang='en'] { letter-spacing: -0.02em; line-height: 0.98; }
 
@@ -120,7 +120,7 @@ body {
   font-family: var(--font-text);
   font-size: var(--step-body);
   line-height: 1.6;
-  letter-spacing: 0.01em;
+  letter-spacing: 0;
   font-weight: 400;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -133,7 +133,7 @@ h1, h2, h3, .display {
   font-family: var(--font-display);
   font-weight: 500;
   font-optical-sizing: auto;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.022em;
   line-height: 0.98;
   text-wrap: balance;
 }

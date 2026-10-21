@@ -37,10 +37,10 @@ export const en = {
     vertical: '日本市場への道',
     verticalNote: 'The road into the Japanese market',
     plates: [
-      { key: 'nihonbashi', alt: 'Porters and a daimyo procession crossing Nihonbashi bridge at dawn', caption: 'Utagawa Hiroshige, Morning View of Nihonbashi, about 1833 to 1834. Every journey on the Tokaido began here.' },
+      { key: 'nihonbashi', alt: 'Porters and a daimyo procession crossing Nihonbashi bridge at dawn', caption: 'Utagawa Hiroshige, Morning View of Nihonbashi, about 1833 to 1834. Every journey on the Tōkaidō began here.' },
       { key: 'hakone', alt: 'Travelers climbing a steep, many-coloured mountain pass above Lake Ashi', caption: 'Utagawa Hiroshige, Hakone, the Lake. The steepest stretch of the road.' },
       { key: 'mishima', alt: 'Travelers and a palanquin passing a shrine gate in heavy morning mist', caption: 'Utagawa Hiroshige, Mishima, Morning Mist. Arriving before the view is clear.' },
-      { key: 'kyoto', alt: 'Travelers crossing the long red Sanjo bridge into Kyoto below the mountains', caption: 'Utagawa Hiroshige, Kyoto, the Great Bridge at Sanjo. The last station.' },
+      { key: 'kyoto', alt: 'Travelers crossing the long red Sanjō bridge into Kyoto below the mountains', caption: 'Utagawa Hiroshige, Kyoto, the Great Bridge at Sanjō. The last station.' },
     ],
     cards: {
       healthcare: { title: 'Healthcare AI in Japan', href: '/healthcare/' },
@@ -88,7 +88,7 @@ export const en = {
   route: {
     id: 'route',
     title: 'The route',
-    intro: 'The old Tokaido ran 53 stations from Nihonbashi to Kyoto. A market entry has four, and each one ends with something you can use.',
+    intro: 'The old Tōkaidō ran 53 stations from Nihonbashi to Kyoto. A market entry has four, and each one ends with something you can use.',
     leaveLabel: 'You leave with',
     stations: [
       { key: 'discover', name: 'Discover', jp: '発見', plate: 'nihonbashi', duration: 'Two to four weeks', text: 'We test whether Japan fits your product now, with real conversations rather than desk research.', leave: 'A go or not-yet decision and an entry brief' },

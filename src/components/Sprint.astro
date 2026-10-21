@@ -189,7 +189,11 @@ const faces = { jet, aditya } as const;
   @media (max-width: 52rem) {
     .sprint-body { grid-template-columns: 1fr; gap: 1.5rem; }
     :global(.js) .sprint-tabs { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-    .sprint-tabs button { min-height: 3.75rem; padding: 0.5rem 0.6rem; }
+    .sprint-tabs button { min-height: 3.25rem; padding: 0.5rem 0.6rem; align-content: center; }
+  }
+  @media (max-width: 40rem) {
+    /* The tab's position already says which week it is, so the phone shows only the word. */
+    .tab-week { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
     :global(.js) .sprint-panels { grid-column: 1; }
     .band { grid-template-columns: 1fr auto; padding: 1rem; }
     .band-day { grid-column: 1; }
