@@ -1,0 +1,40 @@
+<!doctype html>
+<!-- The share card. Open at 1200 × 630 (add ?lang=ja for Japanese) and save a JPEG screenshot. -->
+<meta charset="utf-8">
+<title>JungleCode share card</title>
+<style>
+  @font-face { font-family: 'Hedvig'; src: url('../../node_modules/@fontsource-variable/hedvig-letters-serif/files/hedvig-letters-serif-latin-opsz-normal.woff2') format('woff2'); }
+  @font-face { font-family: 'Schibsted'; font-weight: 400 700; src: url('../../node_modules/@fontsource-variable/schibsted-grotesk/files/schibsted-grotesk-latin-wght-normal.woff2') format('woff2'); }
+  @font-face { font-family: 'Noto Serif JP'; font-weight: 500; src: url('../../node_modules/@fontsource/noto-serif-jp/files/noto-serif-jp-japanese-500-normal.woff2') format('woff2'); }
+  @font-face { font-family: 'Plex JP'; font-weight: 400; src: url('../../node_modules/@fontsource/ibm-plex-sans-jp/files/ibm-plex-sans-jp-japanese-400-normal.woff2') format('woff2'); }
+  :root { --bg: #f9f9f8; --ink: #121212; --soft: #555552; --signal: #f4c300; --deep: #dcae00; }
+  * { box-sizing: border-box; margin: 0; }
+  html, body { width: 1200px; height: 630px; overflow: hidden; background: var(--bg); color: var(--ink); }
+  body { display: grid; grid-template-columns: 690px 510px; font-family: 'Schibsted', sans-serif; }
+  .words { padding: 56px 56px 48px; display: grid; grid-template-rows: auto 1fr auto; }
+  .brand { display: flex; align-items: center; gap: 12px; font: 400 34px/1 'Hedvig', serif; letter-spacing: -0.035em; }
+  .mark { width: 26px; height: 26px; }
+  h1 { align-self: center; font: 400 76px/0.98 'Hedvig', serif; letter-spacing: -0.04em; white-space: nowrap; }
+  :lang(ja) h1 { font: 500 68px/1.3 'Noto Serif JP', serif; letter-spacing: 0.01em; }
+  .foot { display: grid; gap: 22px; }
+  .meta { display: flex; justify-content: space-between; font-size: 21px; color: var(--soft); }
+  :lang(ja) .meta { font-family: 'Schibsted', 'Plex JP', sans-serif; }
+  .guide { height: 26px; border-radius: 3px; background: var(--signal); position: relative; }
+  .guide::before { content: ''; position: absolute; inset: 0; background: var(--deep);
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Crect x='3' y='4.4' width='24' height='3.2' rx='1.6'/%3E%3Crect x='3' y='10.4' width='24' height='3.2' rx='1.6'/%3E%3Crect x='3' y='16.4' width='24' height='3.2' rx='1.6'/%3E%3Crect x='3' y='22.4' width='24' height='3.2' rx='1.6'/%3E%3C/svg%3E") 0 0 / 26px 26px repeat-x; }
+  .photo { background: url('../../src/assets/photos/tokyo-day.jpg') 52% 45% / cover; }
+</style>
+<div class="words">
+  <p class="brand"><img class="mark" src="../../public/favicon.svg" alt="">JungleCode</p>
+  <h1 data-en="Take your AI<br>company to Japan" data-ja="海外のAI企業を、<br>日本市場へ。"></h1>
+  <div class="foot">
+    <p class="meta"><span data-en="Japan market entry for AI companies" data-ja="海外のAI企業の日本市場参入を支援"></span><span>junglecode.jp</span></p>
+    <span class="guide"></span>
+  </div>
+</div>
+<div class="photo"></div>
+<script>
+  const lang = new URLSearchParams(location.search).get('lang') === 'ja' ? 'ja' : 'en';
+  document.documentElement.lang = lang;
+  document.querySelectorAll('[data-en]').forEach((el) => (el.innerHTML = el.dataset[lang]));
+</script>

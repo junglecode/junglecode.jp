@@ -1,0 +1,51 @@
+---
+// Photo credits: each real photograph on the site, who took it, and its licence.
+import { Picture } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import { photos, focus } from './Photos';
+import { photoCredits } from '../data/credits';
+import type { SiteCopy } from '../data/en';
+
+interface Props { copy: SiteCopy }
+const { copy } = Astro.props;
+const c = copy.credits;
+const lang = copy.locale === 'ja' ? 'ja' : 'en';
+---
+<Base copy={copy} title={c.meta.title} description={c.meta.description} enPath="/credits/">
+  <section class="credits section wrap" aria-labelledby="credits-title">
+    <div class="credits-head" data-reveal>
+      <h1 id="credits-title">{c.title}</h1>
+      <p class="lead credits-lead">{c.lead}</p>
+    </div>
+    <ul class="credits-list">
+      {photoCredits.map((p) => (
+        <li data-reveal>
+          <figure class="credits-photo">
+            <Picture src={photos[p.photo]} alt="" formats={['avif', 'webp']} widths={[320, 640]} sizes="(max-width: 40rem) 100vw, 20rem" style={`object-position:${focus[p.photo]}`} />
+          </figure>
+          <div class="credits-text">
+            <h2>{p.title[lang]}</h2>
+            <p>{c.by} {p.by}</p>
+            <p>{c.licence}: <a href={p.licenceUrl} rel="noopener license">{p.licence}</a></p>
+            <p><a href={p.source} rel="noopener">{c.source}</a></p>
+            {p.adapted && <p class="credits-note">{c.adapted}{p.licence.includes('SA') && <> {c.shareAlike}</>}</p>}
+          </div>
+        </li>
+      ))}
+    </ul>
+  </section>
+</Base>
+
+<style>
+  .credits-head { max-width: 46rem; }
+  .credits-head h1 { font-size: var(--step-head); }
+  .credits-lead { margin-top: 1rem; color: var(--soft); }
+  .credits-list { margin-top: clamp(2.5rem, 5vw, 4rem); display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2.5rem var(--gutter); }
+  .credits-list li { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); gap: 1.25rem; padding-top: 1.25rem; border-top: 1px solid var(--rule); }
+  .credits-photo { overflow: hidden; border-radius: var(--radius); }
+  .credits-photo :global(img) { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+  .credits-text { display: grid; gap: 0.3rem; align-content: start; font-size: var(--step-small); color: var(--soft); }
+  .credits-text h2 { font-size: var(--step-lead); line-height: 1.2; letter-spacing: -0.02em; color: var(--ink); margin-bottom: 0.35rem; }
+  .credits-note { margin-top: 0.4rem; }
+  @media (max-width: 52rem) { .credits-list { grid-template-columns: 1fr; } }
+</style>

@@ -1,0 +1,31 @@
+---
+import Base from '../layouts/Base.astro';
+import Hero from './Hero.astro';
+import Intro from './Intro.astro';
+import Figures from './Figures.astro';
+import Stalls from './Stalls.astro';
+import Stages from './Stages.astro';
+import Roles from './Roles.astro';
+import Contact from './Contact.astro';
+import type { SiteCopy } from '../data/en';
+
+interface Props { copy: SiteCopy }
+const { copy } = Astro.props;
+const h = copy.healthcare;
+---
+<Base copy={copy} title={h.meta.title} description={h.meta.description} enPath="/healthcare/" navLinks={h.nav} overPhoto>
+  <Hero
+    title={h.hero.title}
+    standfirst={h.hero.standfirst}
+    action={{ label: copy.hero.action, href: '#contact' }}
+    secondary={{ label: copy.hero.secondary, href: '#route' }}
+    place={copy.hero.place}
+    photo={{ day: 'clinic', alt: h.hero.photoAlt }}
+  />
+  <Intro lead={h.intro.lead} columns={h.intro.columns} />
+  <Figures id="healthcare-why" {...h.whyNow} sourcesLabel={copy.whyNow.sourcesLabel} photo="care" />
+  <Stalls {...h.frictions} photo="reading-room" photoAlt="" />
+  <Stages {...h.route} label={copy.route.label} photo="ward-meeting" photoAlt="" />
+  <Roles {...h.roles} />
+  <Contact copy={copy} stages={copy.route.chooser.options.map((o) => o.label)} />
+</Base>

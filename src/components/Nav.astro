@@ -1,0 +1,140 @@
+---
+import type { SiteCopy } from '../data/en';
+import { NOTES_ENABLED } from '../data/config';
+
+interface Props {
+  copy: SiteCopy;
+  links?: { label: string; href: string }[];
+  switchHref: string;
+  /** True when the page opens with a full-bleed photograph the bar sits over. */
+  overPhoto?: boolean;
+}
+const { copy, switchHref, overPhoto = false } = Astro.props;
+const home = copy.locale === 'ja' ? '/ja/' : '/';
+// Pages pass their own links. Otherwise the home page's anchors point back home from every other page.
+const onHome = Astro.url.pathname === home;
+const resolve = (href: string) => (href.startsWith('#') && !onHome ? `${home}${href}` : href);
+const links = (Astro.props.links ?? copy.nav.links.map((l) => ({ ...l, href: resolve(l.href) })))
+  .filter((l) => NOTES_ENABLED || !/#notes$|\/notes\/$/.test(l.href));
+const hasContact = onHome || Astro.url.pathname.endsWith('/healthcare/');
+const actionHref = hasContact ? '#contact' : `${home}#contact`;
+---
+<header class:list={['nav', { 'nav--over': overPhoto }]} data-nav>
+  <div class="nav-bar wrap">
+    <a class="wordmark" href={home} aria-label={copy.nav.home}><span class="tile tile--bars is-lit mark" aria-hidden="true"></span>JungleCode</a>
+    <nav class="nav-links" aria-label="Primary">
+      <ul>{links.map((l) => <li><a href={l.href}>{l.label}</a></li>)}</ul>
+    </nav>
+    <div class="nav-end">
+      <a class="nav-lang" href={switchHref} lang={copy.locale === 'ja' ? 'en' : 'ja'} hreflang={copy.locale === 'ja' ? 'en' : 'ja'} aria-label={copy.nav.switchAria}>{copy.nav.switchLabel}</a>
+      <a class="nav-action" href={actionHref}>{copy.nav.action}</a>
+      <button class="nav-menu" type="button" aria-expanded="false" aria-controls="nav-sheet">
+        <span class="nav-menu-open">{copy.nav.menu}</span><span class="nav-menu-close">{copy.nav.close}</span>
+      </button>
+    </div>
+  </div>
+  <div class="nav-sheet" id="nav-sheet" hidden>
+    <ul class="wrap">
+      {links.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
+      <li><a href={switchHref} lang={copy.locale === 'ja' ? 'en' : 'ja'}>{copy.nav.switchLabel}</a></li>
+      <li><a href={actionHref}>{copy.nav.action}</a></li>
+    </ul>
+  </div>
+</header>
+
+<script>
+  const nav = document.querySelector<HTMLElement>('[data-nav]');
+  const button = document.querySelector<HTMLButtonElement>('.nav-menu');
+  const sheet = document.getElementById('nav-sheet');
+  if (nav) {
+    // Over a photograph the bar is clear. It turns solid once the page scrolls.
+    const onScroll = () => nav.classList.toggle('is-solid', window.scrollY > 24 || nav.classList.contains('is-open'));
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    if (button && sheet) {
+      const set = (open: boolean) => {
+        button.setAttribute('aria-expanded', String(open));
+        sheet.hidden = !open;
+        nav.classList.toggle('is-open', open);
+        onScroll();
+      };
+      button.addEventListener('click', () => set(button.getAttribute('aria-expanded') !== 'true'));
+      sheet.addEventListener('click', (e) => { if ((e.target as HTMLElement).closest('a')) set(false); });
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && button.getAttribute('aria-expanded') === 'true') { set(false); button.focus(); }
+      });
+    }
+  }
+</script>
+
+<style>
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    color: var(--ink);
+    background: var(--bg);
+    transition: background-color var(--dur) var(--ease), color var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+  }
+  .nav--over { position: fixed; left: 0; right: 0; background: transparent; color: #fff; }
+  .nav.is-solid { background: var(--bg); color: var(--ink); box-shadow: 0 1px 0 var(--rule); }
+  .nav-bar { display: flex; align-items: center; gap: clamp(1rem, 2.5vw, 2.5rem); min-height: var(--nav-h); }
+  .wordmark {
+    margin-right: auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    font-family: 'Hedvig Letters Serif Variable', var(--font-display);
+    font-size: 1.55rem;
+    font-weight: 400;
+    letter-spacing: -0.035em;
+    text-decoration: none;
+    line-height: 1;
+  }
+  .wordmark:hover { text-decoration: none; }
+  .mark { --tile: 1.05rem; border-radius: 2px; transition: transform 600ms var(--ease); }
+  .mark.is-lit { color: var(--signal-ink); }
+  .wordmark:hover .mark { transform: rotate(90deg); }
+  /* A yellow line along the bar's foot shows how far down the page you are */
+  @supports (animation-timeline: scroll()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .nav.is-solid::after {
+        content: ''; position: absolute; left: 0; right: 0; bottom: -1px; height: 2px;
+        background: var(--signal); transform-origin: 0 50%;
+        animation: nav-progress linear both; animation-timeline: scroll(root);
+      }
+    }
+  }
+  @keyframes nav-progress { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+  .nav-links ul { display: flex; gap: clamp(1.25rem, 2.2vw, 2.25rem); }
+  .nav-links a, .nav-lang { font-size: 0.9375rem; text-decoration-color: transparent; text-underline-offset: 0.4em; }
+  .nav-links a:hover, .nav-lang:hover { text-decoration-color: var(--signal); text-decoration-thickness: 2px; }
+  .nav-end { display: flex; align-items: center; gap: clamp(1rem, 2vw, 1.75rem); }
+  .nav-action {
+    display: inline-flex; align-items: center;
+    min-height: 2.5rem; padding: 0.45rem 1.1rem;
+    border-radius: 999px;
+    font-size: 0.9375rem; font-weight: 500; text-decoration: none;
+    background: var(--button); color: var(--button-ink);
+    transition: background-color var(--dur) var(--ease), color var(--dur) var(--ease), opacity var(--dur) var(--ease);
+  }
+  .nav--over:not(.is-solid) .nav-action { background: #fff; color: #111; }
+  .nav-action:hover, .nav--over:not(.is-solid) .nav-action:hover { background: var(--signal); color: var(--signal-ink); }
+  .nav-menu { display: none; background: none; border: 0; padding: 0.6rem 0; font-size: 0.9375rem; font-weight: 500; }
+  .nav-menu-close { display: none; }
+  .nav-menu[aria-expanded='true'] .nav-menu-open { display: none; }
+  .nav-menu[aria-expanded='true'] .nav-menu-close { display: inline; }
+  .nav-sheet { position: fixed; inset: var(--nav-h) 0 0 0; background: var(--bg); color: var(--ink); overflow-y: auto; }
+  .nav-sheet ul { padding-block: 2rem 4rem; display: grid; gap: 0.35rem; }
+  .nav-sheet a { display: block; font-family: var(--font-display); font-size: var(--step-head); line-height: 1.15; letter-spacing: -0.03em; text-decoration: none; padding-block: 0.3rem; }
+  @media (max-width: 64rem) {
+    .nav-links { display: none; }
+    .nav-menu { display: inline-block; }
+  }
+  @media (max-width: 40rem) {
+    .nav-lang { display: none; }
+    .wordmark { font-size: 1.4rem; }
+    .nav-action { padding-inline: 0.9rem; font-size: 0.875rem; }
+  }
+  @media (max-width: 25rem) { .nav-action { display: none; } }
+</style>

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://junglecode.jp/sitemap-index.xml

@@ -1,0 +1,132 @@
+---
+// The opening: a photograph of Tokyo today, and the headline, standfirst and actions, all within the
+// first screen. In light mode the headline sits below the picture, which takes whatever height is
+// left. In dark mode the picture fills the screen and the headline sits over it. Pages can give a
+// night photograph too, shown when it's night where the visitor is (see Base.astro).
+import { Picture } from 'astro:assets';
+import { photos, focus, type PhotoKey } from './Photos';
+
+interface Props {
+  title: string;
+  standfirst: string;
+  action: { label: string; href: string };
+  secondary?: { label: string; href: string };
+  echo?: { text: string; lang: string };
+  place?: string;
+  photo: { day: PhotoKey; night?: PhotoKey; alt: string; altNight?: string };
+  builtAt?: { label: string; names: string[] };
+}
+const { title, standfirst, action, secondary, echo, place, photo, builtAt } = Astro.props;
+const night = photo.night ?? photo.day;
+const hasNight = night !== photo.day;
+const lines = title.split(/<br\s*\/?>/i).map((l) => l.trim()).filter(Boolean);
+---
+<section class="hero" aria-labelledby="hero-title">
+  <div class:list={['hero-stage', { 'has-night': hasNight }]}>
+  <div class="hero-photo">
+    <Picture class="photo-day" src={photos[photo.day]} alt={photo.alt} formats={['avif', 'webp']} widths={[960, 1440, 1920, 2560, 3200]} sizes="100vw" loading="eager" fetchpriority="high" style={`object-position:${focus[photo.day]}`} />
+    {hasNight && (
+      <Picture class="photo-night" src={photos[night]} alt={photo.altNight ?? photo.alt} formats={['avif', 'webp']} widths={[960, 1440, 1920, 2560, 3200]} sizes="100vw" loading="lazy" style={`object-position:${focus[night]}`} />
+    )}
+    <span class="hero-scrim" aria-hidden="true"></span>
+  </div>
+  <div class="hero-text wrap grid">
+    <h1 id="hero-title" class="hero-title">
+      {lines.map((l, i) => <span class="hero-line"><span style={`--i:${i}`} set:html={l} /></span>)}
+    </h1>
+    <div class="hero-side">
+      {echo && <p class="hero-echo" lang={echo.lang}>{echo.text}</p>}
+      {place && <p class="hero-place">{place}</p>}
+    </div>
+    <p class="hero-standfirst">{standfirst}</p>
+    <p class="hero-actions">
+      <a class="button" href={action.href}>{action.label} <span class="arrow" aria-hidden="true">→</span></a>
+      {secondary && <a class="text-link" href={secondary.href}>{secondary.label}</a>}
+    </p>
+  </div>
+  </div>
+  {builtAt && (
+    <div class="built wrap">
+      <p class="built-row"><span class="label">{builtAt.label}</span>{builtAt.names.map((n) => <span class="built-name">{n}</span>)}</p>
+    </div>
+  )}
+</section>
+
+<style>
+  /* Light: one screen, the words at their natural height and the picture taking the rest */
+  .hero-stage { display: flex; flex-direction: column; min-height: min(100svh, 64rem); }
+  .hero-photo { position: relative; flex: 1 1 auto; min-height: clamp(14rem, 40svh, 30rem); overflow: hidden; background: var(--surface); }
+  .hero-photo :global(picture), .hero-photo :global(img) { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .hero-photo :global(.photo-night) { display: none; }
+  :global(html[data-daypart='night']) .has-night .hero-photo :global(.photo-day) { display: none; }
+  :global(html[data-daypart='night']) .has-night .hero-photo :global(.photo-night) { display: block; }
+  .hero-scrim { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0, 0, 0, 0.42) 0%, rgba(0, 0, 0, 0) 32%); pointer-events: none; }
+  @media (prefers-reduced-motion: no-preference) {
+    .hero-photo :global(img) { animation: settle 2.4s var(--ease) both; }
+  }
+  @keyframes settle { from { transform: scale(1.06); } to { transform: none; } }
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .hero-photo :global(picture) { animation: drift linear both; animation-timeline: view(); animation-range: exit 0% exit 100%; }
+    }
+  }
+  @keyframes drift { to { transform: translateY(14%); } }
+
+  /* Each line rises out of its own clipped box. The box reaches well past the ascenders and descenders
+     (padding), and the matching negative margins keep the lines where the line height puts them. */
+  .hero-line { display: block; overflow: hidden; padding-block: 0.14em 0.32em; margin-block: -0.14em -0.32em; }
+  .hero-line > span { display: inline-block; }
+  @media (prefers-reduced-motion: no-preference) {
+    .hero-line > span { animation: line-in 1.2s var(--ease) both; animation-delay: calc(200ms + var(--i) * 110ms); }
+    .hero-standfirst, .hero-actions, .hero-side { animation: fade-in 1s var(--ease) 560ms both; }
+  }
+  @keyframes line-in { from { transform: translateY(150%); } }
+  @keyframes fade-in { from { opacity: 0; transform: translateY(12px); } }
+
+  .hero-text { flex: none; width: 100%; padding-block: clamp(2rem, 4vw, 3.5rem) clamp(2rem, 3.5vw, 3rem); row-gap: clamp(1.25rem, 2.5vw, 2rem); align-items: end; }
+  .hero-title { grid-column: 1 / span 9; font-size: var(--step-display); line-height: 0.95; letter-spacing: -0.035em; }
+  :global(:root[lang='ja']) .hero-title { font-size: clamp(2.3rem, 1rem + 4.6vw, 5.4rem); line-height: 1.3; letter-spacing: 0.01em; }
+  .hero-side { grid-column: 10 / -1; justify-self: end; text-align: right; padding-bottom: 0.6rem; }
+  .hero-echo { font-family: var(--font-display); font-size: 1.05rem; letter-spacing: 0.04em; }
+  .hero-echo:lang(en) { letter-spacing: -0.01em; font-family: 'Hedvig Letters Serif Variable', serif; font-size: 1.15rem; }
+  .hero-place { margin-top: 0.35rem; font-size: var(--step-small); color: var(--soft); }
+  .hero-standfirst { grid-column: 1 / span 6; font-size: clamp(1.125rem, 1rem + 0.45vw, 1.375rem); line-height: 1.5; max-width: 40ch; }
+  .hero-actions { grid-column: 7 / -1; justify-self: end; align-self: end; display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 1.75rem; }
+
+  .built { margin-top: clamp(1rem, 2.5vw, 2rem); }
+  .built-row {
+    display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.75rem clamp(1.5rem, 3vw, 3rem);
+    padding-top: 1.5rem; border-top: 1px solid var(--rule);
+  }
+  .built-row .label { margin-right: clamp(0.5rem, 2vw, 2rem); }
+  .built-name { font-size: clamp(1.05rem, 0.95rem + 0.4vw, 1.3rem); font-weight: 500; letter-spacing: -0.015em; color: var(--soft); }
+
+  /* Dark: the picture fills the first screen and the words sit over its foot */
+  @media (prefers-color-scheme: dark) {
+    :global(:root:not([data-theme='light'])) .hero-stage { position: relative; display: block; min-height: 0; height: max(100svh, 36rem); }
+    :global(:root:not([data-theme='light'])) .hero-photo { position: absolute; inset: 0; min-height: 0; }
+    :global(:root:not([data-theme='light'])) .hero-scrim { background: linear-gradient(to top, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0.25) 55%, rgba(0, 0, 0, 0.35) 100%); }
+    :global(:root:not([data-theme='light'])) .hero-text { position: absolute; left: 0; right: 0; bottom: 0; padding-block: 0 clamp(2rem, 4.5vw, 3.5rem); color: #fff; }
+    :global(:root:not([data-theme='light'])) .hero-place { color: rgba(255, 255, 255, 0.75); }
+    :global(:root:not([data-theme='light'])) .hero-actions :global(.button) { background: #fff; color: #111; }
+    :global(:root:not([data-theme='light'])) .hero-actions :global(.button:hover) { background: var(--signal); color: var(--signal-ink); }
+    :global(:root:not([data-theme='light'])) .built { margin-top: clamp(2rem, 4vw, 3rem); }
+  }
+  :global(:root[data-theme='dark']) .hero-stage { position: relative; display: block; min-height: 0; height: max(100svh, 36rem); }
+  :global(:root[data-theme='dark']) .hero-photo { position: absolute; inset: 0; min-height: 0; }
+  :global(:root[data-theme='dark']) .hero-scrim { background: linear-gradient(to top, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0.25) 55%, rgba(0, 0, 0, 0.35) 100%); }
+  :global(:root[data-theme='dark']) .hero-text { position: absolute; left: 0; right: 0; bottom: 0; padding-block: 0 clamp(2rem, 4.5vw, 3.5rem); color: #fff; }
+  :global(:root[data-theme='dark']) .hero-place { color: rgba(255, 255, 255, 0.75); }
+  :global(:root[data-theme='dark']) .hero-actions :global(.button) { background: #fff; color: #111; }
+  :global(:root[data-theme='dark']) .hero-actions :global(.button:hover) { background: var(--signal); color: var(--signal-ink); }
+  :global(:root[data-theme='dark']) .built { margin-top: clamp(2rem, 4vw, 3rem); }
+
+  @media (max-width: 52rem) {
+    .hero-title, .hero-standfirst, .hero-actions, .hero-side { grid-column: 1 / -1; }
+    .hero-side { justify-self: start; text-align: left; order: 3; padding-bottom: 0; }
+    .hero-actions { justify-self: start; }
+  }
+  @media (max-width: 40rem) {
+    .hero-title { font-size: clamp(2.5rem, 11vw, 3.2rem); }
+  }
+</style>

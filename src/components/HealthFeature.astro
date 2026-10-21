@@ -1,0 +1,45 @@
+---
+// Healthcare, set on the page's deep green field: a photograph and a short brief.
+import { Picture } from 'astro:assets';
+import { photos, focus } from './Photos';
+
+interface Props { id: string; label: string; title: string; text: string; facts: string[]; action: string; href: string; alt: string }
+const { id, label, title, text, facts, action, href, alt } = Astro.props;
+---
+<section class="feature" id={id} aria-labelledby={`${id}-title`}>
+  <span class="dotfield feature-dots" aria-hidden="true"></span>
+  <div class="wrap feature-grid">
+    <figure class="feature-photo" data-unmask>
+      <Picture src={photos.clinic} alt={alt} formats={['avif', 'webp']} widths={[720, 1080, 1440]} sizes="(max-width: 52rem) 100vw, 55vw" style={`object-position:${focus.clinic}`} />
+    </figure>
+    <div class="feature-text" data-reveal>
+      <span class="label">{label}</span>
+      <h2 id={`${id}-title`} class="h2">{title}</h2>
+      <p>{text}</p>
+      <ul>{facts.map((f) => <li>{f}</li>)}</ul>
+      <a class="button feature-button" href={href}>{action} <span class="arrow" aria-hidden="true">→</span></a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .feature { position: relative; background: var(--field); color: var(--field-ink); padding-block: var(--section); overflow: hidden; }
+  .feature-dots { --from: 100% 100%; right: 0; bottom: 0; width: min(40rem, 50%); height: 70%; color: var(--field-rule); }
+  .feature-grid { position: relative; z-index: 1; }
+  .feature-grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 2.5rem var(--gutter); align-items: center; }
+  .feature-photo { grid-column: 1 / span 7; overflow: hidden; }
+  .feature-photo :global(img) { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+  .feature-text { grid-column: 9 / -1; display: grid; gap: 1.25rem; align-content: center; }
+  .feature-text .label { color: var(--field-soft); }
+  .feature-text h2 { max-width: 12ch; }
+  :global(:root[lang='ja']) .feature-text h2 { max-width: 10em; }
+  .feature-text p { color: var(--field-soft); max-width: 44ch; }
+  .feature-text ul { display: grid; }
+  .feature-text li { padding-block: 0.85rem; border-top: 1px solid var(--field-rule); }
+  .feature-text li:last-child { border-bottom: 1px solid var(--field-rule); }
+  .feature-button { justify-self: start; margin-top: 0.75rem; background: var(--signal); color: var(--signal-ink); }
+  .feature-button:hover { background: var(--field-ink); color: var(--field); }
+  @media (max-width: 52rem) {
+    .feature-photo, .feature-text { grid-column: 1 / -1; }
+  }
+</style>

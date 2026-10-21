@@ -1,0 +1,117 @@
+---
+import '../styles/global.css';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import { SITE_URL } from '../data/config';
+import type { SiteCopy } from '../data/en';
+
+interface Props {
+  copy: SiteCopy;
+  title: string;
+  description: string;
+  /** Path of this page in English, e.g. "/healthcare/". The Japanese path is derived from it. */
+  enPath: string;
+  navLinks?: { label: string; href: string }[];
+  noindex?: boolean;
+  /** When false the page has no Japanese counterpart, so the switch goes to the Japanese home. */
+  hasJa?: boolean;
+  ogType?: 'website' | 'article';
+  /** The page opens with a full-bleed photograph that the navigation sits over. */
+  overPhoto?: boolean;
+}
+const { copy, title, description, enPath, navLinks, noindex = false, hasJa = true, ogType = 'website', overPhoto = false } = Astro.props;
+
+const jaPath = enPath === '/' ? '/ja/' : `/ja${enPath}`;
+const selfPath = copy.locale === 'ja' ? jaPath : enPath;
+const otherPath = copy.locale === 'ja' ? enPath : hasJa ? jaPath : '/ja/';
+const canonical = new URL(selfPath, SITE_URL).href;
+const ogImage = new URL(copy.locale === 'ja' ? '/og-ja.jpg' : '/og.jpg', SITE_URL).href;
+---
+<!doctype html>
+<html lang={copy.htmlLang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {hasJa && <link rel="alternate" hreflang="en" href={new URL(enPath, SITE_URL).href} />}
+    {hasJa && <link rel="alternate" hreflang="ja" href={new URL(jaPath, SITE_URL).href} />}
+    {hasJa && <link rel="alternate" hreflang="x-default" href={new URL(enPath, SITE_URL).href} />}
+    {noindex && <meta name="robots" content="noindex" />}
+    <meta property="og:type" content={ogType} />
+    <meta property="og:site_name" content="JungleCode" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content={copy.locale === 'ja' ? 'ja_JP' : 'en_US'} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content="#fafaf8" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0d0e10" media="(prefers-color-scheme: dark)" />
+    <script is:inline>
+      document.documentElement.classList.add('js');
+      // ?theme=light or ?theme=dark pins the palette, for review and screenshots.
+      try { const t = new URLSearchParams(location.search).get('theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch {}
+      // Night from 6pm to 6am on the visitor's own clock swaps in the hero's night photograph.
+      // ?daypart=day or ?daypart=night pins it for review.
+      try {
+        const q = new URLSearchParams(location.search).get('daypart');
+        const h = new Date().getHours();
+        document.documentElement.dataset.daypart = q === 'day' || q === 'night' ? q : h >= 18 || h < 6 ? 'night' : 'day';
+      } catch {}
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">{copy.skip}</a>
+    <Nav copy={copy} links={navLinks} switchHref={otherPath} overPhoto={overPhoto} />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer copy={copy} />
+    <script>
+      // Text blocks rise in and photographs unmask once, as they arrive. Content is in the
+      // document from the first paint, so nothing depends on this firing.
+      const pending = new Set(document.querySelectorAll('[data-reveal], [data-unmask], [data-track], [data-arrive]'));
+      const show = (el: Element) => { el.classList.add('is-in'); arrive.unobserve(el); pending.delete(el); };
+      const arrive = new IntersectionObserver(
+        (entries) => { for (const entry of entries) if (entry.isIntersecting) show(entry.target); },
+        { rootMargin: '0px 0px -10% 0px', threshold: 0.05 },
+      );
+      pending.forEach((el) => arrive.observe(el));
+      // A jump or a fast fling can carry a block past the screen between two frames, so the
+      // observer never sees it. Anything that is now above the bottom of the screen is shown.
+      let queued = false;
+      const sweep = () => {
+        queued = false;
+        for (const el of pending) if (el.getBoundingClientRect().top < innerHeight) show(el);
+        if (!pending.size) removeEventListener('scroll', onScroll);
+      };
+      const onScroll = () => { if (!queued) { queued = true; requestAnimationFrame(sweep); } };
+      addEventListener('scroll', onScroll, { passive: true });
+
+      // Local times for Tokyo and New York, refreshed each minute.
+      const clocks = document.querySelectorAll<HTMLElement>('[data-clock]');
+      const tick = () => {
+        const now = new Date();
+        clocks.forEach((el) => {
+          el.textContent = new Intl.DateTimeFormat(document.documentElement.lang === 'ja' ? 'ja-JP' : 'en-US', {
+            hour: 'numeric',
+            minute: '2-digit',
+            timeZone: el.dataset.clock,
+          }).format(now);
+        });
+      };
+      if (clocks.length) {
+        tick();
+        setInterval(tick, 30_000);
+      }
+    </script>
+  </body>
+</html>
