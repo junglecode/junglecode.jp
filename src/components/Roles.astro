@@ -6,7 +6,7 @@ interface Props { id: string; title: string; we: Side; partners: Side }
 const { id, title, we, partners } = Astro.props;
 ---
 <section class="roles" id={id} aria-labelledby={`${id}-title`}>
-  <h2 id={`${id}-title`} class="wrap roles-title">{title}</h2>
+  <h2 id={`${id}-title`} class="wrap h2 roles-title">{title}</h2>
   <div class="roles-fields">
     {[we, partners].map((side, i) => (
       <div class:list={['roles-field', i === 0 ? 'roles-field--we' : 'roles-field--partners']} data-reveal>
@@ -19,13 +19,13 @@ const { id, title, we, partners } = Astro.props;
 </section>
 
 <style>
-  .roles { padding-top: var(--section); }
-  .roles-title { font-size: var(--step-head); margin-bottom: clamp(2rem, 4vw, 3.5rem); }
+  .roles { padding-block: var(--section); }
+  .roles-title { margin-bottom: clamp(2rem, 4vw, 3.5rem); }
   .roles-fields { display: grid; grid-template-columns: 7fr 5fr; }
   .roles-field { padding: clamp(2rem, 4vw, 3.5rem) var(--margin); min-height: 34rem; display: flex; flex-direction: column; }
-  .roles-field--we { background: var(--sumi); color: var(--on-sumi); }
-  .roles-field--partners { background: var(--paper-2); }
-  .roles-field h3 { font-size: var(--step-head); line-height: 1; }
+  .roles-field--we { background: var(--field); color: var(--field-ink); }
+  .roles-field--partners { background: var(--surface); }
+  .roles-field h3 { font-size: clamp(2rem, 1.4rem + 2.2vw, 3.4rem); line-height: 1; }
   :global(:root[lang='ja']) .roles-field h3 { line-height: 1.3; }
   .roles-text { margin-top: 1.25rem; font-family: var(--font-display); font-size: var(--step-lead); line-height: 1.25; max-width: 30ch; }
   .roles-field ul { margin-top: auto; padding-top: 2.5rem; display: grid; gap: 0.5rem; }

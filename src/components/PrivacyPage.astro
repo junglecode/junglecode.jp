@@ -1,8 +1,7 @@
 ---
 import { Picture, Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
-import Seal from './Seal.astro';
-import { plates, focus } from './Plates';
+import { photos, focus } from './Photos';
 import jet from '../assets/people/jet-villegas.jpg';
 import aditya from '../assets/people/aditya-pandya.jpg';
 import type { SiteCopy } from '../data/en';
@@ -16,27 +15,12 @@ const people = [
 ];
 ---
 <Base copy={copy} title={p.meta.title} description={p.meta.description} enPath="/privacy/">
-  <div class="privacy-band" aria-hidden="true">
-    {(['nihonbashi', 'mishima', 'kyoto'] as const).map((k) => (
-      <Picture src={plates[k]} alt="" formats={['avif', 'webp']} widths={[480, 800, 1200]} sizes="34vw" loading="eager" style={`object-position:${focus[k]}`} />
-    ))}
-  </div>
   <section class="privacy section" aria-labelledby="privacy-title">
     <div class="wrap grid">
-      <div class="privacy-side" data-reveal>
-        <Seal size="5rem" stamp />
-        <p class="privacy-readers">{p.readers}</p>
-        <ul class="privacy-people">
-          {people.map((x) => (
-            <li><Image src={x.img} alt="" width={320} height={320} loading="eager" /><span>{x.name}</span></li>
-          ))}
-        </ul>
-        <p class="privacy-updated">{p.updated}</p>
-      </div>
       <div class="privacy-main">
         <div data-reveal>
           <h1 id="privacy-title">{p.title}</h1>
-          <p class="privacy-lead">{p.lead}</p>
+          <p class="lead privacy-lead">{p.lead}</p>
         </div>
         {p.sections.map((s) => (
           <section class="privacy-block" data-reveal>
@@ -44,30 +28,37 @@ const people = [
             {s.p.map((t) => <p>{t}</p>)}
           </section>
         ))}
+        <p class="privacy-updated">{p.updated}</p>
       </div>
+      <aside class="privacy-side" data-reveal>
+        <figure class="privacy-photo"><Picture src={photos.facade} alt="" formats={['avif', 'webp']} widths={[480, 800]} sizes="(max-width: 52rem) 100vw, 30vw" style={`object-position:${focus.facade}`} /></figure>
+        <p class="privacy-readers">{p.readers}</p>
+        <ul class="privacy-people">
+          {people.map((x) => <li><Image src={x.img} alt="" width={160} height={160} /><span>{x.name}</span></li>)}
+        </ul>
+      </aside>
     </div>
   </section>
 </Base>
 
 <style>
-  .privacy-band { height: clamp(10rem, 26svh, 18rem); display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; background: var(--paper); }
-  .privacy-band :global(picture) { overflow: hidden; height: 100%; }
-  .privacy-band :global(img) { width: 100%; height: 100%; object-fit: cover; }
-  .privacy-side { grid-column: 1 / span 4; display: grid; gap: 1.25rem; align-content: start; }
-  .privacy-readers { font-family: var(--font-display); font-size: var(--step-lead); line-height: 1.25; max-width: 18ch; }
-  :global(:root[lang='ja']) .privacy-readers { line-height: 1.6; max-width: 14em; }
-  .privacy-people { display: flex; gap: var(--gutter); }
-  .privacy-people li { display: grid; gap: 0.4rem; font-size: var(--step-small); }
-  .privacy-people :global(img) { width: 10rem; height: 10rem; object-fit: cover; }
-  .privacy-updated { color: var(--ink-soft); font-size: var(--step-small); }
-  .privacy-main { grid-column: 6 / -1; max-width: 62ch; }
+  .privacy .grid { align-items: start; }
+  .privacy-main { grid-column: 1 / span 7; max-width: 64ch; }
   .privacy-main h1 { font-size: var(--step-display); }
-  .privacy-lead { margin-top: 1.25rem; font-family: var(--font-display); font-size: var(--step-lead); line-height: 1.25; }
-  .privacy-block { margin-top: clamp(2.5rem, 4vw, 3.5rem); }
-  .privacy-block h2 { font-size: var(--step-lead); line-height: 1.15; }
+  .privacy-lead { margin-top: 1.25rem; color: var(--soft); }
+  .privacy-block { margin-top: clamp(2.5rem, 4vw, 3.5rem); padding-top: 1.25rem; border-top: 1px solid var(--rule); }
+  .privacy-block h2 { font-size: var(--step-lead); line-height: 1.2; letter-spacing: -0.02em; }
   .privacy-block p { margin-top: 0.8rem; }
+  .privacy-updated { margin-top: 3rem; font-size: var(--step-small); color: var(--soft); }
+  .privacy-side { grid-column: 9 / -1; display: grid; gap: 1.25rem; position: sticky; top: calc(var(--nav-h) + 1.5rem); }
+  .privacy-photo { overflow: hidden; }
+  .privacy-photo :global(img) { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; }
+  .privacy-readers { font-family: var(--font-display); font-size: var(--step-lead); line-height: 1.25; letter-spacing: -0.015em; }
+  .privacy-people { display: flex; gap: 1rem; }
+  .privacy-people li { display: flex; align-items: center; gap: 0.6rem; font-size: var(--step-small); }
+  .privacy-people :global(img) { width: 2.5rem; height: 2.5rem; border-radius: 999px; object-fit: cover; object-position: 50% 26%; }
   @media (max-width: 52rem) {
-    .privacy-side, .privacy-main { grid-column: 1 / -1; }
-    .privacy-side { grid-row: 2; margin-top: 3rem; }
+    .privacy-main, .privacy-side { grid-column: 1 / -1; }
+    .privacy-side { position: static; margin-top: 3rem; }
   }
 </style>

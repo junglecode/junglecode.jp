@@ -1,45 +1,44 @@
 ---
-// Lead line over four columns: who, what, where, how to reach us.
+// The opening statement, then who, what, where and how to start.
 interface Props {
   lead: string;
   columns: { runIn: string; text: string; link?: { label: string; href: string } }[];
 }
 const { lead, columns } = Astro.props;
+const ja = /[\u3040-\u30ff\u4e00-\u9fff]/.test(lead);
+const cut = ja ? lead.indexOf('。') + 1 : lead.indexOf('. ') + 1;
+const statement = cut > 0 ? lead.slice(0, cut) : lead;
+const rest = cut > 0 ? lead.slice(cut).trim() : '';
 ---
-<div class="intro wrap" data-reveal>
-  <p class="intro-lead">{lead}</p>
-  <div class="intro-cols">
+<section class="intro section wrap" aria-label="About JungleCode">
+  <div class="intro-top" data-reveal>
+    <p class="intro-lead">{statement}</p>
+    {rest && <p class="intro-rest">{rest}</p>}
+  </div>
+  <div class="intro-cols" data-reveal>
     {columns.map((c) => (
-      <p>
-        <strong>{c.runIn}</strong> {c.text}{c.link && <> <a href={c.link.href}>{c.link.label}</a></>}
-      </p>
+      <p><strong>{c.runIn}</strong> {c.text}{c.link && <> <a href={c.link.href}>{c.link.label}</a></>}</p>
     ))}
   </div>
-</div>
+</section>
 
 <style>
-  .intro { padding-bottom: var(--section); }
   .intro-lead {
     font-family: var(--font-display);
-    font-size: var(--step-lead);
-    line-height: 1.22;
-    letter-spacing: -0.005em;
-    max-width: 62ch;
   }
-  :global(:root[lang='ja']) .intro-lead { line-height: 1.7; max-width: 42em; letter-spacing: 0.02em; }
+  .intro-top { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gutter); row-gap: 1.5rem; align-items: end; }
+  .intro-lead { grid-column: 1 / span 8; font-size: clamp(1.5rem, 1.1rem + 1.4vw, 2.25rem); line-height: 1.16; letter-spacing: -0.025em; max-width: 26em; }
+  .intro-rest { grid-column: 9 / -1; color: var(--soft); max-width: 40ch; }
+  :global(:root[lang='ja']) .intro-lead { line-height: 1.55; letter-spacing: 0.01em; max-width: 18em; font-size: clamp(1.4rem, 1rem + 1.5vw, 2.3rem); }
+  @media (max-width: 52rem) { .intro-lead, .intro-rest { grid-column: 1 / -1; } }
   .intro-cols {
-    margin-top: clamp(3rem, 5vw, 4.5rem);
+    margin-top: clamp(3rem, 6vw, 5rem);
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 2.5rem var(--gutter);
-    align-items: start;
   }
-  .intro-cols p { line-height: 1.55; max-width: 34ch; }
-  .intro-cols strong { font-weight: 500; }
-  @media (max-width: 64rem) {
-    .intro-cols { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  }
-  @media (max-width: 40rem) {
-    .intro-cols { grid-template-columns: 1fr; gap: 1.75rem; }
-  }
+  .intro-cols p { font-size: 1rem; line-height: 1.6; color: var(--soft); padding-top: 1.25rem; border-top: 1px solid var(--rule); }
+  .intro-cols strong { display: block; color: var(--ink); font-weight: 500; margin-bottom: 0.4rem; }
+  @media (max-width: 64rem) { .intro-cols { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 40rem) { .intro-cols { grid-template-columns: 1fr; gap: 1.5rem; } }
 </style>

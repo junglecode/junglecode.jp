@@ -16,8 +16,10 @@ interface Props {
   /** When false the page has no Japanese counterpart, so the switch goes to the Japanese home. */
   hasJa?: boolean;
   ogType?: 'website' | 'article';
+  /** The page opens with a full-bleed photograph that the navigation sits over. */
+  overPhoto?: boolean;
 }
-const { copy, title, description, enPath, navLinks, noindex = false, hasJa = true, ogType = 'website' } = Astro.props;
+const { copy, title, description, enPath, navLinks, noindex = false, hasJa = true, ogType = 'website', overPhoto = false } = Astro.props;
 
 const jaPath = enPath === '/' ? '/ja/' : `/ja${enPath}`;
 const selfPath = copy.locale === 'ja' ? jaPath : enPath;
@@ -51,10 +53,8 @@ const ogImage = new URL(copy.locale === 'ja' ? '/og-ja.jpg' : '/og.jpg', SITE_UR
     <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
-    <meta name="theme-color" content="#f1efec" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#141311" media="(prefers-color-scheme: dark)" />
-    {copy.locale === 'ja' && <link rel="preload" href="/fonts/shippori-mincho-b1-subset-800.woff2" as="font" type="font/woff2" crossorigin />}
-    <link rel="preload" href="/fonts/shippori-mincho-b1-subset-500.woff2" as="font" type="font/woff2" crossorigin />
+    <meta name="theme-color" content="#fafaf8" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0d0e10" media="(prefers-color-scheme: dark)" />
     <script is:inline>
       document.documentElement.classList.add('js');
       // ?theme=light or ?theme=dark pins the palette, for review and screenshots.
@@ -63,40 +63,31 @@ const ogImage = new URL(copy.locale === 'ja' ? '/og-ja.jpg' : '/og.jpg', SITE_UR
   </head>
   <body>
     <a class="skip-link" href="#main">{copy.skip}</a>
-    <Nav copy={copy} links={navLinks} switchHref={otherPath} />
+    <Nav copy={copy} links={navLinks} switchHref={otherPath} overPhoto={overPhoto} />
     <main id="main">
       <slot />
     </main>
     <Footer copy={copy} />
     <script>
-      // Section entrances: each [data-reveal] block staggers its children in once.
-      // Content is in the document from the first paint, so nothing depends on this firing.
-      const reveal = new IntersectionObserver(
-        (entries) => {
-          for (const entry of entries) {
-            if (!entry.isIntersecting) continue;
-            entry.target.classList.add('is-in');
-            entry.target.querySelectorAll('.seal--stamp:not(.station-seal)').forEach((s) => s.classList.add('is-stamped'));
-            reveal.unobserve(entry.target);
-          }
-        },
-        { rootMargin: '0px 0px -12% 0px', threshold: 0.05 },
+      // Text blocks rise in and photographs unmask once, as they arrive. Content is in the
+      // document from the first paint, so nothing depends on this firing.
+      const pending = new Set(document.querySelectorAll('[data-reveal], [data-unmask], [data-track], [data-arrive]'));
+      const show = (el: Element) => { el.classList.add('is-in'); arrive.unobserve(el); pending.delete(el); };
+      const arrive = new IntersectionObserver(
+        (entries) => { for (const entry of entries) if (entry.isIntersecting) show(entry.target); },
+        { rootMargin: '0px 0px -10% 0px', threshold: 0.05 },
       );
-      document.querySelectorAll('[data-reveal]').forEach((el) => reveal.observe(el));
-
-      // Stamps outside reveal blocks press in as they arrive. The route map stamps its own
-      // stations as the line reaches them, so its seals are left out here.
-      const stamps = new IntersectionObserver(
-        (entries) => {
-          for (const entry of entries) {
-            if (!entry.isIntersecting) continue;
-            entry.target.classList.add('is-stamped');
-            stamps.unobserve(entry.target);
-          }
-        },
-        { threshold: 0.6 },
-      );
-      document.querySelectorAll('.seal--stamp:not([data-reveal] .seal--stamp):not(.station-seal)').forEach((el) => stamps.observe(el));
+      pending.forEach((el) => arrive.observe(el));
+      // A jump or a fast fling can carry a block past the screen between two frames, so the
+      // observer never sees it. Anything that is now above the bottom of the screen is shown.
+      let queued = false;
+      const sweep = () => {
+        queued = false;
+        for (const el of pending) if (el.getBoundingClientRect().top < innerHeight) show(el);
+        if (!pending.size) removeEventListener('scroll', onScroll);
+      };
+      const onScroll = () => { if (!queued) { queued = true; requestAnimationFrame(sweep); } };
+      addEventListener('scroll', onScroll, { passive: true });
 
       // Local times for Tokyo and New York, refreshed each minute.
       const clocks = document.querySelectorAll<HTMLElement>('[data-clock]');

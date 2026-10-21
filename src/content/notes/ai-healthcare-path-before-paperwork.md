@@ -6,8 +6,8 @@ authors: ["Jet Villegas", "Aditya Pandya"]
 summary_ja: "日本の臨床現場向けAIを手がける企業に向けて、PMDAへの最初の相談の前に整理しておくべき医療機器該当性とクラス分類、DASH for SaMDやIDATENなどの制度、承認とは別に2年ごとに改定される診療報酬、そして導入を左右する病院の業務フローと電子カルテ連携について解説する。"
 draft: true
 order: 3
-plate: kaitai
-aside: hakone
+plate: clinic
+aside: office-floor
 ---
 
 If you're building AI for clinical settings and Japan is on your roadmap, the first formal step is usually a consultation with the PMDA, the Pharmaceuticals and Medical Devices Agency, which reviews medical devices for the Ministry of Health, Labour and Welfare (MHLW). It works best as a checkpoint, because the questions that decide whether a clinical AI product succeeds here start earlier and run longer than the review.

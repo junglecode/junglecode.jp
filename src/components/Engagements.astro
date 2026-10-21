@@ -1,104 +1,137 @@
 ---
-// Three engagements as flat fields whose heights step up with the commitment.
+// Three ways to work together, as editorial rows. The Readiness Sprint opens to show its four weeks.
+import { Image } from 'astro:assets';
+import jet from '../assets/people/jet-villegas.jpg';
+import aditya from '../assets/people/aditya-pandya.jpg';
+
 interface Tile { key: string; name: string; figure: string; who: string; lines: string[]; cta: string }
-interface Props { id: string; title: string; tiles: Tile[]; note: string; ctaHref: string }
-const { id, title, tiles, note, ctaHref } = Astro.props;
-const tone = ['shu', 'sumi', 'kinari'];
+interface Session { day: string; title: string; note: string; people: string[] }
+interface Week { tab: string; label: string; sessions: Session[] }
+interface Props {
+  id: string;
+  label: string;
+  title: string;
+  tiles: Tile[];
+  note: string;
+  ctaHref: string;
+  sprintToggle: string;
+  weeks: Week[];
+  sprintNote: string;
+  youLabel: string;
+  names: { jet: string; aditya: string };
+}
+const { id, label, title, tiles, note, ctaHref, sprintToggle, weeks, sprintNote, youLabel, names } = Astro.props;
+const faces = { jet, aditya } as const;
 ---
 <section class="engage section" id={id} aria-labelledby={`${id}-title`}>
-  <div class="wrap">
-    <div class="engage-board">
-      <h2 id={`${id}-title`} class="engage-title">{title}</h2>
-      <ul class="engage-tiles">
-        {tiles.map((t, i) => (
-          <li class={`tile tile--${tone[i]}`} data-engagement={t.key} data-reveal>
-            <h3><span class="tile-figure">{t.figure}</span> <span class="tile-name">{t.name}</span></h3>
-            <p class="tile-who">{t.who}</p>
-            <ul class="tile-lines">
-              {t.lines.map((l) => <li>{l}</li>)}
-            </ul>
-            <a class="tile-cta" href={ctaHref} data-engagement-cta={t.name}>
-              <span>{t.cta}</span><span class="arrow" aria-hidden="true">→</span>
-            </a>
-          </li>
-        ))}
-      </ul>
-    </div>
-    <p class="engage-note">{note}</p>
+  <div class="wrap engage-head" data-reveal>
+    <span class="label">{label}</span>
+    <h2 id={`${id}-title`} class="h2">{title}</h2>
   </div>
+  <ol class="wrap engage-rows">
+    {tiles.map((t) => (
+      <li class="row" data-reveal>
+        <div class="row-name">
+          <h3>{t.name}</h3>
+          <p class="row-figure">{t.figure}</p>
+        </div>
+        <p class="row-who">{t.who}</p>
+        <ul class="row-lines">{t.lines.map((l) => <li>{l}</li>)}</ul>
+        <a class="row-cta" href={ctaHref} data-engagement-cta={t.name}>{t.cta} <span aria-hidden="true">→</span></a>
+        {t.key === 'sprint' && (
+          <details class="row-weeks">
+            <summary>{sprintToggle}</summary>
+            <div class="weeks">
+              {weeks.map((w) => (
+                <div class="week">
+                  <p class="week-head"><span>{w.tab}</span> <strong>{w.label}</strong></p>
+                  <ul>
+                    {w.sessions.map((s) => (
+                      <li>
+                        <span class="s-day">{s.day}</span>
+                        <span class="s-what"><span class="s-title">{s.title}</span><span class="s-note">{s.note}</span></span>
+                        <span class="s-people" aria-label={s.people.map((p) => (p === 'you' ? youLabel : names[p as 'jet' | 'aditya'])).join(', ')}>
+                          {s.people.map((p) => p === 'you'
+                            ? <span class="face face--you" aria-hidden="true">{youLabel}</span>
+                            : <Image class="face" src={faces[p as 'jet' | 'aditya']} alt="" width={56} height={56} />)}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+            <p class="weeks-note">{sprintNote}</p>
+          </details>
+        )}
+      </li>
+    ))}
+  </ol>
+  <div class="wrap"><p class="engage-note">{note}</p></div>
 </section>
 
 <script>
   document.querySelectorAll<HTMLAnchorElement>('[data-engagement-cta]').forEach((a) => {
-    a.addEventListener('click', () => {
-      document.dispatchEvent(new CustomEvent('jc:engagement', { detail: a.dataset.engagementCta }));
-    });
+    a.addEventListener('click', () => document.dispatchEvent(new CustomEvent('jc:engagement', { detail: a.dataset.engagementCta })));
   });
 </script>
 
 <style>
-  .engage-board { position: relative; }
-  .engage-title {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: calc(66.66% - var(--gutter));
-    font-size: var(--step-head);
-    max-width: 12ch;
-  }
-  .engage-tiles {
+  .engage-head { display: grid; gap: 1rem; }
+  .engage-head h2 { max-width: 20ch; }
+  :global(:root[lang='ja']) .engage-head h2 { max-width: 16em; }
+  .engage-rows { margin-top: clamp(2.5rem, 5vw, 4rem); }
+  .row {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 8px;
-    align-items: end;
-    min-height: 44rem;
-  }
-  .tile {
-    --tile-bg: var(--paper-2);
-    --tile-ink: var(--ink);
-    --tile-strip: var(--paper-3);
+    grid-template-columns: minmax(0, 4fr) minmax(0, 3fr) minmax(0, 4fr) 13rem;
+    gap: 1.25rem var(--gutter);
+    padding-block: clamp(1.75rem, 3vw, 2.5rem);
+    border-top: 1px solid var(--rule);
+    align-items: start;
     position: relative;
-    display: flex;
-    flex-direction: column;
-    background: var(--tile-bg);
-    color: var(--tile-ink);
-    padding: 1.75rem 1.75rem 0;
-    border-radius: var(--radius);
   }
-  .tile:nth-child(1) { min-height: 27rem; }
-  .tile:nth-child(2) { min-height: 35rem; }
-  .tile:nth-child(3) { min-height: 44rem; }
-  .tile--shu { --tile-bg: var(--shu); --tile-ink: var(--on-shu); --tile-strip: var(--shu-deep); }
-  .tile--sumi { --tile-bg: var(--sumi); --tile-ink: var(--on-sumi); --tile-strip: var(--sumi-2); }
-  .tile--sumi .tile-cta { color: var(--on-sumi); }
-  :global(.dark) .tile--sumi { --tile-strip: var(--sumi-2); }
-  .tile h3 { display: grid; gap: 0.5rem; }
-  .tile-name { font-family: var(--font-text); font-size: var(--step-body); font-weight: 500; letter-spacing: 0.01em; line-height: 1.3; }
-  .tile-figure { font-size: var(--step-head); line-height: 1; }
-  .tile-who { margin-top: 1rem; font-weight: 500; max-width: 28ch; line-height: 1.4; }
-  .tile-lines { margin-top: 1rem; display: grid; gap: 0.35rem; margin-bottom: 1.75rem; }
-  .tile-lines li { line-height: 1.4; }
-  .tile-cta {
-    margin: auto -1.75rem 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    min-height: 4rem;
-    padding-inline: 1.75rem;
-    background: var(--tile-strip);
-    color: inherit;
-    font-weight: 500;
-    text-decoration: none;
-    transition: background-color var(--dur-fast) ease;
-  }
-  .tile-cta:hover { color: inherit; filter: brightness(0.94); }
-  .tile-cta .arrow { transition: transform var(--dur) var(--ease-out); }
-  .tile-cta:hover .arrow { transform: translateX(5px); }
-  .engage-note { margin-top: 2rem; max-width: 60ch; }
-
+  .row::before { content: ''; position: absolute; left: 0; right: 0; top: -1px; height: 2px; background: var(--signal); transform: scaleX(0); transform-origin: 0 50%; transition: transform 700ms var(--ease); }
+  .row:hover::before, .row:focus-within::before { transform: none; }
+  .row:last-child { border-bottom: 1px solid var(--rule); }
+  .row-name h3 { font-size: var(--step-title); letter-spacing: -0.035em; }
+  :global(:root[lang='ja']) .row-name h3 { letter-spacing: -0.02em; }
+  .row-figure { margin-top: 0.6rem; font-weight: 500; }
+  .row-who { color: var(--soft); max-width: 30ch; padding-top: 0.5rem; }
+  .row-lines { display: grid; gap: 0.35rem; padding-top: 0.5rem; }
+  .row-lines li { padding-left: 1.1rem; position: relative; }
+  .row-lines li::before { content: ''; position: absolute; left: 0; top: 0.72em; width: 0.45rem; height: 1px; background: var(--soft); }
+  .row-cta { padding-top: 0.5rem; font-weight: 500; text-decoration-color: transparent; justify-self: end; text-align: right; }
+  .row-cta span { display: inline-block; transition: transform var(--dur) var(--ease); }
+  .row-cta:hover { text-decoration-color: currentColor; }
+  .row-cta:hover span { transform: translateX(4px); }
+  .row-weeks { grid-column: 1 / -1; margin-top: 0.5rem; }
+  .row-weeks summary { cursor: pointer; font-weight: 500; width: fit-content; list-style: none; display: inline-flex; align-items: center; gap: 0.6rem; }
+  .row-weeks summary::-webkit-details-marker { display: none; }
+  .row-weeks summary::after { content: '+'; display: inline-grid; place-items: center; width: 1.5rem; height: 1.5rem; border: 1px solid var(--rule); border-radius: 999px; font-weight: 400; transition: transform var(--dur) var(--ease); }
+  .row-weeks[open] summary::after { transform: rotate(45deg); }
+  .weeks { margin-top: 1.5rem; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.5rem var(--gutter); }
+  .week { background: var(--surface); padding: 1.25rem; border-radius: var(--radius); }
+  .week-head span { display: block; font-size: var(--step-small); color: var(--soft); }
+  .week-head strong { font-family: var(--font-display); font-weight: 400; font-size: var(--step-subtitle); letter-spacing: -0.02em; }
+  .week ul { margin-top: 1rem; display: grid; gap: 1rem; }
+  .week li { display: grid; grid-template-columns: 2.5rem minmax(0, 1fr); gap: 0.35rem 0.5rem; }
+  .s-day { font-size: var(--step-small); color: var(--soft); }
+  .s-what { display: grid; gap: 0.1rem; }
+  .s-title { font-weight: 500; font-size: 0.9375rem; line-height: 1.35; }
+  .s-note { font-size: var(--step-small); color: var(--soft); line-height: 1.4; }
+  .s-people { grid-column: 2; display: flex; }
+  .s-people > :global(*) + :global(*) { margin-left: -6px; }
+  .s-people :global(.face) { width: 1.6rem; height: 1.6rem; border-radius: 999px; object-fit: cover; object-position: 50% 26%; box-shadow: 0 0 0 2px var(--surface); }
+  .face--you { display: inline-grid; place-items: center; background: var(--signal); color: var(--signal-ink); font-size: 0.6875rem; font-weight: 500; }
+  .weeks-note { margin-top: 1rem; font-size: var(--step-small); color: var(--soft); }
+  .engage-note { margin-top: 2rem; color: var(--soft); max-width: 70ch; }
   @media (max-width: 64rem) {
-    .engage-title { position: static; width: auto; margin-bottom: 2rem; }
-    .engage-tiles { grid-template-columns: 1fr; min-height: 0; gap: 2.5rem; }
-    .tile:nth-child(n) { min-height: 0; }
+    .row { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+    .row-cta { grid-column: 1 / -1; justify-self: start; text-align: left; }
+    .weeks { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (max-width: 40rem) {
+    .row { grid-template-columns: 1fr; }
+    .weeks { grid-template-columns: 1fr; }
   }
 </style>

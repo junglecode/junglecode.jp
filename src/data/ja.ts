@@ -17,7 +17,7 @@ export const ja: SiteCopy = {
   nav: {
     home: 'JungleCode トップ',
     links: [
-      { label: '道筋', href: '#route' },
+      { label: '進め方', href: '#approach' },
       { label: '支援の形', href: '#engagements' },
       { label: '医療', href: '/healthcare/' },
       { label: 'チーム', href: '#team' },
@@ -34,19 +34,13 @@ export const ja: SiteCopy = {
     standfirst:
       '私たちは、東京でIndeed Applyを共に築いた2人です。海外のAI企業が日本で顧客、パートナー、人材と出会い、事業を根付かせるまでを支援します。',
     action: '相談を予約',
-    secondary: '参入の道筋を見る',
-    vertical: '日本市場への道',
-    verticalNote: '日本市場への道',
-    plates: [
-      { key: 'nihonbashi', alt: '夜明けの日本橋を渡る大名行列と荷を担ぐ人々', caption: '歌川広重「東海道五拾三次之内 日本橋 朝之景」1833年から1834年頃。東海道の旅はここから始まりました。' },
-      { key: 'hakone', alt: '芦ノ湖を見下ろす、色とりどりの険しい山道を登る旅人', caption: '歌川広重「箱根 湖水図」。東海道でもっとも険しい区間です。' },
-      { key: 'mishima', alt: '深い朝霧のなか、鳥居の前を通る旅人と駕籠', caption: '歌川広重「三島 朝霧」。景色が見えるより先に、宿場に着きます。' },
-      { key: 'kyoto', alt: '山々を背に、長い三条大橋を渡って京都へ入る旅人', caption: '歌川広重「京師 三条大橋」。東海道の終着点です。' },
-    ],
-    cards: {
-      healthcare: { title: '医療AIの日本展開', href: '/healthcare/' },
-      noteFallback: { title: '支援の進め方', href: '#route' },
-    },
+    secondary: '進め方を見る',
+    echo: 'Take your AI company to Japan',
+    echoLang: 'en',
+    place: '東京とニューヨーク',
+    photoAlt: '晴れた朝の東京都心のオフィスビル群',
+    photoAltDark: '夕暮れの東京都心、窓に明かりの灯るオフィスビル群',
+    builtAtLabel: '2人が携わってきた企業',
   },
   intro: {
     lead:
@@ -59,25 +53,27 @@ export const ja: SiteCopy = {
     ],
   },
   whyNow: {
-    title: 'なぜ日本か、なぜ今か',
-    figure: '1,100万人',
-    figureText: '何も手を打たなければ、2040年に不足するとされる働き手の数です（リクルートワークス研究所）。働くソフトウェアは、欠かせない存在になりつつあります。',
-    points: [
-      { runIn: 'AIを後押しする法律。', text: '2025年9月に全面施行されたAI推進法は、罰則を設けないイノベーション重視の枠組みです。首相を本部長とするAI戦略本部が、AI基本計画を毎年更新します。' },
-      { runIn: '企業はすでに動いている。', text: '帝国データバンクが2026年3月に1万312社から回答を得た調査では、生成AIを業務で活用する企業は約3社に1社、大企業ではほぼ半数にのぼりました。' },
-      { runIn: '一度選ばれれば長く続く。', text: '日本企業は契約までに時間をかけ、一度決めると簡単には離れません。きちんと信頼を得た顧客は長く契約を更新し、次の顧客が求める導入事例にもなります。' },
+    label: 'なぜ日本か、なぜ今か',
+    title: 'AIを必要としている市場',
+    figures: [
+      { value: '1,100万人', text: '何も手を打たなければ、2040年に不足するとされる働き手の数です（リクルートワークス研究所）。' },
+      { value: '34.5%', text: '2026年3月に生成AIを業務で活用していた日本企業の割合です。大企業ではほぼ半数にのぼりました。' },
+      { value: '2025年', text: 'AI推進法が全面施行された年です。罰則を設けない、イノベーション重視の法律です。' },
     ],
+    lead: '日本企業は契約までに時間をかけ、一度決めると簡単には離れません。きちんと信頼を得た顧客は長く契約を更新し、次の顧客が求める導入事例にもなります。',
     sources: [
       { label: 'リクルートワークス研究所「未来予測2040」', href: 'https://www.works-i.com/research/report/forecast2040.html' },
-      { label: '内閣府「AI法」', href: 'https://www8.cao.go.jp/cstp/ai/ai_act/ai_act.html' },
       { label: '帝国データバンク（2026年5月）', href: 'https://www.tdb.co.jp/report/economic/20260514-genai/' },
+      { label: '内閣府「AI法」', href: 'https://www8.cao.go.jp/cstp/ai/ai_act/ai_act.html' },
     ],
     sourcesLabel: '出典',
+    photoAlt: '電車が到着する東京メトロのホームと通勤客',
   },
   frictions: {
     id: 'stalls',
-    title: '日本参入が止まる場所',
-    intro: '問題がプロダクトそのものにあることは稀です。優れた企業が1年を失いがちなポイントと、それぞれへの私たちの対処をまとめました。',
+    label: '日本参入が止まる場所',
+    title: '問題がプロダクトにあることは稀です',
+    intro: '優れた企業が1年を失いがちなポイントと、それぞれへの私たちの対処をまとめました。',
     items: [
       { term: '稟議', reading: 'Ringi', title: '決裁は文書で、順番に押印される', text: '日本企業の購買は、関係する管理職が順に押印していく稟議書で進みます。稟議書を書くのは社内の推進者で、海外企業が直接耳にすることのない疑問にも答えなければなりません。その推進者に、稟議に必要な日本語の資料、導入事例、リスクへの回答を用意します。' },
       { term: '根回し', reading: 'Nemawashi', title: '会議は、事前の合意を確かめる場', text: '意思決定の会議が開かれる頃には、多くの場合、個別の対話で結論はほぼ固まっています。誰に、どの順番で、誰から何を伝えるべきかを整理します。' },
@@ -87,15 +83,16 @@ export const ja: SiteCopy = {
     ],
   },
   route: {
-    id: 'route',
-    title: '参入の道筋',
-    intro: 'かつての東海道は、日本橋から京都まで53の宿場を結んでいました。市場参入の宿場は4つ。どの段階も、すぐに使える成果物で終わります。',
+    id: 'approach',
+    label: '支援の進め方',
+    title: '4つの段階と、それぞれの成果物',
+    intro: 'どの支援も同じ4つの段階を進みます。各段階がすぐに使える成果物で終わるので、どこで止めても無駄になりません。',
     leaveLabel: '成果物',
     stations: [
-      { key: 'discover', name: '発見', jp: '発見', plate: 'nihonbashi', duration: '2週間から4週間', text: '日本が今そのプロダクトに合うかを、机上の調査ではなく実際の対話で確かめます。', leave: '参入するか否かの判断と、参入概要書' },
-      { key: 'plan', name: '計画', jp: '計画', plate: 'hakone', duration: '4週間から6週間', text: 'セグメント、ポジショニング、価格、パートナーを決め、最初に狙う企業を特定します。', leave: '自社のチームで実行できる参入計画' },
-      { key: 'land', name: '上陸', jp: '上陸', plate: 'mishima', duration: '3か月から6か月', text: '紹介、初回の商談、本番化を見据えたPoC、日本向けのプロダクトと提案、そして最初の現地採用。', leave: '動いている商談パイプラインと、本番化の条件を備えたPoC' },
-      { key: 'scale', name: '定着', jp: '定着', plate: 'kyoto', duration: '継続', text: '日本法人とチーム、販売パートナー、大企業の調達、契約の更新。', leave: '私たちがいなくても回る日本事業' },
+      { key: 'discover', name: '発見', duration: '2週間から4週間', text: '日本が今そのプロダクトに合うかを、机上の調査ではなく実際の対話で確かめます。', leave: '参入するか否かの判断と、参入概要書' },
+      { key: 'plan', name: '計画', duration: '4週間から6週間', text: 'セグメント、ポジショニング、価格、パートナーを決め、最初に狙う企業を特定します。', leave: '自社のチームで実行できる参入計画' },
+      { key: 'land', name: '上陸', duration: '3か月から6か月', text: '紹介、初回の商談、本番化を見据えたPoC、日本向けのプロダクトと提案、そして最初の現地採用。', leave: '動いている商談パイプラインと、本番化の条件を備えたPoC' },
+      { key: 'scale', name: '定着', duration: '継続', text: '日本法人とチーム、販売パートナー、大企業の調達、契約の更新。', leave: '私たちがいなくても回る日本事業' },
     ],
     chooser: {
       label: '今、どの段階にいますか。',
@@ -111,7 +108,9 @@ export const ja: SiteCopy = {
   },
   engagements: {
     id: 'engagements',
-    title: '支援の形',
+    label: '支援の形',
+    title: '小さく始めることも、参入全体を任せることもできます',
+    sprintToggle: 'Readiness Sprintの4週間を見る',
     tiles: [
       { key: 'sprint', name: 'Readiness Sprint', figure: '4週間', who: '日本への参入を判断したい企業に。', lines: ['固定のスコープと料金', '東京での顧客候補やパートナーとの対話', '理由を添えた参入の判断', '英語と日本語の参入概要書'], cta: 'Sprintから始める' },
       { key: 'program', name: 'Entry Program', figure: '6か月', who: '最初の顧客を獲得したい企業に。', lines: ['ポジショニングと日本語での提案', '顧客候補とパートナーへのご紹介', '本番化の条件を備えたPoCの設計', 'プロダクトとドキュメントの日本語化', '日本での最初の採用', '2人との週1回の作業セッション'], cta: '参入を計画する' },
@@ -151,7 +150,8 @@ export const ja: SiteCopy = {
   team: {
     id: 'team',
     title: '担当する2人',
-    origin: '東京でIndeed Applyを共に築いた2人です。Adityaがプロダクトを、Jetがエンジニアリングを担いました。その協働を、御社のために活かします。',
+    headline: '東京で、Indeed Applyを共に築きました',
+    origin: 'Adityaがプロダクトを、Jetがエンジニアリングを担いました。その協働を、御社のために活かします。',
     people: [
       {
         key: 'jet',
@@ -177,15 +177,17 @@ export const ja: SiteCopy = {
   },
   healthTeaser: {
     id: 'healthcare',
-    title: '医療AI',
+    label: '専門領域',
+    title: '医療AIの日本展開',
+    text: '日本では人口の約3割が65歳以上となり、医療の現場は人手が足りていません。医療AI企業が、普及の鍵を握る病院、パートナー、承認にたどり着けるよう支援します。',
     facts: ['日本の人口の29.6%が65歳以上', '2024年4月から医師の時間外労働に上限', 'ソフトウェアも公的保険の対象になりうる'],
     action: '医療分野の支援を見る',
     href: '/healthcare/',
-    caption: '『解体新書』序文（1774年）。西洋の解剖書を日本語に訳した最初の本格的な翻訳書です。',
-    alt: '朱印が押された漢文の頁。1774年刊『解体新書』の序文',
+    alt: '明るく現代的な病院の廊下を歩く医療従事者',
   },
   notes: {
     id: 'notes',
+    label: '2人が書いたもの',
     title: 'ノート',
     read: '読む',
     countLine: (n: number) => `英語で書いたノートを${n}本公開しています。`,
@@ -233,11 +235,11 @@ export const ja: SiteCopy = {
   footer: {
     places: ['東京', 'ニューヨーク'],
     columns: [
-      { title: 'サイト', links: [{ label: '参入の道筋', href: '/ja/#route' }, { label: '支援の形', href: '/ja/#engagements' }, { label: '医療', href: '/ja/healthcare/' }, { label: 'ノート', href: '/ja/notes/' }] },
+      { title: 'サイト', links: [{ label: '進め方', href: '/ja/#approach' }, { label: '支援の形', href: '/ja/#engagements' }, { label: '医療', href: '/ja/healthcare/' }, { label: 'ノート', href: '/ja/notes/' }] },
       { title: '会社', links: [{ label: 'チーム', href: '/ja/#team' }, { label: 'プライバシー', href: '/ja/privacy/' }, { label: 'English', href: '/' }] },
       { title: 'リンク', links: [{ label: 'junglecode.net', href: 'https://junglecode.net' }, { label: 'JetのLinkedIn', href: 'https://www.linkedin.com/in/jetvillegas/' }, { label: 'AdityaのLinkedIn', href: 'https://www.linkedin.com/in/adityapandya/' }] },
     ],
-    credits: '版画は歌川広重作で、メトロポリタン美術館と米国議会図書館の所蔵です。『解体新書』はWikimedia Commonsより。いずれもパブリックドメインです。',
+    credits: 'このサイトの黄色いタイルは点字ブロックです。1967年に岡山で初めて敷かれ、いまでは日本中の駅で人を導いています。',
     top: 'ページの先頭へ',
     copyright: (y: number) => `© ${y} JungleCode`,
   },
@@ -256,9 +258,7 @@ export const ja: SiteCopy = {
     hero: {
       title: '医療AIを、<br />日本の現場へ。',
       standfirst: '日本では人口の約3割が65歳以上となり、医療の現場は人手が足りていません。医療AI企業が、普及の鍵を握る病院、パートナー、承認にたどり着けるよう支援します。',
-      vertical: '医療AIを日本へ',
-      plateAlt: '朱印が押された漢文の頁。1774年刊『解体新書』の序文',
-      plateCaption: '『解体新書』序文（1774年）。日本の医師たちがオランダ語の解剖書を翻訳し、この国の医学を大きく変えました。',
+      photoAlt: '明るく現代的な病院の廊下を歩く医療従事者',
     },
     intro: {
       lead: '外の医学知識は、いつの時代も、それを訳せる人を通じて日本に届いてきました。私たちはプロダクト、エビデンス、ワークフローを日本の病院向けに訳し直し、規制に関わる業務は専門家と連携して進めます。',
@@ -270,27 +270,29 @@ export const ja: SiteCopy = {
       ],
     },
     whyNow: {
-      title: 'なぜ日本か、なぜ今か',
-      figure: '29.6%',
-      figureText: '日本の人口に占める65歳以上の割合で、過去最高です。2040年には約35%に達すると見込まれています。',
-      points: [
-        { runIn: '人手の足りない医療。', text: '2024年4月から病院勤務医の時間外労働に上限が設けられました。厚生労働省は、2040年度に必要な介護職員が2022年度より57万人多くなると見込んでいます。' },
-        { runIn: 'ソフトウェアのための道筋。', text: 'プログラム医療機器の実用化を促す国の戦略（DASH for SaMD）、二段階承認の仕組み、AIの更新計画を事前に承認するIDATENが整っています。' },
-        { runIn: '保険適用の前例。', text: 'ソフトウェアも公的保険の対象になりえます。CureAppの禁煙治療と高血圧治療のアプリは、それぞれ2020年と2022年から保険適用されています。' },
+      label: 'なぜ日本か、なぜ今か',
+      title: '助けを必要とする医療',
+      figures: [
+        { value: '29.6%', text: '日本の人口に占める65歳以上の割合で、過去最高です。2040年には約35%に達すると見込まれています。' },
+        { value: '57万人', text: '厚生労働省の推計で、2040年度に必要な介護職員が2022年度より増える人数です。' },
+        { value: '2024年', text: '病院勤務医の時間外労働に上限が設けられた年です。' },
       ],
+      lead: 'プログラム医療機器の実用化を促す国の戦略（DASH for SaMD）、二段階承認の仕組み、AIの更新計画を事前に承認するIDATENが整っています。ソフトウェアも保険適用の対象になりえます。CureAppの禁煙治療と高血圧治療のアプリは、それぞれ2020年と2022年から保険適用されています。',
       sources: [
         { label: '総務省統計局（2026年9月）', href: 'https://www.stat.go.jp/data/topics/pdf/topics149.pdf' },
-        { label: '厚生労働省「医師の働き方改革」', href: 'https://c2-shinsasoshiki.mhlw.go.jp/system/' },
         { label: '厚生労働省「介護職員の必要数」', href: 'https://www.mhlw.go.jp/stf/newpage_41379.html' },
+        { label: '厚生労働省「医師の働き方改革」', href: 'https://c2-shinsasoshiki.mhlw.go.jp/system/' },
         { label: '厚生労働省「DASH for SaMD 2」', href: 'https://www.mhlw.go.jp/content/11121000/001142990.pdf' },
         { label: 'PMDA「IDATEN」', href: 'https://www.pmda.go.jp/files/000266836.pdf' },
         { label: '厚生労働省 中医協資料（CureApp）', href: 'https://www.mhlw.go.jp/content/12404000/001197876.pdf' },
       ],
+      photoAlt: '東京の高層ビルにあるオフィスフロアと、その先に広がる街並み',
     },
     frictions: {
       id: 'stalls',
-      title: '医療参入が止まる場所',
-      intro: '注目されるのは承認ですが、普及を左右するのは多くの場合その周りのことです。',
+      label: '医療参入が止まる場所',
+      title: '注目されるのは承認です',
+      intro: '普及を左右するのは、多くの場合その周りのことです。',
       items: [
         { term: '薬機法', reading: 'PMD Act', title: 'そもそも医療機器にあたるのか', text: '患者の健康に影響しうる医療目的のソフトウェアは、薬機法上の医療機器として規制されます。海外の製造元は日本に製造販売業者を置く必要があります。区分がその後のすべてを決めるため、まず専門の規制アドバイザーと確認します。' },
         { term: 'PMDA相談', reading: 'PMDA consultation', title: '承認は対話から始まる', text: 'PMDAは開発の早い段階から相談を受け付けており、プログラム医療機器の戦略によって二段階承認やAI更新の事前承認も加わりました。相談に向けた準備を支え、相談を主導する専門家におつなぎします。' },
@@ -306,10 +308,10 @@ export const ja: SiteCopy = {
       intro: '同じ4つの宿場を、規制に関わる段階では専門家とともに進みます。',
       leaveLabel: '成果物',
       stations: [
-        { key: 'discover', name: '発見', jp: '発見', plate: 'nihonbashi', duration: '3週間から5週間', text: '市場と臨床上の適合性を確かめ、専門の規制アドバイザーから初期の見解を得ます。', leave: '区分の見立てと、参入するか否かの判断' },
-        { key: 'plan', name: '計画', jp: '計画', plate: 'hakone', duration: '6週間から10週間', text: 'パートナーとともに承認の経路、エビデンス、診療報酬を計画し、PoCの実施施設と臨床のチャンピオンを見つけます。', leave: '規制とエビデンスの手順を含む参入計画' },
-        { key: 'land', name: '上陸', jp: '上陸', plate: 'mishima', duration: '6か月から12か月', text: '病院でのPoC、電子カルテとの連携、日本語の臨床コンテンツ、相談と申請の支援。', leave: '病院でのPoCと、進行中の申請計画' },
-        { key: 'scale', name: '定着', jp: '定着', plate: 'kyoto', duration: '継続', text: '診療報酬の戦略、学会との関係づくり、流通と販売のパートナー。', leave: '成長を続けられる日本の医療事業' },
+        { key: 'discover', name: '発見', duration: '3週間から5週間', text: '市場と臨床上の適合性を確かめ、専門の規制アドバイザーから初期の見解を得ます。', leave: '区分の見立てと、参入するか否かの判断' },
+        { key: 'plan', name: '計画', duration: '6週間から10週間', text: 'パートナーとともに承認の経路、エビデンス、診療報酬を計画し、PoCの実施施設と臨床のチャンピオンを見つけます。', leave: '規制とエビデンスの手順を含む参入計画' },
+        { key: 'land', name: '上陸', duration: '6か月から12か月', text: '病院でのPoC、電子カルテとの連携、日本語の臨床コンテンツ、相談と申請の支援。', leave: '病院でのPoCと、進行中の申請計画' },
+        { key: 'scale', name: '定着', duration: '継続', text: '診療報酬の戦略、学会との関係づくり、流通と販売のパートナー。', leave: '成長を続けられる日本の医療事業' },
       ],
     },
     roles: {
@@ -335,15 +337,15 @@ export const ja: SiteCopy = {
     ],
   },
   notFound: {
-    title: 'この宿場はありません',
+    title: 'このページはありません',
     text: 'お探しのページは見つかりませんでした。以前のサイトへのリンクからお越しの場合、内容は移動しています。支援の進め方はトップページに、医療分野の支援は専用のページにあります。',
     home: 'トップへ戻る',
-    pick: '宿場を選ぶ',
+    pick: 'ほかのページへ',
     stations: [
-      { plate: 'nihonbashi', label: 'はじめに', href: '/ja/' },
-      { plate: 'hakone', label: '参入の道筋', href: '/ja/#route' },
-      { plate: 'mishima', label: '医療', href: '/ja/healthcare/' },
-      { plate: 'kyoto', label: 'ご相談', href: '/ja/#contact' },
+      { photo: 'tower-morning', label: 'はじめに', href: '/ja/' },
+      { photo: 'meeting', label: '進め方', href: '/ja/#approach' },
+      { photo: 'clinic', label: '医療', href: '/ja/healthcare/' },
+      { photo: 'street-evening', label: 'ご相談', href: '/ja/#contact' },
     ],
     meta: { title: 'ページが見つかりません｜JungleCode', description: 'このページは存在しません。' },
   },

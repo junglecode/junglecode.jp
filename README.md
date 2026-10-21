@@ -2,7 +2,7 @@
 
 The JungleCode website: Japan market entry for AI companies, with a healthcare page, notes and a full Japanese mirror at `/ja/`.
 
-It's a static [Astro](https://astro.build) site. Pages ship as plain HTML and CSS with a little JavaScript for the masthead, the route map, the week tabs, the notes deck and the contact form. Everything still reads with JavaScript off.
+It's a static [Astro](https://astro.build) site. Pages ship as plain HTML and CSS with a little JavaScript for the navigation, the stage chooser, the counting figures, the reveals and the contact form. Everything still reads with JavaScript off.
 
 ## Run it
 
@@ -26,38 +26,34 @@ Add `?theme=light` or `?theme=dark` to any URL to pin the palette for review. Ot
 | Notes | `src/content/notes/*.md` |
 | Design tokens (colour, type scale, spacing, motion) | `src/styles/global.css` |
 | Sections | `src/components/*.astro` |
-| Archival prints and portraits | `src/assets/` |
-| Favicons, share images, subset Japanese font | `public/` |
+| Photographs and portraits | `src/assets/` |
+| Favicons and share images | `public/` |
 
 ## Notes
 
-Each note is a Markdown file with `draft: true` until it's approved. Drafts appear in development and in `SHOW_DRAFTS=1` builds with a red "Draft for review" marker and `noindex`, and they're left out of production builds entirely. When there are no published notes, the Notes section and its nav link disappear and the notes page says the first ones are on their way.
+Each note is a Markdown file with `draft: true` until it's approved. Drafts appear in development and in `SHOW_DRAFTS=1` builds with a yellow "Draft for review" marker and `noindex`, and they're left out of production builds entirely. When there are no published notes, the Notes section and its nav link disappear and the notes page says the first ones are on their way.
 
-Places where a founder's own example belongs are marked in the drafts as red editor prompts (`<p class="editor-prompt">`). Replace each one with the real story, or delete it, then set `draft: false`.
+Places where a founder's own example belongs are marked in the drafts as yellow editor prompts (`<p class="editor-prompt">`). Replace each one with the real story, or delete it, then set `draft: false`.
 
-Front matter: `title`, `description`, `date`, `authors`, `summary_ja` (shown on Japanese pages and beside the note), `draft`, `order` (ties on the same date), `plate` (the print at the top) and `aside` (the print beside the body).
+Front matter: `title`, `description`, `date`, `authors`, `summary_ja` (shown on Japanese pages and beside the note), `draft`, `order` (ties on the same date), `plate` (the photograph at the top) and `aside` (the photograph beside the body), both keys from `src/data/photoKeys.ts`.
 
-## Fonts and the seal
+## Type, colour and the tiles
 
-- Latin type is Newsreader (display, with optical sizes) and IBM Plex Sans (text), self-hosted through Fontsource. The site makes no third-party requests.
-- English pages use a 21 KB subset of Shippori Mincho B1 for the few Japanese characters they show. Japanese pages load the full Shippori Mincho B1 and IBM Plex Sans JP from `src/styles/ja-fonts.css`.
-- After changing Japanese text in `en.ts`, rebuild the subset with `node scripts/subset-jp.mjs`. It needs `uv` and the Shippori TTFs in `.taste-skill/fonts/` (instructions at the top of the script).
-- `public/favicon.svg` is the seal with its katakana converted to outlines (`scripts/seal-svg.py`). The PNG icons and the share images (`og.jpg`, `og-ja.jpg`) were rendered from it in Chrome.
+- Latin type is Hedvig Letters Serif (display, with optical sizes) and Schibsted Grotesk (text), self-hosted through Fontsource. The site makes no third-party requests.
+- Japanese pages also load Noto Serif JP and IBM Plex Sans JP from `src/styles/ja-fonts.css`. English pages don't load them, and the few Japanese characters they show fall back to the system's Japanese fonts.
+- The one accent is the yellow of tenji blocks, the tactile paving that guides people through every station in Japan. Guidance tiles (four raised bars) lead through the page: the route of the four stages fills as you scroll and stops at the stage a visitor picks. Warning tiles (dots) mark the places where entries stall. They are drawn as SVG masks in `src/styles/global.css` (`.tile`, `.guide`, `.dotfield`). The footer says what they are in one line.
+- The deep green field carries healthcare. The contact section is the yellow field.
+- `public/favicon.svg` and the PNG icons are one lit guidance tile, made by `node scripts/brand-assets.mjs`. The share images (`og.jpg`, `og-ja.jpg`) are drawn by `scripts/og/card.html` (open it at 1200 × 630, add `?lang=ja` for Japanese, and save a JPEG screenshot).
+
+## Motion
+
+Headlines rise in on load, text rises and photographs unmask as they arrive, figures count up once, the yellow rules under them draw in, the stall tiles light, the route of guidance tiles fills with the scroll, a thin yellow line under the bar shows how far down the page you are, and pages cross-fade into each other. All of it is switched off for visitors who ask for reduced motion, and every word is in the HTML from the first paint.
 
 ## Images
 
-All archival images are public domain. They show Japan's world, never JungleCode's own work.
+The photographs of Tokyo (`src/assets/photos/`) are generated placeholders, made to set the art direction. Replace them with licensed or commissioned photography before launch, keeping the same file names and roughly the same framing. `src/components/Photos.ts` holds each one's focal point.
 
-| Image | Source |
-| --- | --- |
-| Utagawa Hiroshige, Morning View of Nihonbashi, about 1833 to 1834 | [The Met](https://www.metmuseum.org/art/collection/search/36922) |
-| Hiroshige, Hakone, the Lake | [The Met](https://www.metmuseum.org/art/collection/search/36932) |
-| Hiroshige, Mishima, Morning Mist | [The Met via Wikimedia Commons](https://commons.wikimedia.org/wiki/File:%E6%9D%B1%E6%B5%B7%E9%81%93%E4%BA%94%E5%8D%81%E4%B8%89%E6%AC%A1_%E4%B8%89%E5%B3%B6_%E6%9C%9D%E9%9C%A7-Morning_Mist_at_Mishima_MET_DP122173.jpg) |
-| Hiroshige, Kyoto, the Great Bridge at Sanjo | [The Met via Wikimedia Commons](https://commons.wikimedia.org/wiki/File:%E6%9D%B1%E6%B5%B7%E9%81%93%E4%BA%94%E5%8D%81%E4%B8%89%E6%AC%A1%E4%B9%8B%E5%86%85_%E5%A4%A7%E5%B0%BE_%E4%BA%AC%E5%B8%AB_%E4%B8%89%E6%9D%A1%E5%A4%A7%E6%A9%8B-Kyoto,_Sanjo_Ohashi_MET_DP122235.jpg) |
-| Hiroshige, Kanbara, Night Snow | [Library of Congress via Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Kanbara_LCCN2009615519.jpg) |
-| Preface to Kaitai Shinsho, 1774 | [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Chiikigakusaga_kaitaishinsho1-0001.jpg) |
-
-Founder portraits start from colour masters in `assets-source/portraits/`. Each was made by editing that founder's own original photo into one consistent studio session (the same backdrop, light, framing and shirt) while keeping the face unchanged. They were checked against the originals side by side and with Apple Vision face geometry, landing within about 2% of the source on every measure. `scripts/portraits.mjs` then applies the same crop and monochrome grade to both. Each founder should approve his portrait before launch, and real studio photos can replace the masters at any time.
+Founder portraits start from colour masters in `assets-source/portraits/`. Each was made by editing that founder's own photo into one consistent studio session (the same grey backdrop, soft light and framing) while keeping the face unchanged. They were checked against the source photos side by side and with Apple Vision face geometry, landing within about 1.5% of the source on average. `scripts/portraits.mjs` crops both to 4:5 in colour. Each founder should approve their portrait before launch, and real studio photos can replace the masters at any time.
 
 ## Deploy
 
@@ -69,6 +65,7 @@ Founder portraits start from colour masters in `assets-source/portraits/`. Each 
 - [ ] Paste the real booking link into `BOOKING_URL` in `src/data/config.ts` (until then, "Book 30 minutes" opens a prepared email)
 - [ ] Native-speaker review of everything in `src/data/ja.ts` and the `summary_ja` lines in the notes
 - [ ] Jet and Aditya review their bios, their portraits, the origin story and the sample Readiness Sprint agenda
+- [ ] Replace the generated Tokyo photographs with licensed or commissioned ones
 - [ ] Edit the three draft notes, replace the editor prompts with real examples, set `draft: false`
 - [ ] Confirm the anonymized engagement line ("a North American AI visual-inspection company")
 - [ ] Confirm the healthcare framing (specialist partners lead PMDA filings and reimbursement dossiers)

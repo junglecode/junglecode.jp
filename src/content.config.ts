@@ -1,6 +1,7 @@
 import { defineCollection } from 'astro:content';
 import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
+import { photoKeys } from './data/photoKeys';
 
 const notes = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/notes' }),
@@ -13,10 +14,10 @@ const notes = defineCollection({
     draft: z.boolean().default(false),
     /** Lower comes first among notes with the same date. */
     order: z.number().default(0),
-    /** Which archival print heads the note. */
-    plate: z.enum(['nihonbashi', 'hakone', 'mishima', 'kyoto', 'kanbara', 'kaitai']).default('kanbara'),
-    /** A second print that sits beside the body while reading. */
-    aside: z.enum(['nihonbashi', 'hakone', 'mishima', 'kyoto', 'kanbara', 'kaitai']).default('mishima'),
+    /** The photograph at the top of the note. */
+    plate: z.enum(photoKeys).default('facade'),
+    /** A second photograph that sits beside the body while reading. */
+    aside: z.enum(photoKeys).default('meeting'),
   }),
 });
 

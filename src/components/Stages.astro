@@ -1,0 +1,170 @@
+---
+// How an engagement runs: four stages side by side, and a chooser that marks where the visitor is.
+import { Picture } from 'astro:assets';
+import { photos, focus, type PhotoKey } from './Photos';
+
+interface Station { key: string; name: string; duration: string; text: string; leave: string }
+interface Chooser {
+  label: string;
+  here: string;
+  options: { station: string; label: string; advice: string; engagement: string }[];
+  cta: string;
+}
+interface Props {
+  id: string;
+  label: string;
+  title: string;
+  intro: string;
+  leaveLabel: string;
+  stations: Station[];
+  chooser?: Chooser;
+  photo?: PhotoKey;
+  photoAlt?: string;
+}
+const { id, label, title, intro, leaveLabel, stations, chooser, photo, photoAlt = '' } = Astro.props;
+---
+<section class="stages section" id={id} aria-labelledby={`${id}-title`} data-stages>
+  <div class="wrap grid stages-head">
+    <div class="stages-words" data-reveal>
+      <span class="label">{label}</span>
+      <h2 id={`${id}-title`} class="h2">{title}</h2>
+      <p class="stages-intro">{intro}</p>
+    </div>
+    {photo && (
+      <figure class="stages-photo" data-unmask>
+        <Picture src={photos[photo]} alt={photoAlt} formats={['avif', 'webp']} widths={[640, 960, 1280]} sizes="(max-width: 52rem) 100vw, 36vw" style={`object-position:${focus[photo]}`} />
+      </figure>
+    )}
+  </div>
+
+  {chooser && (
+    <div class="wrap chooser" data-chooser>
+      <p class="chooser-label" id={`${id}-chooser`}>{chooser.label}</p>
+      <div class="chooser-options" role="group" aria-labelledby={`${id}-chooser`}>
+        {chooser.options.map((o) => (
+          <button type="button" aria-pressed="false" data-station={o.station} data-advice={o.advice} data-label={o.label}>{o.label}</button>
+        ))}
+      </div>
+      <p class="chooser-advice" aria-live="polite" data-advice hidden>
+        <span data-advice-text></span> <a href="#contact" class="text-link" data-advice-cta>{chooser.cta}</a>
+      </p>
+    </div>
+  )}
+
+  <div class="wrap">
+    <div class="track" aria-hidden="true" data-track>
+      <span class="guide"></span>
+      <span class="guide guide--lit"></span>
+      <span class="tile tile--dots is-lit track-stop"></span>
+    </div>
+  </div>
+  <ol class="wrap stage-list" data-here-label={chooser?.here ?? ''}>
+    {stations.map((s, i) => (
+      <li class="stage" data-station={s.key} data-reveal>
+        <span class="stage-n">{String(i + 1).padStart(2, '0')}</span>
+        <h3>{s.name}</h3>
+        <p class="stage-duration">{s.duration}</p>
+        <p class="stage-text">{s.text}</p>
+        <p class="stage-leave"><span>{leaveLabel}</span> {s.leave}</p>
+      </li>
+    ))}
+  </ol>
+</section>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-stages]').forEach((root) => {
+    const chooser = root.querySelector<HTMLElement>('[data-chooser]');
+    if (!chooser) return;
+    const buttons = [...chooser.querySelectorAll<HTMLButtonElement>('button')];
+    const out = chooser.querySelector<HTMLElement>('[data-advice]');
+    const text = chooser.querySelector<HTMLElement>('[data-advice-text]');
+    const cta = chooser.querySelector<HTMLAnchorElement>('[data-advice-cta]');
+    const stages = [...root.querySelectorAll<HTMLElement>('.stage')];
+    const hereLabel = root.querySelector<HTMLElement>('.stage-list')?.dataset.hereLabel ?? '';
+    let chosen: HTMLButtonElement | null = null;
+    buttons.forEach((b) => b.addEventListener('click', () => {
+      chosen = b;
+      buttons.forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+      const idx = stages.findIndex((s) => s.dataset.station === b.dataset.station);
+      stages.forEach((s, i) => {
+        s.classList.toggle('is-here', i === idx);
+        s.classList.toggle('is-past', i < idx);
+        s.querySelector('.stage-here')?.remove();
+        if (i === idx && hereLabel) {
+          const tag = document.createElement('span');
+          tag.className = 'stage-here';
+          tag.textContent = hereLabel;
+          s.querySelector('.stage-n')?.after(tag);
+        }
+      });
+      const track = root.querySelector<HTMLElement>('[data-track]');
+      if (track && idx >= 0) {
+        track.style.setProperty('--here', String((idx + 0.5) / stages.length));
+        track.classList.add('has-here');
+      }
+      if (text) text.textContent = b.dataset.advice ?? '';
+      if (out) out.hidden = false;
+    }));
+    cta?.addEventListener('click', () => {
+      if (chosen) document.dispatchEvent(new CustomEvent('jc:stage', { detail: chosen.dataset.label }));
+    });
+  });
+</script>
+
+<style>
+  .stages-head { row-gap: 2rem; align-items: end; }
+  .stages-words { grid-column: 1 / span 8; display: grid; gap: 1rem; }
+  .stages-words h2 { max-width: 23ch; }
+  :global(:root[lang='ja']) .stages-words h2 { max-width: 14em; }
+  .stages-intro { color: var(--soft); max-width: 50ch; }
+  .stages-photo { grid-column: 9 / -1; overflow: hidden; }
+  .stages-photo :global(img) { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; }
+
+  .chooser { margin-top: clamp(2.5rem, 5vw, 4rem); display: none; }
+  :global(.js) .chooser { display: block; }
+  .chooser-label { font-weight: 500; }
+  .chooser-options { margin-top: 0.85rem; display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .chooser-options button {
+    border: 1px solid var(--rule);
+    background: transparent;
+    color: var(--ink);
+    border-radius: 999px;
+    padding: 0.55rem 1rem;
+    font-size: 0.9375rem;
+    transition: background-color var(--dur) var(--ease), border-color var(--dur) var(--ease), color var(--dur) var(--ease);
+  }
+  .chooser-options button:hover { border-color: var(--ink); }
+  .chooser-options button[aria-pressed='true'] { background: var(--signal); border-color: var(--signal); color: var(--signal-ink); }
+  .chooser-advice { margin-top: 1rem; max-width: 70ch; color: var(--soft); }
+  .chooser-advice[hidden] { display: none; }
+
+  .track { position: relative; margin-top: clamp(2.5rem, 5vw, 3.5rem); height: 1.75rem; }
+  .track .guide { position: absolute; inset: 0; }
+  .track .guide--lit { background-color: var(--signal); color: var(--signal-deep); clip-path: inset(0 0 0 0); }
+  .track-stop { --tile: 1.75rem; position: absolute; top: 0; left: calc(var(--here, 1) * 100% - 0.875rem); opacity: 0; transform: scale(0.6); transition: opacity 500ms var(--ease), transform 500ms var(--ease), left 900ms var(--ease); box-shadow: 0 0 0 3px var(--bg); }
+  .track.has-here .track-stop { opacity: 1; transform: none; }
+  .track.has-here .guide--lit { animation: none; clip-path: inset(0 calc(100% - var(--here) * 100%) 0 0); transition: clip-path 900ms var(--ease); }
+  @media (prefers-reduced-motion: no-preference) {
+    :global(.js) .guide--lit { animation: fill-guide 1.8s var(--ease) both; animation-play-state: paused; }
+    :global(.js) .track:global(.is-in) .guide--lit { animation-play-state: running; }
+    @supports (animation-timeline: view()) {
+      :global(.js) .guide--lit { animation: fill-guide linear both; animation-timeline: view(); animation-range: entry 40% cover 55%; }
+    }
+  }
+  @keyframes fill-guide { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
+  .stage-list { margin-top: 1.5rem; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 2.5rem var(--gutter); }
+  .stage { transition: opacity var(--dur) var(--ease); }
+  .stage-n { font-size: var(--step-small); color: var(--soft); font-variant-numeric: tabular-nums; }
+  .stage :global(.stage-here) { margin-left: 0.6rem; font-size: 0.8125rem; font-weight: 500; background: var(--signal); color: var(--signal-ink); border-radius: 999px; padding: 0.15rem 0.6rem; }
+  .stage h3 { margin-top: clamp(1.5rem, 3vw, 2.5rem); font-size: var(--step-title); letter-spacing: -0.035em; }
+  .stage-duration { margin-top: 0.6rem; font-weight: 500; }
+  .stage-text { margin-top: 0.85rem; color: var(--soft); max-width: 34ch; }
+  .stage-leave { margin-top: 1.25rem; padding-top: 1rem; border-top: 1px solid var(--rule); max-width: 34ch; }
+  .stage-leave span { display: block; font-size: var(--step-small); color: var(--soft); margin-bottom: 0.25rem; }
+  .stage.is-past { opacity: 0.45; }
+  @media (max-width: 64rem) { .stage-list { grid-template-columns: repeat(2, minmax(0, 1fr)); } .track-stop { display: none; } }
+  @media (max-width: 52rem) {
+    .stages-words, .stages-photo { grid-column: 1 / -1; }
+  }
+  @media (max-width: 40rem) { .stage-list { grid-template-columns: 1fr; } }
+</style>

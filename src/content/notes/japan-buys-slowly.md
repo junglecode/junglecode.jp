@@ -6,8 +6,8 @@ authors: ["Aditya Pandya"]
 summary_ja: "日本企業の購買は稟議や根回しを経るため時間がかかるが、一度採用されると長く使い続けられるため、AI企業は長い商談期間を前提に、社内の推進者を見つけ、本番導入までの道筋を明記したPoCを設計し、日本語の資料とサポート体制を用意すべきだ。"
 draft: true
 order: 1
-plate: kanbara
-aside: mishima
+plate: facade
+aside: meeting
 ---
 
 If you're bringing an AI product to large Japanese companies, the first thing to recalibrate is your sense of time. The sales cycle you planned around in the US will likely run longer here. That's rarely a sign the deal is dying. It's how decisions get made, and the same process is the reason customers who say yes tend to stay.

@@ -1,0 +1,97 @@
+---
+// Why Japan, why now: one wide photograph and three large sourced figures.
+import { Picture } from 'astro:assets';
+import { photos, focus, type PhotoKey } from './Photos';
+
+interface Props {
+  id?: string;
+  label: string;
+  title: string;
+  lead: string;
+  figures: { value: string; text: string }[];
+  sources: { label: string; href: string }[];
+  sourcesLabel: string;
+  photo: PhotoKey;
+  photoAlt: string;
+}
+const { id = 'why-now', label, title, lead, figures, sources, sourcesLabel, photo, photoAlt } = Astro.props;
+---
+<section class="figures section" id={id} aria-labelledby={`${id}-title`}>
+  <div class="wrap grid fig-head" data-reveal>
+    <span class="label">{label}</span>
+    <h2 id={`${id}-title`} class="h2">{title}</h2>
+    <p class="fig-lead">{lead}</p>
+  </div>
+  <figure class="fig-photo wrap" data-unmask>
+    <Picture src={photos[photo]} alt={photoAlt} formats={['avif', 'webp']} widths={[960, 1440, 1920]} sizes="(max-width: 1680px) 100vw, 1680px" style={`object-position:${focus[photo]}`} />
+  </figure>
+  <div class="wrap">
+    <ul class="fig-list" data-reveal>
+      {figures.map((f) => (
+        <li><span class="fig-value display" data-count={f.value}>{f.value}</span><span class="fig-text">{f.text}</span></li>
+      ))}
+    </ul>
+    <p class="fig-sources">{sourcesLabel}: {sources.map((s, i) => <>{i > 0 && ', '}<a href={s.href} rel="noopener">{s.label}</a></>)}</p>
+  </div>
+</section>
+
+<script>
+  // Figures count up from zero the first time they arrive. Years are left as they are.
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const els = [...document.querySelectorAll<HTMLElement>('[data-count]')];
+  const parse = (v: string) => {
+    const m = v.match(/^(\D*?)([\d,]+(?:\.\d+)?)(.*)$/);
+    if (!m || /^(19|20)\d\d$/.test(m[2])) return null;
+    const digits = m[2].replace(/,/g, '');
+    return { pre: m[1], n: Number(digits), dp: (digits.split('.')[1] ?? '').length, comma: m[2].includes(','), post: m[3] };
+  };
+  if (!reduce && 'IntersectionObserver' in window) {
+    const seen = new IntersectionObserver((entries) => {
+      for (const e of entries) {
+        if (!e.isIntersecting) continue;
+        seen.unobserve(e.target);
+        const el = e.target as HTMLElement;
+        const p = parse(el.dataset.count ?? '');
+        if (!p) continue;
+        const fmt = (x: number) => p.pre + (p.comma ? Math.round(x).toLocaleString('en-US') : x.toFixed(p.dp)) + p.post;
+        const t0 = performance.now();
+        const step = (t: number) => {
+          const k = Math.min(1, (t - t0) / 1600);
+          el.textContent = fmt(p.n * (1 - Math.pow(1 - k, 4)));
+          if (k < 1) requestAnimationFrame(step); else el.textContent = el.dataset.count ?? '';
+        };
+        requestAnimationFrame(step);
+      }
+    }, { threshold: 0.6 });
+    els.forEach((el) => { if (parse(el.dataset.count ?? '')) seen.observe(el); });
+  }
+</script>
+
+<style>
+  .fig-head { row-gap: 1rem; align-items: end; }
+  .fig-head .label { grid-column: 1 / -1; }
+  .fig-head h2 { grid-column: 1 / span 6; max-width: 14ch; }
+  :global(:root[lang='ja']) .fig-head h2 { max-width: 12em; }
+  .fig-lead { grid-column: 8 / -1; color: var(--soft); max-width: 44ch; justify-self: end; }
+  .fig-photo { margin-top: clamp(2.5rem, 5vw, 4rem); }
+  .fig-photo :global(picture) { display: block; overflow: hidden; }
+  .fig-photo :global(img) { width: 100%; aspect-ratio: 21 / 9; object-fit: cover; }
+  .fig-list { margin-top: clamp(2.5rem, 5vw, 4rem); display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2rem var(--gutter); }
+  .fig-list li { position: relative; padding-top: 1.5rem; border-top: 1px solid var(--rule); display: grid; gap: 1rem; align-content: start; }
+  .fig-list li::before { content: ''; position: absolute; left: 0; right: 0; top: -1px; height: 3px; background: var(--signal); transform-origin: 0 50%; }
+  @media (prefers-reduced-motion: no-preference) {
+    :global(.js) .fig-list li::before { transform: scaleX(0); transition: transform 1.4s var(--ease); }
+    :global(.js) .fig-list:global(.is-in) li::before { transform: none; }
+    :global(.js) .fig-list:global(.is-in) li:nth-child(2)::before { transition-delay: 160ms; }
+    :global(.js) .fig-list:global(.is-in) li:nth-child(3)::before { transition-delay: 320ms; }
+  }
+  .fig-value { font-size: var(--step-figure); line-height: 0.9; letter-spacing: -0.045em; font-variant-numeric: lining-nums; }
+  :global(:root[lang='ja']) .fig-value { letter-spacing: -0.01em; line-height: 1.1; }
+  .fig-text { max-width: 34ch; color: var(--soft); }
+  .fig-sources { margin-top: 2.5rem; font-size: var(--step-small); color: var(--soft); max-width: 100ch; }
+  @media (max-width: 52rem) {
+    .fig-head h2, .fig-lead { grid-column: 1 / -1; justify-self: start; }
+    .fig-list { grid-template-columns: 1fr; }
+    .fig-photo :global(img) { aspect-ratio: 4 / 3; }
+  }
+</style>

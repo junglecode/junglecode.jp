@@ -1,0 +1,72 @@
+---
+// Where entries stall: a held photograph on one side, a numbered list on the other.
+import { Picture } from 'astro:assets';
+import { photos, focus, type PhotoKey } from './Photos';
+
+interface Props {
+  id: string;
+  label: string;
+  title: string;
+  intro: string;
+  items: { term: string; reading: string; title: string; text: string }[];
+  photo: PhotoKey;
+  photoAlt: string;
+}
+const { id, label, title, intro, items, photo, photoAlt } = Astro.props;
+---
+<section class="stalls section" id={id} aria-labelledby={`${id}-title`}>
+  <div class="wrap grid">
+    <figure class="stalls-photo" data-unmask>
+      <Picture src={photos[photo]} alt={photoAlt} formats={['avif', 'webp']} widths={[640, 960, 1280]} sizes="(max-width: 52rem) 100vw, 40vw" style={`object-position:${focus[photo]}`} />
+    </figure>
+    <div class="stalls-body">
+      <div class="stalls-head" data-reveal>
+        <span class="label">{label}</span>
+        <h2 id={`${id}-title`} class="h2">{title}</h2>
+        <p class="stalls-intro">{intro}</p>
+      </div>
+      <ol class="stalls-list">
+        {items.map((item, i) => (
+          <li data-reveal>
+            <span class="stall-mark"><span class="tile tile--dots" aria-hidden="true"></span><span class="stall-n">{String(i + 1).padStart(2, '0')}</span></span>
+            <div>
+              <h3>{item.title}</h3>
+              <p class="stall-term"><span>{item.reading}</span> <span lang="ja">{item.term}</span></p>
+              <p class="stall-text">{item.text}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </div>
+</section>
+
+<style>
+  .stalls .grid { align-items: start; }
+  .stalls-photo { grid-column: 1 / span 5; position: sticky; top: calc(var(--nav-h) + 1.5rem); overflow: hidden; }
+  .stalls-photo :global(img) { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; }
+  .stalls-body { grid-column: 7 / -1; }
+  .stalls-head { display: grid; gap: 1rem; }
+  .stalls-head h2 { max-width: 14ch; }
+  :global(:root[lang='ja']) .stalls-head h2 { max-width: 12em; }
+  .stalls-intro { color: var(--soft); max-width: 46ch; }
+  .stalls-list { margin-top: clamp(2.5rem, 5vw, 4rem); }
+  .stalls-list li { display: grid; grid-template-columns: 4.5rem minmax(0, 1fr); gap: 1rem; padding-block: 1.75rem; border-top: 1px solid var(--rule); }
+  .stall-mark { display: grid; gap: 0.6rem; justify-items: start; align-content: start; }
+  .stall-mark .tile { transition: background-color 700ms var(--ease) 250ms, color 700ms var(--ease) 250ms; }
+  .stalls-list li:global(.is-in) .tile, :global(html:not(.js)) .stalls-list .tile { background-color: var(--signal); color: var(--signal-deep); }
+  .stalls-list li:last-child { border-bottom: 1px solid var(--rule); }
+  .stall-n { font-size: var(--step-small); color: var(--soft); font-variant-numeric: tabular-nums; }
+  .stalls-list h3 { font-size: var(--step-subtitle); line-height: 1.12; letter-spacing: -0.025em; }
+  :global(:root[lang='ja']) .stalls-list h3 { line-height: 1.45; }
+  .stall-term { margin-top: 0.5rem; font-size: var(--step-small); color: var(--soft); }
+  .stall-term span + span { margin-left: 0.4rem; }
+  .stall-text { margin-top: 0.85rem; max-width: 58ch; }
+  @media (max-width: 52rem) {
+    .stalls-photo { grid-column: 1 / -1; position: static; margin-bottom: 2.5rem; }
+    .stalls-photo :global(img) { aspect-ratio: 3 / 2; }
+    .stalls-body { grid-column: 1 / -1; }
+    .stalls-list li { grid-template-columns: 3rem minmax(0, 1fr); }
+    .stall-mark .tile { --tile: 2rem; }
+  }
+</style>

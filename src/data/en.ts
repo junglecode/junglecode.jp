@@ -16,7 +16,7 @@ export const en = {
   nav: {
     home: 'JungleCode home',
     links: [
-      { label: 'Route', href: '#route' },
+      { label: 'Approach', href: '#approach' },
       { label: 'Engagements', href: '#engagements' },
       { label: 'Healthcare', href: '/healthcare/' },
       { label: 'Team', href: '#team' },
@@ -33,19 +33,13 @@ export const en = {
     standfirst:
       'We’re two operators who built Indeed Apply together in Tokyo. We help AI companies find Japanese customers, partners and hires.',
     action: 'Book an intro call',
-    secondary: 'See the route',
-    vertical: '日本市場への道',
-    verticalNote: 'The road into the Japanese market',
-    plates: [
-      { key: 'nihonbashi', alt: 'Porters and a daimyo procession crossing Nihonbashi bridge at dawn', caption: 'Utagawa Hiroshige, Morning View of Nihonbashi, about 1833 to 1834. Every journey on the Tōkaidō began here.' },
-      { key: 'hakone', alt: 'Travelers climbing a steep, many-coloured mountain pass above Lake Ashi', caption: 'Utagawa Hiroshige, Hakone, the Lake. The steepest stretch of the road.' },
-      { key: 'mishima', alt: 'Travelers and a palanquin passing a shrine gate in heavy morning mist', caption: 'Utagawa Hiroshige, Mishima, Morning Mist. Arriving before the view is clear.' },
-      { key: 'kyoto', alt: 'Travelers crossing the long red Sanjō bridge into Kyoto below the mountains', caption: 'Utagawa Hiroshige, Kyoto, the Great Bridge at Sanjō. The last station.' },
-    ],
-    cards: {
-      healthcare: { title: 'Healthcare AI in Japan', href: '/healthcare/' },
-      noteFallback: { title: 'How an engagement runs', href: '#route' },
-    },
+    secondary: 'How we work',
+    echo: '海外のAI企業を、日本市場へ。',
+    echoLang: 'ja',
+    place: 'Tokyo and New York',
+    photoAlt: 'Office towers in central Tokyo on a clear morning',
+    photoAltDark: 'Office towers in central Tokyo at dusk, with their windows lit',
+    builtAtLabel: 'Built at',
   },
   intro: {
     lead:
@@ -58,25 +52,27 @@ export const en = {
     ],
   },
   whyNow: {
-    title: 'Why Japan, why now',
-    figure: '11 million',
-    figureText: 'The workers Japan could be short of by 2040 if nothing changes, per Recruit Works Institute. Software that does real work is becoming a necessity.',
-    points: [
-      { runIn: 'A law built to encourage AI.', text: 'The AI Promotion Act, in force since September 2025, takes a pro-innovation approach with no penalties. A Prime Minister-led AI Strategy Headquarters updates the national AI plan every year.' },
-      { runIn: 'Companies are already trying it.', text: 'About one in three Japanese companies used generative AI at work in March 2026, and nearly half of large firms did, in a Teikoku Databank survey of 10,312 firms.' },
-      { runIn: 'Buyers who stay.', text: 'Japanese companies are slow to sign and slow to leave. A customer won properly tends to renew for years, and becomes the reference the next buyer asks for.' },
+    label: 'Why Japan, why now',
+    title: 'A market that needs what AI does',
+    figures: [
+      { value: '11M', text: 'workers Japan could be short of by 2040 if nothing changes, in Recruit Works Institute’s projection.' },
+      { value: '34.5%', text: 'of Japanese companies used generative AI at work in March 2026, and nearly half of large firms did.' },
+      { value: '2025', text: 'the year Japan’s AI Promotion Act took full effect, a pro-innovation law with no penalties.' },
     ],
+    lead: 'Japanese companies are slow to sign and slow to leave. A customer won properly tends to renew for years, and becomes the reference the next buyer asks for.',
     sources: [
       { label: 'Recruit Works Institute, Future Predictions 2040', href: 'https://www.works-i.com/research/report/forecast2040.html' },
-      { label: 'Cabinet Office, AI Promotion Act', href: 'https://www8.cao.go.jp/cstp/ai/ai_act/ai_act.html' },
       { label: 'Teikoku Databank, May 2026', href: 'https://www.tdb.co.jp/report/economic/20260514-genai/' },
+      { label: 'Cabinet Office, AI Promotion Act', href: 'https://www8.cao.go.jp/cstp/ai/ai_act/ai_act.html' },
     ],
     sourcesLabel: 'Sources',
+    photoAlt: 'Commuters on a Tokyo Metro platform as a train pulls in',
   },
   frictions: {
     id: 'stalls',
-    title: 'Where Japan entries stall',
-    intro: 'The product is rarely the problem. These are the places where we see good companies lose a year, and what we do about each.',
+    label: 'Where Japan entries stall',
+    title: 'The product is rarely the problem',
+    intro: 'These are the places where we see good companies lose a year, and what we do about each.',
     items: [
       { term: '稟議', reading: 'ringi', title: 'Decisions are written down and sealed in sequence', text: 'A Japanese purchase moves as a ringi, a document that collects a seal from each manager in turn. Your champion has to write it, and it must answer questions you’ll never hear asked. We give that champion the Japanese-language case, references and risk answers the ringi needs.' },
       { term: '根回し', reading: 'nemawashi', title: 'The meeting confirms what was agreed before it', text: 'By the time a decision meeting happens, the outcome has usually been settled in quiet one-to-one conversations. We map who needs to hear what, in which order and from whom.' },
@@ -86,15 +82,16 @@ export const en = {
     ],
   },
   route: {
-    id: 'route',
-    title: 'The route',
-    intro: 'The old Tōkaidō ran 53 stations from Nihonbashi to Kyoto. A market entry has four, and each one ends with something you can use.',
+    id: 'approach',
+    label: 'How an engagement runs',
+    title: 'Four stages, each ending in something you can use',
+    intro: 'Every engagement moves through the same four stages. Each one ends with something your team can use, so stopping at any point still leaves you better off.',
     leaveLabel: 'You leave with',
     stations: [
-      { key: 'discover', name: 'Discover', jp: '発見', plate: 'nihonbashi', duration: 'Two to four weeks', text: 'We test whether Japan fits your product now, with real conversations rather than desk research.', leave: 'A go or not-yet decision and an entry brief' },
-      { key: 'plan', name: 'Plan', jp: '計画', plate: 'hakone', duration: 'Four to six weeks', text: 'We choose the segment, the positioning, the price and the partners, and name the first accounts to pursue.', leave: 'An entry plan your team can staff' },
-      { key: 'land', name: 'Land', jp: '上陸', plate: 'mishima', duration: 'Three to six months', text: 'Introductions, first meetings, pilots built to convert, a localized product and pitch, and your first local hire.', leave: 'A live pipeline and pilots with conversion terms' },
-      { key: 'scale', name: 'Scale', jp: '定着', plate: 'kyoto', duration: 'Ongoing', text: 'A local entity and team, channel partners, enterprise procurement and renewals.', leave: 'A Japan business that runs without us' },
+      { key: 'discover', name: 'Discover', duration: 'Two to four weeks', text: 'We test whether Japan fits your product now, with real conversations rather than desk research.', leave: 'A go or not-yet decision and an entry brief' },
+      { key: 'plan', name: 'Plan', duration: 'Four to six weeks', text: 'We choose the segment, the positioning, the price and the partners, and name the first accounts to pursue.', leave: 'An entry plan your team can staff' },
+      { key: 'land', name: 'Land', duration: 'Three to six months', text: 'Introductions, first meetings, pilots built to convert, a localized product and pitch, and your first local hire.', leave: 'A live pipeline and pilots with conversion terms' },
+      { key: 'scale', name: 'Scale', duration: 'Ongoing', text: 'A local entity and team, channel partners, enterprise procurement and renewals.', leave: 'A Japan business that runs without us' },
     ],
     chooser: {
       label: 'Where are you on the route?',
@@ -110,7 +107,9 @@ export const en = {
   },
   engagements: {
     id: 'engagements',
-    title: 'Ways to work with us',
+    label: 'Ways to work with us',
+    title: 'Start small, or bring us in for the whole entry',
+    sprintToggle: 'See the four weeks of a Readiness Sprint',
     tiles: [
       { key: 'sprint', name: 'Readiness Sprint', figure: 'Four weeks', who: 'For companies deciding whether to enter Japan.', lines: ['Fixed scope and fixed fee', 'Buyer and partner conversations in Tokyo', 'A go or not-yet call, with reasons', 'Entry brief in English and Japanese'], cta: 'Start with a sprint' },
       { key: 'program', name: 'Entry Program', figure: 'Six months', who: 'For companies ready to land their first customers.', lines: ['Positioning and a Japanese pitch', 'Introductions to buyers and partners', 'Pilots designed with conversion terms', 'Product and documentation localization', 'Your first Japan hire', 'A weekly working session with both of us'], cta: 'Plan an entry' },
@@ -150,7 +149,8 @@ export const en = {
   team: {
     id: 'team',
     title: 'Who you’d work with',
-    origin: 'We built Indeed Apply together in Tokyo, Aditya on product and Jet on engineering. JungleCode is that partnership, pointed at your company.',
+    headline: 'We built Indeed Apply together in Tokyo',
+    origin: 'Aditya on product, Jet on engineering. JungleCode is that partnership, pointed at your company.',
     people: [
       {
         key: 'jet',
@@ -176,15 +176,17 @@ export const en = {
   },
   healthTeaser: {
     id: 'healthcare',
-    title: 'Healthcare AI',
+    label: 'Our specialist practice',
+    title: 'Healthcare AI in Japan',
+    text: 'Nearly three in ten people in Japan are 65 or older, and the health system is short of hands. We help healthcare AI companies reach the hospitals, partners and approvals that adoption depends on.',
     facts: ['29.6% of people in Japan are 65 or older', 'Doctors’ overtime has been capped since April 2024', 'Software can be reimbursed by national insurance'],
     action: 'Read the healthcare brief',
     href: '/healthcare/',
-    caption: 'Preface to Kaitai Shinsho, 1774, the first Japanese translation of a Western anatomy text.',
-    alt: 'A page of classical Chinese text with red seal stamps, from the 1774 preface to Kaitai Shinsho',
+    alt: 'A clinician walking down a bright, modern hospital corridor',
   },
   notes: {
     id: 'notes',
+    label: 'Written by the two of us',
     title: 'Notes',
     read: 'Read the note',
     countLine: (n: number) => `${n === 1 ? 'One note' : n === 2 ? 'Two notes' : n === 3 ? 'Three notes' : n === 4 ? 'Four notes' : `${n} notes`} so far, written by the two of us.`,
@@ -232,11 +234,11 @@ export const en = {
   footer: {
     places: ['Tokyo', 'New York'],
     columns: [
-      { title: 'Site', links: [{ label: 'The route', href: '/#route' }, { label: 'Engagements', href: '/#engagements' }, { label: 'Healthcare', href: '/healthcare/' }, { label: 'Notes', href: '/notes/' }] },
+      { title: 'Site', links: [{ label: 'How we work', href: '/#approach' }, { label: 'Engagements', href: '/#engagements' }, { label: 'Healthcare', href: '/healthcare/' }, { label: 'Notes', href: '/notes/' }] },
       { title: 'Company', links: [{ label: 'Team', href: '/#team' }, { label: 'Privacy', href: '/privacy/' }, { label: '日本語', href: '/ja/' }] },
       { title: 'Elsewhere', links: [{ label: 'junglecode.net', href: 'https://junglecode.net' }, { label: 'Jet on LinkedIn', href: 'https://www.linkedin.com/in/jetvillegas/' }, { label: 'Aditya on LinkedIn', href: 'https://www.linkedin.com/in/adityapandya/' }] },
     ],
-    credits: 'Prints by Utagawa Hiroshige, courtesy of The Metropolitan Museum of Art and the Library of Congress. Kaitai Shinsho via Wikimedia Commons. All in the public domain.',
+    credits: 'The yellow tiles on this site are tenji blocks, the tactile paving first laid in Okayama in 1967 that now guides people through every station in Japan.',
     top: 'Back to top',
     copyright: (y: number) => `© ${y} JungleCode`,
   },
@@ -255,9 +257,7 @@ export const en = {
     hero: {
       title: 'Bring healthcare<br /> AI to Japan',
       standfirst: 'Nearly three in ten people in Japan are 65 or older, and the health system is short of hands. We help healthcare AI companies reach the hospitals, partners and approvals that adoption depends on.',
-      vertical: '医療AIを日本へ',
-      plateAlt: 'A page of classical Chinese text with red seal stamps, from the 1774 preface to Kaitai Shinsho',
-      plateCaption: 'Preface to Kaitai Shinsho, 1774. Japanese physicians translated a Dutch anatomy text and changed how medicine was practiced here.',
+      photoAlt: 'A clinician walking down a bright, modern hospital corridor',
     },
     intro: {
       lead: 'Outside medical knowledge has always reached Japan through people who could translate it, in every sense. We translate products, evidence and workflows for Japanese hospitals, and work with specialists on everything regulated.',
@@ -269,27 +269,29 @@ export const en = {
       ],
     },
     whyNow: {
-      title: 'Why Japan, why now',
-      figure: '29.6%',
-      figureText: 'of Japan’s population is 65 or older, a record. The share is projected to reach about 35% by 2040.',
-      points: [
-        { runIn: 'A system short of hands.', text: 'Overtime for hospital doctors has been capped since April 2024, and the health ministry expects Japan to need 570,000 more care workers in 2040 than it had in 2022.' },
-        { runIn: 'A defined path for software.', text: 'Japan has a national strategy for software medical devices (DASH for SaMD), a two-step approval route, and a scheme for approving planned AI model updates in advance (IDATEN).' },
-        { runIn: 'Precedents for payment.', text: 'Software can be reimbursed. CureApp’s apps for quitting smoking and for hypertension have been covered by national insurance since 2020 and 2022.' },
+      label: 'Why Japan, why now',
+      title: 'A health system that needs help',
+      figures: [
+        { value: '29.6%', text: 'of Japan’s population is 65 or older, a record, and the share is projected to reach about 35% by 2040.' },
+        { value: '570,000', text: 'more care workers Japan will need in 2040 than it had in 2022, by the health ministry’s estimate.' },
+        { value: '2024', text: 'the year overtime caps for hospital doctors took effect.' },
       ],
+      lead: 'Japan has a national strategy for software medical devices (DASH for SaMD), a two-step approval route and a way to approve planned AI model updates in advance (IDATEN). Software can be reimbursed too. CureApp’s apps for quitting smoking and for hypertension have been covered by national insurance since 2020 and 2022.',
       sources: [
         { label: 'Statistics Bureau of Japan, September 2026', href: 'https://www.stat.go.jp/data/topics/pdf/topics149.pdf' },
-        { label: 'MHLW, doctors’ work-style reform', href: 'https://c2-shinsasoshiki.mhlw.go.jp/system/' },
         { label: 'MHLW, care workforce estimate', href: 'https://www.mhlw.go.jp/stf/newpage_41379.html' },
+        { label: 'MHLW, doctors’ work-style reform', href: 'https://c2-shinsasoshiki.mhlw.go.jp/system/' },
         { label: 'MHLW, DASH for SaMD 2', href: 'https://www.mhlw.go.jp/content/11121000/001142990.pdf' },
         { label: 'PMDA, IDATEN', href: 'https://www.pmda.go.jp/files/000266836.pdf' },
         { label: 'MHLW, Chuikyo materials on CureApp', href: 'https://www.mhlw.go.jp/content/12404000/001197876.pdf' },
       ],
+      photoAlt: 'An open-plan office floor in a Tokyo tower with the skyline beyond',
     },
     frictions: {
       id: 'stalls',
-      title: 'Where healthcare entries stall',
-      intro: 'Approval gets the attention. Adoption is usually decided by things around it.',
+      label: 'Where healthcare entries stall',
+      title: 'Approval gets the attention',
+      intro: 'Adoption is usually decided by the things around it.',
       items: [
         { term: '薬機法', reading: 'PMD Act', title: 'Is it a medical device at all?', text: 'Software with a medical purpose that could affect a patient’s health is regulated as a medical device under the PMD Act, and overseas makers need a marketing authorization holder in Japan. Classification decides everything after it, so we settle it first with specialist regulatory advisers.' },
         { term: 'PMDA相談', reading: 'PMDA consultation', title: 'Approval starts with a conversation', text: 'The PMDA offers early consultations, and Japan’s software device strategy added a two-step approval route and advance approval for planned AI updates. We help you prepare for those conversations and bring in the specialists who lead them.' },
@@ -305,10 +307,10 @@ export const en = {
       intro: 'The same four stations, with specialists joining where the work is regulated.',
       leaveLabel: 'You leave with',
       stations: [
-        { key: 'discover', name: 'Discover', jp: '発見', plate: 'nihonbashi', duration: 'Three to five weeks', text: 'Market and clinical fit, with an early regulatory view from specialist advisers.', leave: 'A classification view and a go or not-yet decision' },
-        { key: 'plan', name: 'Plan', jp: '計画', plate: 'hakone', duration: 'Six to ten weeks', text: 'Pathway, evidence and reimbursement planning with partners, plus pilot sites and clinical champions.', leave: 'An entry plan with regulatory and evidence steps' },
-        { key: 'land', name: 'Land', jp: '上陸', plate: 'mishima', duration: 'Six to twelve months', text: 'Hospital pilots, EMR integration, Japanese clinical content and support for consultations and filings.', leave: 'Pilots in hospitals and a filing plan under way' },
-        { key: 'scale', name: 'Scale', jp: '定着', plate: 'kyoto', duration: 'Ongoing', text: 'Reimbursement strategy, medical society engagement, distribution and channel partners.', leave: 'A healthcare business in Japan that can grow' },
+        { key: 'discover', name: 'Discover', duration: 'Three to five weeks', text: 'Market and clinical fit, with an early regulatory view from specialist advisers.', leave: 'A classification view and a go or not-yet decision' },
+        { key: 'plan', name: 'Plan', duration: 'Six to ten weeks', text: 'Pathway, evidence and reimbursement planning with partners, plus pilot sites and clinical champions.', leave: 'An entry plan with regulatory and evidence steps' },
+        { key: 'land', name: 'Land', duration: 'Six to twelve months', text: 'Hospital pilots, EMR integration, Japanese clinical content and support for consultations and filings.', leave: 'Pilots in hospitals and a filing plan under way' },
+        { key: 'scale', name: 'Scale', duration: 'Ongoing', text: 'Reimbursement strategy, medical society engagement, distribution and channel partners.', leave: 'A healthcare business in Japan that can grow' },
       ],
     },
     roles: {
@@ -334,15 +336,15 @@ export const en = {
     ],
   },
   notFound: {
-    title: 'This station doesn’t exist',
+    title: 'This page doesn’t exist',
     text: 'The page you asked for isn’t here. If you followed a link to the older version of this site, everything has moved. How we work is on the home page, and our healthcare work has its own page.',
     home: 'Back to the start',
-    pick: 'Or pick a station',
+    pick: 'Or go to',
     stations: [
-      { plate: 'nihonbashi', label: 'The start', href: '/' },
-      { plate: 'hakone', label: 'The route', href: '/#route' },
-      { plate: 'mishima', label: 'Healthcare', href: '/healthcare/' },
-      { plate: 'kyoto', label: 'Talk to us', href: '/#contact' },
+      { photo: 'tower-morning', label: 'The start', href: '/' },
+      { photo: 'meeting', label: 'How we work', href: '/#approach' },
+      { photo: 'clinic', label: 'Healthcare', href: '/healthcare/' },
+      { photo: 'street-evening', label: 'Talk to us', href: '/#contact' },
     ],
     meta: { title: 'Page not found | JungleCode', description: 'This page does not exist.' },
   },
