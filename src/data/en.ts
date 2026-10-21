@@ -48,7 +48,7 @@ export const en = {
       { runIn: 'Who we are.', text: 'Jet Villegas and Aditya Pandya. Jet ran engineering for Indeed Apply and then Search Advertising from Tokyo. Aditya ran product for Indeed Apply from Tokyo and later led product at Red Ventures.' },
       { runIn: 'What we do.', text: 'We help AI companies decide whether Japan is right for them now. Then we find the first customers, partners and hires, adapt the product and the pitch, and get through procurement.' },
       { runIn: 'Where we are.', text: 'Tokyo and New York. Jet is on the ground in Tokyo for meetings, partners and hiring. Aditya works from New York, in your hours if you’re in the Americas.' },
-      { runIn: 'How to start.', text: 'A 30-minute intro call. Tell us what you’re building and why Japan, and we’ll tell you honestly whether now is the time.', link: { label: EMAIL, href: `mailto:${EMAIL}` } },
+      { runIn: 'How to start.', text: 'A 30-minute intro call. Tell us what you’re building and why Japan, and we’ll tell you honestly whether now is the time.' },
     ],
   },
   whyNow: {
@@ -235,8 +235,7 @@ export const en = {
     places: ['Tokyo', 'New York'],
     columns: [
       { title: 'Site', links: [{ label: 'How we work', href: '/#approach' }, { label: 'Engagements', href: '/#engagements' }, { label: 'Healthcare', href: '/healthcare/' }, { label: 'Notes', href: '/notes/' }] },
-      { title: 'Company', links: [{ label: 'Team', href: '/#team' }, { label: 'Privacy', href: '/privacy/' }, { label: '日本語', href: '/ja/' }] },
-      { title: 'Elsewhere', links: [{ label: 'junglecode.net', href: 'https://junglecode.net' }, { label: 'Jet on LinkedIn', href: 'https://www.linkedin.com/in/jetvillegas/' }, { label: 'Aditya on LinkedIn', href: 'https://www.linkedin.com/in/adityapandya/' }] },
+      { title: 'Company', links: [{ label: 'Team', href: '/#team' }, { label: 'Privacy', href: '/privacy/' }, { label: '日本語', href: '/ja/' }, { label: 'junglecode.net', href: 'https://junglecode.net' }] },
     ],
     credits: 'The yellow tiles on this site are tenji blocks, the tactile paving first laid in Okayama in 1967 that now guides people through every station in Japan.',
     top: 'Back to top',

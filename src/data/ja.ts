@@ -49,7 +49,7 @@ export const ja: SiteCopy = {
       { runIn: '私たちについて。', text: 'Jet VillegasとAditya Pandya。Jetは東京でIndeed Applyと検索広告のエンジニアリングを率いました。Adityaは東京でIndeed Applyのプロダクトを率い、その後Red Venturesでプロダクト部門を統括しました。' },
       { runIn: '支援内容。', text: '日本市場に今参入すべきかの判断から始め、最初の顧客、パートナー、採用候補を見つけ、プロダクトと提案を日本向けに整え、調達のプロセスを乗り越えるまでを支援します。' },
       { runIn: '拠点。', text: '東京とニューヨーク。Jetは東京で商談、パートナー、採用を担当し、Adityaはニューヨークから米州の営業時間に合わせて対応します。' },
-      { runIn: '始め方。', text: 'まずは30分のご相談から。何をつくっていて、なぜ日本なのかをお聞かせください。今が適切な時期かどうかを率直にお伝えします。', link: { label: EMAIL, href: `mailto:${EMAIL}` } },
+      { runIn: '始め方。', text: 'まずは30分のご相談から。何をつくっていて、なぜ日本なのかをお聞かせください。今が適切な時期かどうかを率直にお伝えします。' },
     ],
   },
   whyNow: {
@@ -236,8 +236,7 @@ export const ja: SiteCopy = {
     places: ['東京', 'ニューヨーク'],
     columns: [
       { title: 'サイト', links: [{ label: '進め方', href: '/ja/#approach' }, { label: '支援の形', href: '/ja/#engagements' }, { label: '医療', href: '/ja/healthcare/' }, { label: 'ノート', href: '/ja/notes/' }] },
-      { title: '会社', links: [{ label: 'チーム', href: '/ja/#team' }, { label: 'プライバシー', href: '/ja/privacy/' }, { label: 'English', href: '/' }] },
-      { title: 'リンク', links: [{ label: 'junglecode.net', href: 'https://junglecode.net' }, { label: 'JetのLinkedIn', href: 'https://www.linkedin.com/in/jetvillegas/' }, { label: 'AdityaのLinkedIn', href: 'https://www.linkedin.com/in/adityapandya/' }] },
+      { title: '会社', links: [{ label: 'チーム', href: '/ja/#team' }, { label: 'プライバシー', href: '/ja/privacy/' }, { label: 'English', href: '/' }, { label: 'junglecode.net', href: 'https://junglecode.net' }] },
     ],
     credits: 'このサイトの黄色いタイルは点字ブロックです。1967年に岡山で初めて敷かれ、いまでは日本中の駅で人を導いています。',
     top: 'ページの先頭へ',

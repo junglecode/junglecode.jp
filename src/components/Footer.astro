@@ -5,13 +5,16 @@ import type { SiteCopy } from '../data/en';
 interface Props { copy: SiteCopy }
 const { copy } = Astro.props;
 const year = 2026;
+// The email appears once per page: pages with a contact section or the privacy note already give it.
+const path = Astro.url.pathname;
+const showEmail = !/^\/(ja\/)?(healthcare\/|privacy\/)?$/.test(path);
 ---
 <footer class="footer">
   <div class="wrap">
     <div class="footer-row">
       <ul class="footer-places">
         {copy.footer.places.map((p) => <li>{p}</li>)}
-        <li><a href={`mailto:${EMAIL}`}>{EMAIL}</a></li>
+        {showEmail && <li><a href={`mailto:${EMAIL}`}>{EMAIL}</a></li>}
       </ul>
       <div class="footer-cols">
         {copy.footer.columns.map((col) => (
@@ -43,7 +46,7 @@ const year = 2026;
   .footer-places li { font-family: var(--font-display); font-size: var(--step-title); line-height: 1.2; letter-spacing: -0.025em; }
   .footer-places a { text-decoration-color: transparent; }
   .footer-places a:hover { text-decoration-color: currentColor; }
-  .footer-cols { grid-column: 7 / -1; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--gutter); }
+  .footer-cols { grid-column: 7 / -1; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--gutter); }
   .footer-col-title { font-size: var(--step-small); color: var(--soft); margin-bottom: 0.75rem; }
   .footer-cols ul { display: grid; gap: 0.4rem; }
   .footer-cols a { text-decoration-color: transparent; }

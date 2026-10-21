@@ -14,11 +14,10 @@ interface Props {
   people: Person[];
   nameTitle: string;
   nameText: string;
-  localTime: string;
   /** Japanese bios put the name inside the sentence, so the name isn't repeated before them. */
   nameInBio?: boolean;
 }
-const { id, label, headline, origin, people, nameTitle, nameText, localTime, nameInBio = false } = Astro.props;
+const { id, label, headline, origin, people, nameTitle, nameText, nameInBio = false } = Astro.props;
 const portraits = { jet, aditya } as const;
 ---
 <section class="team section" id={id} aria-labelledby={`${id}-title`}>
@@ -37,7 +36,7 @@ const portraits = { jet, aditya } as const;
           </figure>
           <div class="person-text" data-reveal>
             <h3>{p.name}</h3>
-            <p class="person-meta"><span class="live" aria-hidden="true"></span>{p.facts[0]}, <span data-clock={PEOPLE[key].tz}></span> {localTime}</p>
+            <p class="person-meta">{p.facts[0]}</p>
             <p class="person-bio">{!nameInBio && <>{p.name} </>}{p.bio}</p>
             <p class="person-link"><a href={PEOPLE[key].linkedin} rel="noopener">{p.link}</a></p>
           </div>
@@ -62,9 +61,6 @@ const portraits = { jet, aditya } as const;
   .person-photo { overflow: hidden; background: var(--surface); aspect-ratio: 4 / 5; border-radius: var(--radius); }
   .person-photo :global(img) { width: 100%; height: 100%; object-fit: cover; transition: transform 1.4s var(--ease); }
   .person:hover .person-photo :global(img) { transform: scale(1.03); }
-  .live { display: inline-block; width: 0.5rem; height: 0.5rem; margin-right: 0.5rem; border-radius: 999px; background: var(--signal); vertical-align: 0.05em; box-shadow: 0 0 0 0 var(--signal); }
-  @media (prefers-reduced-motion: no-preference) { .live { animation: live 2.4s ease-out infinite; } }
-  @keyframes live { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--signal) 70%, transparent); } 70%, 100% { box-shadow: 0 0 0 0.45rem transparent; } }
   .person-text { margin-top: -0.2rem; }
   .person-text h3 { font-size: var(--step-title); letter-spacing: -0.03em; }
   .person-meta { margin-top: 0.5rem; font-size: var(--step-small); color: var(--soft); }

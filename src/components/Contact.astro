@@ -30,7 +30,7 @@ const follow = cut > 0 ? c.statement.slice(cut).trim() : '';
         {people.map((p) => (
           <li>
             <Image src={p.img} alt="" width={112} height={112} />
-            <span><b>{p.first}</b><span class="contact-time">{p.place}{ja ? '、' : ', '}<span data-clock={p.tz}></span>{ja ? '' : ` ${c.localTime}`}</span></span>
+            <span><b>{p.first}</b><span class="contact-time"><span class="live" aria-hidden="true"></span>{p.place}{ja ? '、' : ', '}<span data-clock={p.tz}></span>{ja ? '' : ` ${c.localTime}`}</span></span>
           </li>
         ))}
       </ul>
@@ -141,9 +141,12 @@ const follow = cut > 0 ? c.statement.slice(cut).trim() : '';
   :global(:root[lang='ja']) .contact-statement { font-size: clamp(1.6rem, 1.1rem + 1.8vw, 2.6rem); line-height: 1.45; max-width: 13em; }
   .contact-people { display: grid; gap: 0.85rem; margin-top: 0.5rem; }
   .contact-people li { display: flex; align-items: center; gap: 0.9rem; }
-  .contact-people :global(img) { width: 3.5rem; height: 3.5rem; border-radius: 999px; object-fit: cover; object-position: 50% 26%; border: 2px solid var(--signal-ink); }
+  .contact-people :global(img) { width: 3.5rem; height: 3.5rem; border-radius: 999px; object-fit: cover; object-position: 50% 3%; border: 2px solid var(--signal-ink); }
   .contact-people b { display: block; font-weight: 500; }
   .contact-time { font-size: var(--step-small); color: var(--soft); }
+  .live { display: inline-block; width: 0.5rem; height: 0.5rem; margin-right: 0.45rem; border-radius: 999px; background: var(--signal-ink); vertical-align: 0.05em; }
+  @media (prefers-reduced-motion: no-preference) { .live { animation: live 2.4s ease-out infinite; } }
+  @keyframes live { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--signal-ink) 45%, transparent); } 70%, 100% { box-shadow: 0 0 0 0.4rem transparent; } }
   .contact-links { display: grid; gap: 0.35rem; }
   .contact-question { font-weight: 500; margin-bottom: 0.25rem; }
   .contact-reply { margin-top: 0.5rem; font-size: var(--step-small); color: var(--soft); }
