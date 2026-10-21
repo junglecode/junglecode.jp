@@ -33,12 +33,12 @@ const showEmail = !/^\/(ja\/)?(healthcare\/|privacy\/)?$/.test(path);
     <p class="footer-name" aria-hidden="true" data-arrive>{[...'JungleCode'].map((ch, i) => <span style={`--i:${i}`}>{ch}</span>)}</p>
     <div class="footer-legal">
       <p>{copy.footer.copyright(year)}</p>
-      <p class="footer-credits">
-        {copy.footer.credits}{' '}
-        {copy.footer.photoCredit.before} ({copy.footer.photoCredit.links.map((l, i) => <>{i > 0 && ', '}<a href={l.href} rel="noopener">{l.label}</a></>)}), <a href={copy.footer.photoCredit.licence.href} rel="noopener license">{copy.footer.photoCredit.licence.label}</a>.
-      </p>
+      {copy.footer.credits && <p class="footer-credits">{copy.footer.credits}</p>}
       <a class="footer-top" href="#main">{copy.footer.top}</a>
     </div>
+    <p class="footer-photos">
+      {copy.footer.photoCredits.label}: {copy.footer.photoCredits.items.map((p, i) => <>{i > 0 && ' · '}<a href={p.href} rel="noopener">{p.what}</a>, {p.by}, <a href={p.licenceHref} rel="noopener license">{p.licence}</a></>)}
+    </p>
   </div>
 </footer>
 
@@ -77,6 +77,9 @@ const showEmail = !/^\/(ja\/)?(healthcare\/|privacy\/)?$/.test(path);
   .footer-legal { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.75rem 2rem; padding-block: 2rem 2.5rem; font-size: var(--step-small); color: var(--soft); }
   .footer-credits { max-width: 60ch; }
   .footer-top { color: var(--ink); }
+  .footer-photos { padding-bottom: 1.5rem; margin-top: -1rem; font-size: 0.75rem; line-height: 1.5; color: var(--soft); }
+  .footer-photos a { text-decoration-color: transparent; }
+  .footer-photos a:hover { text-decoration-color: currentColor; }
   @media (max-width: 52rem) {
     .footer-places, .footer-cols { grid-column: 1 / -1; }
     .footer-cols { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 2rem; }

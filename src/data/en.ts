@@ -37,8 +37,8 @@ export const en = {
     echo: '海外のAI企業を、日本市場へ。',
     echoLang: 'ja',
     place: 'Tokyo and New York',
-    photoAlt: 'The Minato skyline at golden hour, with Tokyo Tower among the office towers',
-    photoAltDark: 'Tokyo Tower lit gold among the high-rises of Minato at night',
+    photoAlt: 'Central Tokyo from Ebisu on a clear day, low-rise streets running out to the towers of Roppongi and Toranomon',
+    photoAltDark: 'The towers of Shinjuku at dusk, seen across Shibuya from Ebisu',
     builtAtLabel: 'Built at',
   },
   intro: {
@@ -238,7 +238,13 @@ export const en = {
       { title: 'Company', links: [{ label: 'Team', href: '/#team' }, { label: 'Privacy', href: '/privacy/' }, { label: '日本語', href: '/ja/' }, { label: 'junglecode.net', href: 'https://junglecode.net' }] },
     ],
     credits: 'The yellow tiles on this site are tenji blocks, the tactile paving first laid in Okayama in 1967 that now guides people through every station in Japan.',
-    photoCredit: { before: 'Photographs of Tokyo Tower by David Kernan', links: [{ label: 'day', href: 'https://commons.wikimedia.org/wiki/File:Minato_City,_Tokyo,_Japan.jpg' }, { label: 'night', href: 'https://commons.wikimedia.org/wiki/File:Tokyo_Tower,_Minato_City.jpg' }], licence: { label: 'CC BY 4.0', href: 'https://creativecommons.org/licenses/by/4.0/' } },
+    photoCredits: {
+      label: 'Photographs',
+      items: [
+        { what: 'Tokyo from Ebisu by day', by: 'Supanut Arunoprayote', href: 'https://commons.wikimedia.org/wiki/File:Panoramic_View_of_Minato_20241020.jpg', licence: 'CC BY 4.0', licenceHref: 'https://creativecommons.org/licenses/by/4.0/' },
+        { what: 'Shinjuku at dusk', by: 'Ximonic (Simo Räsänen)', href: 'https://commons.wikimedia.org/wiki/File:Shibuya_and_Shinjuku_from_Yebisu_Garden_Place_Tower,_Ebisu,_Tokyo,_Japan,_2024_May.jpg', licence: 'CC BY-SA 4.0', licenceHref: 'https://creativecommons.org/licenses/by-sa/4.0/' },
+      ],
+    },
     top: 'Back to top',
     copyright: (y: number) => `© ${y} JungleCode`,
   },
