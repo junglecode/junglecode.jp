@@ -1,0 +1,109 @@
+---
+// One image cut across a board of square tiles. Five tiles are swapped for flat colour:
+// the heading, three facts and the action.
+import { getImage } from 'astro:assets';
+import { plates } from './Plates';
+
+interface Props { id: string; title: string; facts: string[]; action: string; href: string; caption: string; alt: string }
+const { id, title, facts, action, href, caption, alt } = Astro.props;
+
+const wide = await getImage({ src: plates.kaitai, width: 1920, format: 'webp' });
+const narrow = await getImage({ src: plates.kaitai, width: 1100, format: 'webp' });
+
+// 6 × 4 board on desktop. Colour tiles are placed so no two touch.
+const cols = 6;
+const rows = 4;
+// The heading takes cells 0 and 1, so cell 1 is skipped.
+const special: Record<number, { kind: 'title' | 'fact' | 'action'; i?: number }> = {
+  0: { kind: 'title' },
+  9: { kind: 'fact', i: 0 },
+  14: { kind: 'fact', i: 1 },
+  19: { kind: 'fact', i: 2 },
+  23: { kind: 'action' },
+};
+const tiles = Array.from({ length: cols * rows }, (_, n) => ({ n, col: n % cols, row: Math.floor(n / cols), special: special[n] })).filter((t) => t.n !== 1);
+---
+<section class="mosaic-section section" id={id} aria-labelledby={`${id}-title`}>
+  <div
+    class="mosaic"
+    style={`--img-wide:url(${wide.src})`}
+    role="group"
+    aria-labelledby={`${id}-title`}
+  >
+    <img class="mosaic-photo" src={narrow.src} alt={alt} width="1100" height="733" loading="lazy" decoding="async" />
+    {tiles.map((t) =>
+      t.special?.kind === 'title' ? (
+        <div class="tile-c tile-c--title"><h2 id={`${id}-title`}>{title}</h2></div>
+      ) : t.special?.kind === 'fact' ? (
+        <div class:list={['tile-c', 'tile-c--fact', `fact-${t.special.i}`]}><p>{facts[t.special.i ?? 0]}</p></div>
+      ) : t.special?.kind === 'action' ? (
+        <a class="tile-c tile-c--action" href={href}><span>{action}</span><span class="arrow" aria-hidden="true">→</span></a>
+      ) : (
+        <div class="tile-img" style={`--c:${t.col};--r:${t.row}`} aria-hidden="true"><span></span></div>
+      ),
+    )}
+  </div>
+  <p class="mosaic-caption wrap">{caption}</p>
+</section>
+
+<style>
+  .mosaic-section { padding-block: var(--section) calc(var(--section) * 0.7); }
+  .mosaic {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 8px;
+    padding-inline: 12px;
+    max-width: 1920px;
+    margin-inline: auto;
+  }
+  .mosaic > * { aspect-ratio: 1; min-width: 0; }
+  .tile-img { position: relative; overflow: hidden; background: var(--paper-2); }
+  .tile-img span {
+    position: absolute;
+    inset: 0;
+    background-image: var(--img-wide);
+    background-size: 600% 400%;
+    background-position: calc(var(--c) * 20%) calc(var(--r) * 33.333%);
+    transition: transform 900ms var(--ease-out);
+  }
+  .tile-img:hover span { transform: scale(1.08); }
+  .tile-c {
+    display: flex;
+    padding: clamp(0.75rem, 1.4vw, 1.25rem);
+    background: var(--paper-2);
+    color: var(--ink);
+  }
+  .tile-c--title { grid-column: span 2; aspect-ratio: auto; background: var(--sumi); color: var(--on-sumi); align-items: flex-start; }
+  .tile-c--title h2 { font-size: var(--step-head); line-height: 1; }
+  :global(:root[lang='ja']) .tile-c--title h2 { line-height: 1.3; }
+  .tile-c--fact { align-items: flex-end; }
+  .tile-c--fact p { line-height: 1.3; font-weight: 500; }
+  .fact-1 { background: var(--paper-3); }
+  .tile-c--action {
+    background: var(--shu);
+    color: var(--on-shu);
+    flex-direction: column;
+    justify-content: space-between;
+    text-decoration: none;
+    font-weight: 500;
+    line-height: 1.3;
+    transition: background-color var(--dur-fast) ease;
+  }
+  .tile-c--action:hover { background: var(--shu-deep); color: var(--on-shu); }
+  .tile-c--action .arrow { align-self: flex-end; font-size: 2rem; transition: transform var(--dur) var(--ease-out); }
+  .tile-c--action:hover .arrow { transform: translateX(6px); }
+  .mosaic-caption { margin-top: 1rem; font-size: var(--step-small); color: var(--ink-soft); }
+
+  /* On desktop the picture is read through the tiles. The real image stays for assistive tech. */
+  .mosaic-photo { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+
+  /* On a phone: the whole picture, then the colour tiles two by two. */
+  @media (max-width: 52rem) {
+    .mosaic { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; padding-inline: var(--margin); }
+    .tile-img { display: none; }
+    .mosaic-photo { position: static; width: 100%; height: auto; clip: auto; grid-column: 1 / -1; order: 1; aspect-ratio: 3 / 2; object-fit: cover; }
+    .tile-c--title { grid-column: 1 / -1; order: 0; aspect-ratio: auto; min-height: 6rem; }
+    .tile-c--fact, .tile-c--action { order: 2; aspect-ratio: 1; }
+    .tile-c--action { order: 3; }
+  }
+</style>

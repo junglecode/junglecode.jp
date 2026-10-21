@@ -1,0 +1,80 @@
+---
+import Base from '../layouts/Base.astro';
+import Hero from './Hero.astro';
+import Intro from './Intro.astro';
+import WhyNow from './WhyNow.astro';
+import Frictions from './Frictions.astro';
+import RouteMap from './RouteMap.astro';
+import Engagements from './Engagements.astro';
+import Sprint from './Sprint.astro';
+import Team from './Team.astro';
+import HealthTeaser from './HealthTeaser.astro';
+import NotesDeck from './NotesDeck.astro';
+import Contact from './Contact.astro';
+import { getNotes, formatDate } from '../data/notes';
+import type { SiteCopy } from '../data/en';
+
+interface Props { copy: SiteCopy }
+const { copy } = Astro.props;
+const ja = copy.locale === 'ja';
+const prefix = ja ? '/ja' : '';
+const notes = await getNotes();
+const latest = notes[0];
+
+const navLinks = copy.nav.links
+  .filter((l) => notes.length > 0 || l.href !== '#notes')
+  .map((l) => (l.href === '/healthcare/' ? { ...l, href: `${prefix}/healthcare/` } : l));
+
+const cards = [
+  { title: copy.hero.cards.healthcare.title, href: `${prefix}/healthcare/`, plate: 'kaitai' as const, alt: '' },
+  latest
+    ? { title: latest.data.title, href: `/notes/${latest.id}/`, plate: 'kanbara' as const, alt: '' }
+    : { title: copy.hero.cards.noteFallback.title, href: copy.hero.cards.noteFallback.href, plate: 'kanbara' as const, alt: '' },
+];
+---
+<Base copy={copy} title={copy.meta.title} description={copy.meta.description} enPath="/" navLinks={navLinks}>
+  <Hero
+    copy={copy}
+    title={copy.hero.title}
+    standfirst={copy.hero.standfirst}
+    vertical={copy.hero.vertical}
+    plateList={copy.hero.plates}
+    cards={cards}
+    action={{ label: copy.hero.action, href: '#contact' }}
+    secondary={{ label: copy.hero.secondary, href: '#route' }}
+  >
+    <Intro lead={copy.intro.lead} columns={copy.intro.columns} />
+  </Hero>
+  <WhyNow {...copy.whyNow} />
+  <Frictions {...copy.frictions} />
+  <RouteMap {...copy.route} />
+  <Engagements {...copy.engagements} ctaHref="#contact" />
+  <Sprint
+    {...copy.sprint}
+    action={{ label: copy.sprint.action, href: '#contact' }}
+    names={{ jet: copy.team.people[0].name, aditya: copy.team.people[1].name }}
+  />
+  <Team {...copy.team} nameInBio={ja} />
+  <HealthTeaser {...copy.healthTeaser} href={`${prefix}/healthcare/`} />
+  {notes.length > 0 && (
+    <NotesDeck
+      id={copy.notes.id}
+      title={copy.notes.title}
+      notes={notes.map((n) => ({
+        title: n.data.title,
+        excerpt: ja ? n.data.summary_ja : n.data.description,
+        date: formatDate(n.data.date, copy.locale as 'en' | 'ja'),
+        href: `/notes/${n.id}/`,
+        draft: n.data.draft,
+      }))}
+      read={copy.notes.read}
+      countLine={copy.notes.countLine(notes.length)}
+      allNotes={{ label: copy.notes.allNotes, href: `${prefix}/notes/` }}
+      elsewhere={copy.notes.elsewhere}
+      draftLabel={copy.notes.draft}
+      sep={copy.notes.sep}
+      end={copy.notes.end}
+    />
+  )}
+  <Contact copy={copy} stages={copy.route.chooser.options.map((o) => o.label)} />
+</Base>

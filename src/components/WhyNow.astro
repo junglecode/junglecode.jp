@@ -1,0 +1,84 @@
+---
+// A whole page of ink carrying one large, sourced figure.
+interface Props {
+  title: string;
+  figure: string;
+  figureText: string;
+  points: { runIn: string; text: string }[];
+  sources: { label: string; href: string }[];
+  sourcesLabel: string;
+  id?: string;
+}
+const { title, figure, figureText, points, sources, sourcesLabel, id = 'why-now' } = Astro.props;
+---
+<section class="why field-sumi" id={id} aria-labelledby={`${id}-title`}>
+  <div class="wrap grid why-grid" data-reveal>
+    <h2 id={`${id}-title`} class="why-title">{title}</h2>
+    <div class="why-figure">
+      <p class="why-number display">{figure}</p>
+      <p class="why-figure-text">{figureText}</p>
+    </div>
+  </div>
+  <div class="wrap">
+    <ul class="why-points" data-reveal>
+      {points.map((p) => (
+        <li><strong>{p.runIn}</strong> {p.text}</li>
+      ))}
+    </ul>
+    {sources.length > 0 && (
+      <p class="why-sources">
+        {sourcesLabel}: {sources.map((s, i) => (
+          <>{i > 0 && ', '}<a href={s.href} rel="noopener">{s.label}</a></>
+        ))}
+      </p>
+    )}
+  </div>
+</section>
+
+<style>
+  .why {
+    background: var(--sumi);
+    color: var(--on-sumi);
+    padding-block: var(--section);
+  }
+  .why a { color: inherit; }
+  .why a:hover { color: var(--shu); }
+  .why-grid { row-gap: 2rem; align-items: start; }
+  .why-title { grid-column: 1 / span 5; font-size: var(--step-head); max-width: 9ch; }
+  .why-figure { grid-column: 6 / -1; }
+  .why-number {
+    font-size: var(--step-figure);
+    line-height: 0.85;
+    letter-spacing: -0.04em;
+    color: var(--shu-on-sumi);
+    font-variant-numeric: lining-nums;
+  }
+  :global(:root[lang='ja']) .why-number { letter-spacing: -0.02em; }
+  .why-figure-text {
+    margin-top: 1.5rem;
+    font-family: var(--font-display);
+    font-size: var(--step-lead);
+    line-height: 1.25;
+    max-width: 48ch;
+  }
+  :global(:root[lang='ja']) .why-figure-text { line-height: 1.65; max-width: 30em; }
+  :global(:root[lang='ja']) .why-title { max-width: 6.2em; }
+  .why-points {
+    margin-top: clamp(3.5rem, 7vw, 6rem);
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 2rem var(--gutter);
+  }
+  .why-points li { max-width: 38ch; line-height: 1.55; }
+  .why-points strong { font-weight: 500; }
+  .why-sources {
+    margin-top: 3rem;
+    font-size: var(--step-small);
+    color: var(--on-sumi-soft);
+    max-width: 90ch;
+  }
+  @media (max-width: 52rem) {
+    .why-title, .why-figure { grid-column: 1 / -1; }
+    .why-points { grid-template-columns: 1fr; }
+  }
+</style>

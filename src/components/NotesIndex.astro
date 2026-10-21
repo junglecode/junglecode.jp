@@ -1,0 +1,72 @@
+---
+import { Picture } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import { plates, focus } from './Plates';
+import { getNotes, formatDate } from '../data/notes';
+import type { SiteCopy } from '../data/en';
+
+interface Props { copy: SiteCopy }
+const { copy } = Astro.props;
+const ja = copy.locale === 'ja';
+const notes = await getNotes();
+---
+<Base copy={copy} title={`${copy.notes.indexTitle} | JungleCode`} description={copy.notes.indexIntro} enPath="/notes/">
+  <figure class="notes-band">
+    <Picture src={plates.hakone} alt="" formats={['avif', 'webp']} widths={[960, 1440, 1920]} sizes="100vw" loading="eager" style={`object-position:${focus.hakone}`} />
+  </figure>
+  <section class="notes-index section" aria-labelledby="notes-title">
+    <div class="wrap grid notes-head" data-reveal>
+      <h1 id="notes-title">{copy.notes.indexTitle}</h1>
+      <p class="notes-intro">{copy.notes.indexIntro}</p>
+    </div>
+    <ol class="wrap notes-list">
+      {notes.map((n) => (
+        <li class="grid note-row" data-reveal>
+          <a class="note-plate" href={`/notes/${n.id}/`} tabindex="-1" aria-hidden="true">
+            <Picture src={plates[n.data.plate]} alt="" formats={['avif', 'webp']} widths={[480, 800]} sizes="(max-width: 52rem) 100vw, 34vw" style={`object-position:${focus[n.data.plate]}`} />
+          </a>
+          <div class="note-text">
+            <h2 lang="en"><a href={`/notes/${n.id}/`}>{n.data.title}</a></h2>
+            <p class="note-summary" lang={ja ? 'ja' : 'en'}>{ja ? n.data.summary_ja : n.data.description}</p>
+            <p class="note-meta">
+              {formatDate(n.data.date, copy.locale as 'en' | 'ja')} · {copy.notes.byline} {n.data.authors.join(ja ? '、' : ' and ')}
+              {n.data.draft && <span class="note-draft"> · {copy.notes.draft}</span>}
+            </p>
+          </div>
+        </li>
+      ))}
+    </ol>
+    {notes.length === 0 && <p class="wrap notes-empty">{copy.notes.empty}</p>}
+    <p class="wrap notes-elsewhere">{copy.notes.elsewhere} <a href="https://junglecode.net" rel="noopener">junglecode.net</a>{copy.notes.end}</p>
+  </section>
+</Base>
+
+<style>
+  .notes-band { height: clamp(12rem, 30svh, 22rem); overflow: hidden; background: var(--paper-2); }
+  .notes-band :global(picture), .notes-band :global(img) { width: 100%; height: 100%; object-fit: cover; }
+  @media (prefers-reduced-motion: no-preference) {
+    .notes-band :global(img) { animation: drift 14s ease-out both; }
+  }
+  @keyframes drift { from { transform: scale(1.08); } to { transform: none; } }
+  .notes-head { row-gap: 1.25rem; }
+  .notes-head h1 { grid-column: 1 / span 5; font-size: var(--step-display); }
+  .notes-intro { grid-column: 6 / -1; align-self: end; font-family: var(--font-display); font-size: var(--step-lead); line-height: 1.25; max-width: 34ch; }
+  :global(:root[lang='ja']) .notes-intro { line-height: 1.7; max-width: 26em; }
+  .notes-list { margin-top: clamp(3.5rem, 7vw, 6rem); display: grid; gap: clamp(4.5rem, 8vw, 7rem); }
+  .note-row { align-items: start; row-gap: 1.25rem; }
+  .note-plate { grid-column: 1 / span 5; display: block; overflow: hidden; background: var(--paper-2); }
+  .note-plate :global(img) { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; transition: transform 1.2s var(--ease-out); }
+  .note-row:hover .note-plate :global(img) { transform: scale(1.04); }
+  .note-text { grid-column: 6 / -1; }
+  .note-meta { margin-top: 1rem; font-size: var(--step-small); color: var(--ink-soft); }
+  .note-draft { color: var(--shu); font-weight: 500; }
+  .note-text h2 { font-size: var(--step-head); max-width: 20ch; }
+  .note-text h2 a { text-decoration: none; }
+  .note-text h2 a:hover { color: var(--shu); }
+  .note-summary { margin-top: 1rem; max-width: 56ch; }
+  .notes-elsewhere { margin-top: clamp(3rem, 6vw, 5rem); }
+  .notes-empty { font-family: var(--font-display); font-size: var(--step-lead); }
+  @media (max-width: 52rem) {
+    .notes-head h1, .notes-intro, .note-plate, .note-text { grid-column: 1 / -1; }
+  }
+</style>

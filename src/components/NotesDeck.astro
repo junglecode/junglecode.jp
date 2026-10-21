@@ -1,0 +1,139 @@
+---
+// Notes as a deck of cards that fold into spines while the section is pinned.
+interface NoteCard { title: string; excerpt: string; date: string; href: string; draft: boolean }
+interface Props {
+  id: string;
+  title: string;
+  notes: NoteCard[];
+  read: string;
+  countLine: string;
+  allNotes: { label: string; href: string };
+  elsewhere: string;
+  draftLabel: string;
+  sep: string;
+  end: string;
+}
+const { id, title, notes, read, countLine, allNotes, elsewhere, draftLabel, sep, end } = Astro.props;
+const pinned = notes.length > 1;
+---
+<section class:list={['deck-section', { 'is-pinned': pinned }]} id={id} aria-labelledby={`${id}-title`} style={`--n:${notes.length}`} data-deck>
+  <div class="deck-stage">
+    <div class="wrap deck-inner">
+      <h2 id={`${id}-title`} class="deck-title">{title}</h2>
+      <ol class="deck-band" data-band>
+        {notes.map((n, i) => (
+          <li class={`deck-card tone-${i % 3}`} style={`--i:${i}`} data-card>
+            <a class="deck-link" href={n.href}>
+              <h3>{n.title}</h3>
+              <p class="deck-excerpt">{n.excerpt}</p>
+              <span class="deck-foot">
+                <span>{n.date}{n.draft && <span class="deck-draft"> · {draftLabel}</span>}</span>
+                <span class="deck-read">{read} <span aria-hidden="true">→</span></span>
+              </span>
+            </a>
+          </li>
+        ))}
+      </ol>
+      <p class="deck-count">
+        {countLine} <a href={allNotes.href}>{allNotes.label}</a>{sep} {elsewhere} <a href="https://junglecode.net" rel="noopener">junglecode.net</a>{end}
+      </p>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-deck].is-pinned').forEach((section) => {
+    const band = section.querySelector<HTMLElement>('[data-band]');
+    const cards = [...section.querySelectorAll<HTMLElement>('[data-card]')];
+    if (!band || cards.length < 2) return;
+    const mq = window.matchMedia('(min-width: 52.01rem) and (prefers-reduced-motion: no-preference)');
+    const SPINE = 120;
+    let raf = 0;
+
+    const layout = () => {
+      raf = 0;
+      if (!mq.matches) {
+        cards.forEach((c) => { c.style.transform = ''; });
+        return;
+      }
+      const r = section.getBoundingClientRect();
+      const travel = section.offsetHeight - window.innerHeight;
+      const p = travel > 0 ? Math.min(1, Math.max(0, -r.top / travel)) : 1;
+      const active = p * (cards.length - 1);
+      const W = band.clientWidth;
+      cards.forEach((c, i) => {
+        const rest = i * SPINE;
+        const x = i <= active ? rest : rest + Math.min(1, i - active) * (W - rest);
+        c.style.transform = `translate3d(${x}px,0,0)`;
+        c.classList.toggle('is-spine', i < Math.round(active));
+      });
+    };
+    const schedule = () => { if (!raf) raf = requestAnimationFrame(layout); };
+    window.addEventListener('scroll', schedule, { passive: true });
+    window.addEventListener('resize', schedule);
+    mq.addEventListener('change', schedule);
+    layout();
+
+    // A spine brings its card back.
+    cards.forEach((c, i) => {
+      c.addEventListener('click', (e) => {
+        if (!c.classList.contains('is-spine')) return;
+        e.preventDefault();
+        const travel = section.offsetHeight - window.innerHeight;
+        const top = window.scrollY + section.getBoundingClientRect().top + (travel * i) / (cards.length - 1);
+        window.scrollTo({ top, behavior: 'smooth' });
+      });
+    });
+  });
+</script>
+
+<style>
+  .deck-section { padding-block: var(--section); }
+  .deck-title { font-size: var(--step-head); }
+  .deck-band { margin-top: 2.5rem; display: grid; gap: 12px; }
+  .deck-card { background: var(--paper-2); }
+  .tone-1 { background: var(--paper-3); }
+  .tone-2 { background: #cdc7bc; }
+  .deck-link {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 22.5rem;
+    padding: 2rem;
+    text-decoration: none;
+    color: var(--ink);
+  }
+  .deck-link h3 { font-size: var(--step-lead); line-height: 1.12; max-width: 24ch; }
+  :global(:root[lang='ja']) .deck-link h3 { line-height: 1.45; }
+  .deck-excerpt { margin-top: 1rem; max-width: 46ch; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+  .deck-foot { margin-top: auto; padding-top: 1.5rem; display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+  .deck-draft { color: var(--shu); font-weight: 500; }
+  .deck-read { font-weight: 500; text-decoration: underline; text-decoration-thickness: 0.08em; text-underline-offset: 0.2em; }
+  .deck-link:hover .deck-read { color: var(--shu); }
+  .deck-count { margin-top: 3rem; max-width: 70ch; }
+
+  @media (min-width: 52.01rem) and (prefers-reduced-motion: no-preference) {
+    :global(.js) .deck-section.is-pinned { height: calc(100svh + (var(--n) - 1) * 55svh); padding-block: 0; }
+    :global(.js) .is-pinned .deck-stage {
+      position: sticky;
+      top: var(--nav-h);
+      height: calc(100svh - var(--nav-h));
+      display: flex;
+      align-items: center;
+    }
+    :global(.js) .is-pinned .deck-inner { width: 100%; }
+    :global(.js) .is-pinned .deck-band { position: relative; height: 22.5rem; overflow: hidden; display: block; margin-top: 2.5rem; }
+    :global(.js) .is-pinned .deck-card {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: min(38.75rem, 100%);
+      height: 100%;
+      z-index: var(--i);
+      will-change: transform;
+      cursor: default;
+    }
+    :global(.js) .is-pinned .deck-card.is-spine { cursor: pointer; }
+    :global(.js) .is-pinned .deck-card.is-spine .deck-link { pointer-events: none; }
+  }
+</style>

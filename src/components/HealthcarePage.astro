@@ -1,0 +1,45 @@
+---
+import Base from '../layouts/Base.astro';
+import Hero from './Hero.astro';
+import Intro from './Intro.astro';
+import WhyNow from './WhyNow.astro';
+import Frictions from './Frictions.astro';
+import RouteMap from './RouteMap.astro';
+import Roles from './Roles.astro';
+import Contact from './Contact.astro';
+import { getNotes } from '../data/notes';
+import type { SiteCopy } from '../data/en';
+
+interface Props { copy: SiteCopy }
+const { copy } = Astro.props;
+const h = copy.healthcare;
+const home = copy.locale === 'ja' ? '/ja/' : '/';
+const notes = await getNotes();
+const healthNote = notes.find((n) => n.id === 'ai-healthcare-path-before-paperwork');
+
+const cards = [
+  healthNote
+    ? { title: healthNote.data.title, href: `/notes/${healthNote.id}/`, plate: 'mishima' as const, alt: '' }
+    : { title: copy.team.title, href: `${home}#team`, plate: 'mishima' as const, alt: '' },
+  { title: copy.team.title, href: `${home}#team`, plate: 'kyoto' as const, alt: '' },
+].filter((c, i, all) => all.findIndex((x) => x.href === c.href) === i);
+---
+<Base copy={copy} title={h.meta.title} description={h.meta.description} enPath="/healthcare/" navLinks={h.nav}>
+  <Hero
+    copy={copy}
+    title={h.hero.title}
+    standfirst={h.hero.standfirst}
+    vertical={h.hero.vertical}
+    plateList={[{ key: 'kaitai', alt: h.hero.plateAlt, caption: h.hero.plateCaption }]}
+    cards={cards}
+    action={{ label: copy.hero.action, href: '#contact' }}
+    secondary={{ label: copy.hero.secondary, href: '#route' }}
+  >
+    <Intro lead={h.intro.lead} columns={h.intro.columns} />
+  </Hero>
+  <WhyNow id="healthcare-why" {...h.whyNow} sourcesLabel={copy.whyNow.sourcesLabel} />
+  <Frictions {...h.frictions} />
+  <RouteMap {...h.route} />
+  <Roles {...h.roles} />
+  <Contact copy={copy} stages={copy.route.chooser.options.map((o) => o.label)} />
+</Base>

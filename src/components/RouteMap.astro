@@ -1,0 +1,241 @@
+---
+import { Picture } from 'astro:assets';
+import Seal from './Seal.astro';
+import { plates, focus, type PlateKey } from './Plates';
+
+interface Station { key: string; name: string; jp: string; plate: string; duration: string; text: string; leave: string }
+interface Chooser {
+  label: string;
+  here: string;
+  options: { station: string; label: string; advice: string; engagement: string }[];
+  cta: string;
+}
+interface Props {
+  id: string;
+  title: string;
+  intro: string;
+  leaveLabel: string;
+  stations: Station[];
+  chooser?: Chooser;
+}
+const { id, title, intro, leaveLabel, stations, chooser } = Astro.props;
+---
+<section class="route section" id={id} aria-labelledby={`${id}-title`} data-route>
+  <div class="wrap grid route-head">
+    <div class="route-heading" data-reveal>
+      <h2 id={`${id}-title`}>{title}</h2>
+      <p>{intro}</p>
+    </div>
+    {chooser && (
+      <div class="route-chooser" data-chooser>
+        <p class="route-chooser-label" id={`${id}-chooser-label`}>{chooser.label}</p>
+        <div class="route-options" role="group" aria-labelledby={`${id}-chooser-label`}>
+          {chooser.options.map((o) => (
+            <button type="button" class="route-option" aria-pressed="false" data-station={o.station} data-advice={o.advice} data-label={o.label}>{o.label}</button>
+          ))}
+        </div>
+        <p class="route-advice" aria-live="polite" data-advice-out data-here-label={chooser.here} hidden>
+          <span data-advice-text></span>
+          <a class="text-link" href="#contact" data-advice-cta>{chooser.cta}</a>
+        </p>
+      </div>
+    )}
+  </div>
+
+  <div class="wrap">
+    <ol class="route-track" data-track>
+      <li class="route-rail" aria-hidden="true"><span class="route-ink" data-ink></span></li>
+      {stations.map((s, i) => (
+        <li class="station" data-station={s.key} style={`--i:${i}`}>
+          <figure class="station-plate">
+            <Picture src={plates[s.plate as PlateKey]} alt="" formats={['avif', 'webp']} widths={[360, 560, 840]} sizes="(max-width: 52rem) 40vw, 24vw" style={`object-position:${focus[s.plate as PlateKey]}`} />
+          </figure>
+          <div class="station-mark">
+            <Seal size="clamp(2.75rem, 4vw, 3.75rem)" chars={s.jp} stamp class="station-seal" />
+          </div>
+          <div class="station-text">
+            <h3>{s.name}</h3>
+            <p class="station-duration">{s.duration}</p>
+            <p>{s.text}</p>
+            <p class="station-leave"><strong>{leaveLabel}</strong> {s.leave}</p>
+          </div>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-route]').forEach((route) => {
+    const track = route.querySelector<HTMLElement>('[data-track]');
+    const ink = route.querySelector<HTMLElement>('[data-ink]');
+    const stations = [...route.querySelectorAll<HTMLElement>('.station')];
+    const seals = stations.map((s) => s.querySelector<SVGElement>('.station-seal'));
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const vertical = () => window.matchMedia('(max-width: 52rem)').matches;
+
+    // The line inks in with the scroll and stamps each station as it passes.
+    const update = () => {
+      if (!track || !ink) return;
+      const r = track.getBoundingClientRect();
+      const vh = window.innerHeight;
+      let p: number;
+      if (vertical()) {
+        p = (vh * 0.7 - r.top) / Math.max(r.height, 1);
+      } else {
+        p = (vh * 0.92 - r.top) / (vh * 0.6);
+      }
+      p = Math.min(1, Math.max(0, p));
+      route.style.setProperty('--progress', String(p));
+      stations.forEach((s, i) => {
+        const reached = p >= (i + 0.5) / stations.length - 0.02;
+        s.classList.toggle('is-reached', reached);
+        seals[i]?.classList.toggle('is-stamped', reached);
+      });
+    };
+    if (reduce) {
+      route.style.setProperty('--progress', '1');
+      seals.forEach((s) => s?.classList.add('is-stamped'));
+    } else {
+      let raf = 0;
+      const onScroll = () => {
+        if (raf) return;
+        raf = requestAnimationFrame(() => { raf = 0; update(); });
+      };
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', onScroll);
+      update();
+    }
+
+    // "Where are you on the route?" marks your station and carries the choice to the form.
+    const chooser = route.querySelector<HTMLElement>('[data-chooser]');
+    if (!chooser) return;
+    const out = chooser.querySelector<HTMLElement>('[data-advice-out]');
+    const text = chooser.querySelector<HTMLElement>('[data-advice-text]');
+    const cta = chooser.querySelector<HTMLAnchorElement>('[data-advice-cta]');
+    const buttons = [...chooser.querySelectorAll<HTMLButtonElement>('.route-option')];
+    let chosen: HTMLButtonElement | null = null;
+    buttons.forEach((b) => {
+      b.addEventListener('click', () => {
+        chosen = b;
+        buttons.forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+        route.dataset.here = b.dataset.station;
+        // The marker is made only when someone chooses, so nothing labels a station at rest.
+        route.querySelectorAll('.station-here').forEach((el) => el.remove());
+        const mark = route.querySelector<HTMLElement>(`.station[data-station="${b.dataset.station}"] .station-mark`);
+        if (mark && out) {
+          const here = document.createElement('span');
+          here.className = 'station-here';
+          here.setAttribute('aria-hidden', 'true');
+          here.textContent = out.dataset.hereLabel ?? '';
+          mark.append(here);
+          requestAnimationFrame(() => here.classList.add('is-on'));
+        }
+        stations.forEach((s) => {
+          const idx = stations.findIndex((x) => x.dataset.station === b.dataset.station);
+          const me = stations.indexOf(s);
+          s.classList.toggle('is-here', me === idx);
+          s.classList.toggle('is-next', me === idx + 1);
+          s.classList.toggle('is-past', me < idx);
+        });
+        if (text) text.textContent = b.dataset.advice ?? '';
+        if (out) out.hidden = false;
+      });
+    });
+    cta?.addEventListener('click', () => {
+      if (chosen) document.dispatchEvent(new CustomEvent('jc:stage', { detail: chosen.dataset.label }));
+    });
+  });
+</script>
+
+<style>
+  .route-head { row-gap: 2.5rem; align-items: end; }
+  .route-heading { grid-column: 1 / span 5; }
+  .route-heading h2 { font-size: var(--step-head); max-width: 10ch; }
+  .route-heading p { margin-top: 1.25rem; max-width: 40ch; }
+  .route-chooser { grid-column: 6 / -1; display: none; }
+  :global(.js) .route-chooser { display: block; }
+  .route-chooser-label { font-family: var(--font-display); font-size: var(--step-lead); line-height: 1.2; }
+  .route-options { margin-top: 1rem; display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .route-option {
+    background: var(--paper-2);
+    color: var(--ink);
+    border: 0;
+    border-radius: var(--radius);
+    padding: 0.7rem 1rem;
+    line-height: 1.25;
+    text-align: left;
+    transition: background-color var(--dur-fast) ease, color var(--dur-fast) ease, transform var(--dur-fast) var(--ease-out);
+  }
+  .route-option:hover { background: var(--paper-3); }
+  .route-option:active { transform: scale(0.98); }
+  .route-option[aria-pressed='true'] { background: var(--ink); color: var(--paper); }
+  .route-advice { margin-top: 1rem; max-width: 56ch; display: flex; flex-wrap: wrap; gap: 0.35rem 1rem; align-items: baseline; }
+  .route-advice[hidden] { display: none; }
+
+  .route-track {
+    position: relative;
+    margin-top: clamp(3rem, 6vw, 5rem);
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    column-gap: var(--gutter);
+    --rail-top: calc(var(--plate-h) + 3.25rem);
+    --plate-h: clamp(7rem, 11vw, 12rem);
+  }
+  .route-rail {
+    position: absolute;
+    left: 0;
+    right: calc(-1 * var(--margin));
+    top: var(--rail-top);
+    height: 6px;
+    background: var(--paper-3);
+  }
+  .route-ink {
+    position: absolute;
+    inset: 0;
+    background: var(--ink);
+    transform-origin: left center;
+    transform: scaleX(var(--progress, 1));
+  }
+  .station { position: relative; display: grid; grid-template-rows: var(--plate-h) 6.5rem auto; }
+  .station-plate { overflow: hidden; background: var(--paper-2); }
+  .station-plate :global(picture) { height: 100%; }
+  .station-plate :global(img) { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--ease-out), filter var(--dur) ease; }
+  .station:hover .station-plate :global(img) { transform: scale(1.05); }
+  .station-mark { position: relative; display: flex; align-items: center; }
+  .station-mark :global(.station-seal) { position: relative; z-index: 1; }
+  .route :global(.station-here) {
+    position: absolute;
+    left: calc(clamp(2.75rem, 4vw, 3.75rem) + 0.75rem);
+    top: 50%;
+    transform: translateY(-50%) translateX(-6px);
+    background: var(--shu);
+    color: var(--on-shu);
+    font-size: var(--step-small);
+    font-weight: 500;
+    padding: 0.2rem 0.55rem;
+    opacity: 0;
+    transition: opacity var(--dur) ease, transform var(--dur) var(--ease-out);
+  }
+  .route :global(.station-here.is-on) { opacity: 1; transform: translateY(-50%); }
+  .station-text h3 { font-size: var(--step-lead); line-height: 1.1; }
+  .station-duration { margin-top: 0.4rem; font-weight: 500; color: var(--shu); }
+  .station-text p:not(.station-duration) { margin-top: 0.65rem; max-width: 30ch; }
+  .station-leave strong { display: block; font-weight: 500; }
+  .station.is-past .station-plate :global(img) { filter: grayscale(1) contrast(0.9); }
+  .station.is-past .station-text { opacity: 0.62; }
+  .station { transition: opacity var(--dur) ease; }
+
+  @media (max-width: 52rem) {
+    .route-heading, .route-chooser { grid-column: 1 / -1; }
+    .route-track { grid-template-columns: 1fr; row-gap: 2.75rem; padding-left: 4.25rem; --plate-h: auto; }
+    .route-rail { left: 1.6rem; right: auto; top: 0; bottom: 0; width: 6px; height: auto; }
+    .route-ink { transform-origin: center top; transform: scaleY(var(--progress, 1)); }
+    .station { grid-template-rows: auto; grid-template-columns: minmax(0, 1fr); gap: 1rem; }
+    .station-mark { position: absolute; left: -4.25rem; top: 0; width: 3.25rem; justify-content: center; }
+    .route :global(.station-here) { left: 4.25rem; top: 0.6rem; transform: translateX(0.6rem); white-space: nowrap; }
+    .route :global(.station-here.is-on) { transform: translateX(0.6rem); }
+    .station-plate { aspect-ratio: 16 / 9; }
+    .station-plate :global(img) { aspect-ratio: 16 / 9; }
+  }
+</style>

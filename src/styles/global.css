@@ -1,0 +1,194 @@
+/*
+ * JungleCode design system. "Editorial Tokyo": washi ground, sumi ink, one shu (seal-ink) accent.
+ * Every colour, size and space below is a token. Components reference tokens only.
+ */
+
+@import '@fontsource-variable/bodoni-moda/opsz.css';
+@import '@fontsource-variable/jost/wght.css';
+
+/* The Japanese characters used on English pages (seal, vertical lines, terms), subset by
+   scripts/subset-jp.mjs. Japanese pages add the full faces in ja-fonts.css. */
+@import './jp-subset.css';
+
+:root {
+  color-scheme: light dark;
+
+  /* Ground, ink and the one accent */
+  --paper: #f1efec;          /* washi stone, low chroma on purpose */
+  --paper-2: #e6e4df;        /* kinari, one tone step for surfaces */
+  --paper-3: #d9d5cc;        /* the darker strip of a paper tile */
+  --ink: #161514;            /* sumi */
+  --ink-soft: #57524b;       /* secondary notes only, never running text */
+  --sumi: #161514;           /* a whole page of ink */
+  --sumi-2: #2a2825;         /* the darker strip of a sumi tile */
+  --on-sumi: #f1efec;
+  --on-sumi-soft: #bdb6aa;
+  --shu: #c3261d;            /* seal ink, the accent */
+  --shu-deep: #9c1c15;
+  --shu-on-sumi: #ea6a60;     /* the seal red, lifted for text on the ink field */
+  --on-shu: #ffffff;
+  --focus: #c3261d;
+
+  /* Type */
+  --font-display: 'Bodoni Moda Variable', 'Shippori Mincho B1', 'Hiragino Mincho ProN', 'Yu Mincho', serif;
+  --font-text: 'Jost Variable', 'Zen Kaku Gothic New', 'Hiragino Sans', 'Yu Gothic', system-ui, sans-serif;
+  --font-jp: 'Shippori Mincho B1', 'Hiragino Mincho ProN', 'Yu Mincho', serif;
+
+  /* Five sizes do the visible work */
+  --step-small: clamp(0.8125rem, 0.79rem + 0.1vw, 0.875rem);
+  --step-body: clamp(1.0625rem, 1rem + 0.25vw, 1.1875rem);
+  --step-lead: clamp(1.25rem, 0.95rem + 1.05vw, 1.875rem);
+  --step-head: clamp(2rem, 1.3rem + 3.2vw, 4rem);
+  --step-display: clamp(2.5rem, 0.9rem + 5.6vw, 6.25rem);
+  --step-figure: clamp(4.5rem, 1rem + 12vw, 12rem);
+
+  /* Space and grid */
+  --margin: clamp(1rem, 2.2vw, 2rem);
+  --gutter: clamp(0.75rem, 1.4vw, 1.5rem);
+  --section: clamp(4.5rem, 2rem + 9vw, 11rem);
+  --radius: 0;
+  --nav-h: 4rem;
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast: 160ms;
+  --dur: 420ms;
+  --dur-slow: 900ms;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --paper: #141311;
+    --paper-2: #1d1b18;
+    --paper-3: #26231f;
+    --ink: #e9e7e3;
+    --ink-soft: #b3aca2;
+    --sumi: #e9e7e3;          /* the ink field turns to paper at night: the one inverted page */
+    --sumi-2: #d6d1c8;
+    --on-sumi: #141311;
+    --on-sumi-soft: #4a463f;
+    --shu: #d0332a;
+    --shu-deep: #ab271f;
+    --shu-on-sumi: #a8221a;
+    --on-shu: #ffffff;
+    --focus: #f0675c;
+  }
+}
+:root[data-theme='dark'] {
+  --paper: #141311;
+  --paper-2: #1d1b18;
+  --paper-3: #26231f;
+  --ink: #e9e7e3;
+  --ink-soft: #b3aca2;
+  --sumi: #e9e7e3;          /* the ink field turns to paper at night: the one inverted page */
+  --sumi-2: #d6d1c8;
+  --on-sumi: #141311;
+  --on-sumi-soft: #4a463f;
+  --shu: #d0332a;
+  --shu-deep: #ab271f;
+  --shu-on-sumi: #a8221a;
+  --on-shu: #ffffff;
+  --focus: #f0675c;
+}
+:root[data-theme='light'] { color-scheme: light; }
+
+:root[lang='ja'] {
+  --font-display: 'Shippori Mincho B1', 'Hiragino Mincho ProN', 'Yu Mincho', serif;
+  --font-text: 'Zen Kaku Gothic New', 'Hiragino Sans', 'Yu Gothic', system-ui, sans-serif;
+}
+
+:root[lang='ja'] [lang='en'] {
+  --font-display: 'Bodoni Moda Variable', 'Shippori Mincho B1', serif;
+  --font-text: 'Jost Variable', 'Zen Kaku Gothic New', sans-serif;
+}
+:root[lang='ja'] :is(h1, h2, h3)[lang='en'] { letter-spacing: -0.02em; line-height: 0.98; }
+
+/* Reset */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; scroll-padding-top: calc(var(--nav-h) + 1rem); }
+body, h1, h2, h3, h4, p, figure, blockquote, dl, dd, ol, ul { margin: 0; }
+ol, ul { padding: 0; list-style: none; }
+img, picture, svg, video { display: block; max-width: 100%; height: auto; }
+picture { width: 100%; }
+input, button, textarea, select { font: inherit; color: inherit; }
+button { cursor: pointer; }
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-text);
+  font-size: var(--step-body);
+  line-height: 1.6;
+  letter-spacing: 0.01em;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  overflow-x: clip;
+}
+:root[lang='ja'] body { line-height: 1.85; letter-spacing: 0.02em; line-break: strict; word-break: auto-phrase; }
+
+h1, h2, h3, .display {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-optical-sizing: auto;
+  letter-spacing: -0.02em;
+  line-height: 0.98;
+  text-wrap: balance;
+}
+:root[lang='ja'] :is(h1, h2, h3, .display) { letter-spacing: 0.01em; line-height: 1.25; font-weight: 500; }
+p, li, dd { text-wrap: pretty; }
+strong { font-weight: 500; }
+:root[lang='ja'] strong { font-weight: 500; }
+
+a { color: inherit; text-decoration-line: underline; text-decoration-thickness: 0.06em; text-underline-offset: 0.18em; transition: color var(--dur-fast) ease, text-decoration-color var(--dur-fast) ease; }
+a:hover { color: var(--shu); }
+
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
+::selection { background: var(--shu); color: var(--on-shu); }
+
+.visually-hidden {
+  position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+.skip-link { position: absolute; left: var(--margin); top: -4rem; z-index: 100; background: var(--ink); color: var(--paper); padding: 0.6rem 1rem; text-decoration: none; }
+.skip-link:focus { top: 0.75rem; }
+
+/* Frame */
+.wrap { padding-inline: var(--margin); max-width: 1920px; margin-inline: auto; }
+.grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gutter); }
+.section { padding-block: var(--section); }
+
+/* Japanese words set inside English text */
+.jp { font-family: var(--font-jp); font-weight: 500; letter-spacing: 0.04em; }
+
+/* Buttons: flat, square, one fill */
+.button {
+  display: inline-flex; align-items: center; gap: 0.6em;
+  min-height: 3rem; padding: 0.7rem 1.25rem;
+  background: var(--shu); color: var(--on-shu);
+  font-family: var(--font-text); font-size: var(--step-body); font-weight: 500; line-height: 1.2; letter-spacing: 0.01em;
+  text-decoration: none; border: 0; border-radius: var(--radius);
+  transition: background-color var(--dur-fast) ease, transform var(--dur-fast) var(--ease-out);
+}
+.button:hover { background: var(--shu-deep); color: var(--on-shu); }
+.button:active { transform: translateY(1px) scale(0.985); }
+.button .arrow { transition: transform var(--dur) var(--ease-out); }
+.button:hover .arrow { transform: translateX(4px); }
+
+.text-link { font-weight: 500; text-decoration-thickness: 0.08em; }
+
+/* Motion helpers. Content is always in the document. Entrances only move what is already there. */
+@media (prefers-reduced-motion: no-preference) {
+  .js [data-reveal] > * { opacity: 0; transform: translateY(24px); }
+  .js [data-reveal].is-in > * {
+    opacity: 1; transform: none;
+    transition: opacity var(--dur-slow) var(--ease-out), transform var(--dur-slow) var(--ease-out);
+  }
+  .js [data-reveal].is-in > :nth-child(2) { transition-delay: 70ms; }
+  .js [data-reveal].is-in > :nth-child(3) { transition-delay: 140ms; }
+  .js [data-reveal].is-in > :nth-child(4) { transition-delay: 210ms; }
+  .js [data-reveal].is-in > :nth-child(5) { transition-delay: 280ms; }
+  .js [data-reveal].is-in > :nth-child(n + 6) { transition-delay: 340ms; }
+}

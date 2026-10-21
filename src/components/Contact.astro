@@ -1,0 +1,207 @@
+---
+import { Image } from 'astro:assets';
+import Seal from './Seal.astro';
+import jet from '../assets/people/jet-villegas.jpg';
+import aditya from '../assets/people/aditya-pandya.jpg';
+import { EMAIL, FORM_ENDPOINT, PEOPLE, bookingHref } from '../data/config';
+import type { SiteCopy } from '../data/en';
+
+interface Props { copy: SiteCopy; stages: string[] }
+const { copy, stages } = Astro.props;
+const c = copy.contact;
+const f = c.form;
+const people = [
+  { ...PEOPLE.jet, img: jet, first: copy.team.people[0].name, place: copy.team.people[0].facts[0] },
+  { ...PEOPLE.aditya, img: aditya, first: copy.team.people[1].name, place: copy.team.people[1].facts[0] },
+];
+---
+<section class="contact section" id="contact" aria-labelledby="contact-title">
+  <div class="wrap grid contact-top" data-reveal>
+    <div class="contact-words">
+      <h2 id="contact-title">{c.title}</h2>
+      <p class="contact-statement">{c.statement}</p>
+    </div>
+    <ul class="contact-people">
+      {people.map((p) => (
+        <li>
+          <Image src={p.img} alt="" width={320} height={320} />
+          <span class="contact-name">{p.first}</span>
+          <span class="contact-city">{p.place}{copy.locale === 'ja' ? '、' : ', '}{copy.locale === 'ja' && `${c.localTime} `}<span data-clock={p.tz}></span>{copy.locale !== 'ja' && ` ${c.localTime}`}</span>
+        </li>
+      ))}
+    </ul>
+    <div class="contact-links">
+      <p class="contact-question">{c.question}</p>
+      <p><a href={`mailto:${EMAIL}`}>{EMAIL}</a></p>
+      <p><a href={bookingHref(c.bookSubject)}>{c.bookLabel}</a></p>
+      <p class="contact-reply">{c.reply}</p>
+    </div>
+  </div>
+
+  <div class="wrap grid contact-form-row">
+    <p class="contact-privacy">{f.privacy} <a href={copy.locale === 'ja' ? '/ja/privacy/' : '/privacy/'}>{f.privacyLink}</a></p>
+    <form class="contact-form" action={FORM_ENDPOINT} method="POST" data-form data-sending={f.sending} data-error={f.error}>
+      <input type="hidden" name="_subject" value={f.subject} />
+      <input type="hidden" name="engagement" value="" data-engagement-field />
+      <input type="hidden" name="language" value={copy.locale} />
+      <p class="hp" aria-hidden="true"><label>Leave empty <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" /></label></p>
+      <div class="field-row">
+        <label class="field"><span>{f.name}</span><input name="name" type="text" autocomplete="name" required /></label>
+        <label class="field"><span>{f.email}</span><input name="email" type="email" autocomplete="email" required /></label>
+        <label class="field"><span>{f.company}</span><input name="company" type="text" autocomplete="organization" required /></label>
+      </div>
+      <label class="field"><span>{f.message}</span><textarea name="message" rows="3" required></textarea></label>
+      <p class="engagement-note" data-engagement-note hidden></p>
+      <fieldset class="chips">
+        <legend>{f.stage} <span class="optional">({f.optional})</span></legend>
+        {stages.map((s) => (
+          <label class="chip"><input type="radio" name="stage" value={s} /><span>{s}</span></label>
+        ))}
+      </fieldset>
+      <fieldset class="chips">
+        <legend>{f.timeline} <span class="optional">({f.optional})</span></legend>
+        {f.timelines.map((t) => (
+          <label class="chip"><input type="radio" name="timeline" value={t} /><span>{t}</span></label>
+        ))}
+      </fieldset>
+      <div class="form-end">
+        <button class="button" type="submit" data-submit>{f.submit} <span class="arrow" aria-hidden="true">→</span></button>
+        <p class="form-status" role="status" aria-live="polite" data-status></p>
+      </div>
+      <div class="form-done" data-done hidden>
+        <Seal size="5rem" class="done-seal" />
+        <p>{f.success}</p>
+      </div>
+    </form>
+  </div>
+</section>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>('[data-form]');
+  if (form) {
+    const status = form.querySelector<HTMLElement>('[data-status]');
+    const done = form.querySelector<HTMLElement>('[data-done]');
+    const submit = form.querySelector<HTMLButtonElement>('[data-submit]');
+    const lang = document.documentElement.lang;
+    const msgs = { sending: form.dataset.sending ?? '', error: form.dataset.error ?? '' };
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (!form.reportValidity()) return;
+      if (submit) submit.disabled = true;
+      if (status) status.textContent = msgs.sending;
+      try {
+        const res = await fetch(form.action, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } });
+        if (!res.ok) throw new Error(String(res.status));
+        form.classList.add('is-done');
+        form.querySelectorAll<HTMLElement>(':scope > :not([data-done])').forEach((el) => (el.hidden = true));
+        if (done) {
+          done.hidden = false;
+          requestAnimationFrame(() => done.classList.add('is-in'));
+        }
+        if (status) status.textContent = '';
+      } catch {
+        if (status) status.textContent = msgs.error;
+        if (submit) submit.disabled = false;
+      }
+    });
+
+    // Choices made elsewhere on the page arrive here.
+    document.addEventListener('jc:stage', (e) => {
+      const label = (e as CustomEvent<string>).detail;
+      const input = [...form.querySelectorAll<HTMLInputElement>('input[name="stage"]')].find((i) => i.value === label);
+      if (input) input.checked = true;
+    });
+    const note = form.querySelector<HTMLElement>('[data-engagement-note]');
+    const field = form.querySelector<HTMLInputElement>('[data-engagement-field]');
+    document.addEventListener('jc:engagement', (e) => {
+      const name = (e as CustomEvent<string>).detail;
+      if (field) field.value = name;
+      if (note) {
+        note.textContent = (lang === 'ja' ? 'ご関心のある形：' : 'Interested in: ') + name;
+        note.hidden = false;
+      }
+    });
+  }
+</script>
+
+<style>
+  .contact-top { row-gap: 3rem; align-items: start; }
+  .contact-words { grid-column: 1 / span 5; }
+  .contact-words h2 { font-size: var(--step-head); }
+  .contact-statement {
+    margin-top: 1.5rem;
+    font-family: var(--font-display);
+    font-size: var(--step-lead);
+    line-height: 1.2;
+    max-width: 24ch;
+  }
+  :global(:root[lang='ja']) .contact-statement { line-height: 1.6; max-width: 18em; }
+  .contact-people { grid-column: 6 / span 4; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--gutter); }
+  .contact-people li { display: grid; gap: 0.2rem; align-content: start; }
+  .contact-people :global(img) { width: 100%; aspect-ratio: 1; object-fit: cover; margin-bottom: 0.6rem; }
+  .contact-name { font-weight: 500; }
+  .contact-city { font-size: var(--step-small); color: var(--ink-soft); font-variant-numeric: tabular-nums; }
+  .contact-links { grid-column: 10 / -1; display: grid; gap: 0.6rem; align-content: start; }
+  .contact-question { font-weight: 500; margin-bottom: 0.4rem; }
+  .contact-reply { margin-top: 0.6rem; font-size: var(--step-small); color: var(--ink-soft); max-width: 28ch; }
+
+  .contact-form-row { margin-top: clamp(4rem, 7vw, 6rem); align-items: start; row-gap: 2rem; }
+  .contact-privacy { grid-column: 1 / span 4; font-size: var(--step-small); color: var(--ink-soft); max-width: 30ch; }
+  .contact-form { grid-column: 6 / -1; display: grid; gap: 1.5rem; }
+  .hp { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .field-row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--gutter); }
+  .field { display: grid; gap: 0.45rem; }
+  .field span { font-size: var(--step-small); font-weight: 500; }
+  .field input, .field textarea {
+    width: 100%;
+    background: var(--paper-2);
+    border: 0;
+    border-bottom: 2px solid var(--ink);
+    border-radius: 0;
+    padding: 0.8rem 0.9rem;
+    font-size: var(--step-body);
+    line-height: 1.4;
+    transition: background-color var(--dur-fast) ease, border-color var(--dur-fast) ease;
+  }
+  .field textarea { resize: vertical; min-height: 6.5rem; }
+  .field input:hover, .field textarea:hover { background: var(--paper-3); }
+  .field input:focus, .field textarea:focus { outline: none; border-bottom-color: var(--shu); background: var(--paper-3); }
+  .engagement-note { font-weight: 500; color: var(--shu); }
+  .chips { border: 0; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .chips legend { font-size: var(--step-small); font-weight: 500; margin-bottom: 0.6rem; padding: 0; }
+  .optional { font-weight: 400; color: var(--ink-soft); }
+  .chip { position: relative; }
+  .chip input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+  .chip span {
+    display: inline-block;
+    padding: 0.6rem 0.95rem;
+    background: var(--paper-2);
+    line-height: 1.2;
+    transition: background-color var(--dur-fast) ease, color var(--dur-fast) ease;
+  }
+  .chip:hover span { background: var(--paper-3); }
+  .chip input:checked + span { background: var(--ink); color: var(--paper); }
+  .chip input:focus-visible + span { outline: 2px solid var(--focus); outline-offset: 2px; }
+  .form-end { display: flex; align-items: center; gap: 1.25rem; flex-wrap: wrap; }
+  .form-status { min-height: 1.5em; }
+  .form-done { display: flex; align-items: center; gap: 1.5rem; font-family: var(--font-display); font-size: var(--step-lead); line-height: 1.25; }
+  .form-done[hidden] { display: none; }
+  @media (prefers-reduced-motion: no-preference) {
+    .form-done :global(.done-seal) { opacity: 0; transform: rotate(-10deg) scale(1.4); }
+    .form-done.is-in :global(.done-seal) { opacity: 1; transform: rotate(-2deg) scale(1); transition: opacity 200ms ease-out, transform 460ms cubic-bezier(0.34, 1.56, 0.64, 1); }
+  }
+
+  @media (max-width: 64rem) {
+    .contact-words { grid-column: 1 / -1; }
+    .contact-people { grid-column: 1 / span 7; }
+    .contact-links { grid-column: 8 / -1; }
+    .contact-privacy { grid-column: 1 / -1; order: 2; }
+    .contact-form { grid-column: 1 / -1; }
+  }
+  @media (max-width: 40rem) {
+    .contact-people { grid-column: 1 / -1; grid-template-columns: repeat(2, 7.5rem); }
+    .contact-links { grid-column: 1 / -1; }
+    .field-row { grid-template-columns: 1fr; gap: 1.25rem; }
+  }
+</style>

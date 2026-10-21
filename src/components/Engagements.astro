@@ -1,0 +1,104 @@
+---
+// Three engagements as flat fields whose heights step up with the commitment.
+interface Tile { key: string; name: string; figure: string; who: string; lines: string[]; cta: string }
+interface Props { id: string; title: string; tiles: Tile[]; note: string; ctaHref: string }
+const { id, title, tiles, note, ctaHref } = Astro.props;
+const tone = ['shu', 'sumi', 'kinari'];
+---
+<section class="engage section" id={id} aria-labelledby={`${id}-title`}>
+  <div class="wrap">
+    <div class="engage-board">
+      <h2 id={`${id}-title`} class="engage-title">{title}</h2>
+      <ul class="engage-tiles">
+        {tiles.map((t, i) => (
+          <li class={`tile tile--${tone[i]}`} data-engagement={t.key} data-reveal>
+            <h3><span class="tile-figure">{t.figure}</span> <span class="tile-name">{t.name}</span></h3>
+            <p class="tile-who">{t.who}</p>
+            <ul class="tile-lines">
+              {t.lines.map((l) => <li>{l}</li>)}
+            </ul>
+            <a class="tile-cta" href={ctaHref} data-engagement-cta={t.name}>
+              <span>{t.cta}</span><span class="arrow" aria-hidden="true">→</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+    <p class="engage-note">{note}</p>
+  </div>
+</section>
+
+<script>
+  document.querySelectorAll<HTMLAnchorElement>('[data-engagement-cta]').forEach((a) => {
+    a.addEventListener('click', () => {
+      document.dispatchEvent(new CustomEvent('jc:engagement', { detail: a.dataset.engagementCta }));
+    });
+  });
+</script>
+
+<style>
+  .engage-board { position: relative; }
+  .engage-title {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: calc(66.66% - var(--gutter));
+    font-size: var(--step-head);
+    max-width: 12ch;
+  }
+  .engage-tiles {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+    align-items: end;
+    min-height: 44rem;
+  }
+  .tile {
+    --tile-bg: var(--paper-2);
+    --tile-ink: var(--ink);
+    --tile-strip: var(--paper-3);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background: var(--tile-bg);
+    color: var(--tile-ink);
+    padding: 1.75rem 1.75rem 0;
+    border-radius: var(--radius);
+  }
+  .tile:nth-child(1) { min-height: 27rem; }
+  .tile:nth-child(2) { min-height: 35rem; }
+  .tile:nth-child(3) { min-height: 44rem; }
+  .tile--shu { --tile-bg: var(--shu); --tile-ink: var(--on-shu); --tile-strip: var(--shu-deep); }
+  .tile--sumi { --tile-bg: var(--sumi); --tile-ink: var(--on-sumi); --tile-strip: var(--sumi-2); }
+  .tile--sumi .tile-cta { color: var(--on-sumi); }
+  :global(.dark) .tile--sumi { --tile-strip: var(--sumi-2); }
+  .tile h3 { display: grid; gap: 0.5rem; }
+  .tile-name { font-family: var(--font-text); font-size: var(--step-body); font-weight: 500; letter-spacing: 0.01em; line-height: 1.3; }
+  .tile-figure { font-size: var(--step-head); line-height: 1; }
+  .tile-who { margin-top: 1rem; font-weight: 500; max-width: 28ch; line-height: 1.4; }
+  .tile-lines { margin-top: 1rem; display: grid; gap: 0.35rem; margin-bottom: 1.75rem; }
+  .tile-lines li { line-height: 1.4; }
+  .tile-cta {
+    margin: auto -1.75rem 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 4rem;
+    padding-inline: 1.75rem;
+    background: var(--tile-strip);
+    color: inherit;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background-color var(--dur-fast) ease;
+  }
+  .tile-cta:hover { color: inherit; filter: brightness(0.94); }
+  .tile-cta .arrow { transition: transform var(--dur) var(--ease-out); }
+  .tile-cta:hover .arrow { transform: translateX(5px); }
+  .engage-note { margin-top: 2rem; max-width: 60ch; }
+
+  @media (max-width: 64rem) {
+    .engage-title { position: static; width: auto; margin-bottom: 2rem; }
+    .engage-tiles { grid-template-columns: 1fr; min-height: 0; gap: 2.5rem; }
+    .tile:nth-child(n) { min-height: 0; }
+  }
+</style>

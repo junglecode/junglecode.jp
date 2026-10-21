@@ -1,0 +1,143 @@
+---
+import { Picture } from 'astro:assets';
+import { render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Seal from '../../components/Seal.astro';
+import { plates, focus } from '../../components/Plates';
+import { Image } from 'astro:assets';
+import jet from '../../assets/people/jet-villegas.jpg';
+import aditya from '../../assets/people/aditya-pandya.jpg';
+import { getNotes, formatDate } from '../../data/notes';
+import { en } from '../../data/en';
+
+export async function getStaticPaths() {
+  const notes = await getNotes();
+  return notes.map((note) => ({ params: { slug: note.id }, props: { note } }));
+}
+const { note } = Astro.props;
+const { Content } = await render(note);
+const d = note.data;
+const faces: Record<string, ImageMetadata> = { 'Jet Villegas': jet, 'Aditya Pandya': aditya };
+const others = (await getNotes()).filter((n) => n.id !== note.id).slice(0, 2);
+---
+<Base copy={en} title={`${d.title} | JungleCode`} description={d.description} enPath={`/notes/${note.id}/`} hasJa={false} noindex={d.draft} ogType="article">
+  <article class="note" aria-labelledby="note-title">
+    <figure class="note-band">
+      <Picture src={plates[d.plate]} alt="" formats={['avif', 'webp']} widths={[960, 1440, 1920]} sizes="100vw" loading="eager" style={`object-position:${focus[d.plate]}`} />
+    </figure>
+    <div class="wrap grid note-head" data-reveal>
+      <aside class="note-side">
+        <div class="note-authors">
+          <span class="note-faces" aria-hidden="true">
+            {d.authors.filter((a) => faces[a]).map((a) => <Image src={faces[a]} alt="" width={112} height={112} />)}
+          </span>
+          <p class="note-meta">{en.notes.byline} {d.authors.join(' and ')}<br />{formatDate(d.date, 'en')}</p>
+        </div>
+        {d.draft && <p class="note-draft">{en.notes.draft}</p>}
+        <div class="note-ja" lang="ja">
+          <p class="note-ja-label" lang="en">{en.notes.summaryLabel}</p>
+          <p>{d.summary_ja}</p>
+        </div>
+      </aside>
+      <header class="note-title">
+        <h1 id="note-title">{d.title}</h1>
+        <p class="note-standfirst">{d.description}</p>
+      </header>
+    </div>
+    <div class="wrap grid">
+      <figure class="note-aside" aria-hidden="true">
+        <Picture src={plates[d.aside]} alt="" formats={['avif', 'webp']} widths={[480, 800]} sizes="(max-width: 52rem) 100vw, 30vw" style={`object-position:${focus[d.aside]}`} />
+      </figure>
+      <div class="note-body">
+        <Content />
+      </div>
+    </div>
+    {others.length > 0 && (
+      <nav class="wrap grid note-next" aria-labelledby="note-next-title">
+        <h2 id="note-next-title" class="note-next-title">{en.notes.next}</h2>
+        <ul class="note-next-list">
+          {others.map((o) => (
+            <li data-reveal>
+              <a href={`/notes/${o.id}/`}>
+                <Picture src={plates[o.data.plate]} alt="" formats={['avif', 'webp']} widths={[480, 800]} sizes="(max-width: 52rem) 100vw, 28vw" style={`object-position:${focus[o.data.plate]}`} />
+                <span class="note-next-name">{o.data.title}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    )}
+    <footer class="wrap grid note-end" data-reveal>
+      <div class="note-end-side"><Seal size="4rem" stamp /></div>
+      <div class="note-end-main">
+        <p class="note-end-line">{en.notes.talk}</p>
+        <p class="note-end-actions">
+          <a class="button" href="/#contact">{en.nav.action} <span class="arrow" aria-hidden="true">→</span></a>
+          <a class="text-link" href="/notes/">{en.notes.back}</a>
+        </p>
+      </div>
+    </footer>
+  </article>
+</Base>
+
+<style>
+  .note-band { height: clamp(12rem, 34svh, 24rem); overflow: hidden; background: var(--paper-2); }
+  .note-band :global(picture), .note-band :global(img) { width: 100%; height: 100%; object-fit: cover; }
+  @media (prefers-reduced-motion: no-preference) {
+    .note-band :global(img) { animation: drift 14s ease-out both; }
+  }
+  @keyframes drift { from { transform: scale(1.08); } to { transform: none; } }
+  .note-authors { display: flex; align-items: center; gap: 0.9rem; }
+  .note-faces { display: flex; }
+  .note-faces :global(img) { width: 3.5rem; height: 3.5rem; object-fit: cover; }
+  .note-faces :global(img + img) { margin-left: -0.6rem; }
+  .note-next { margin-top: var(--section); row-gap: 2rem; }
+  .note-next-title { grid-column: 1 / span 5; font-size: var(--step-head); }
+  .note-next-list { grid-column: 6 / -1; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--gutter); }
+  .note-next-list a { display: grid; gap: 0.9rem; text-decoration: none; }
+  .note-next-list :global(img) { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; transition: transform 1.2s var(--ease-out); }
+  .note-next-list a:hover :global(img) { transform: scale(1.04); }
+  .note-next-list :global(picture) { overflow: hidden; }
+  .note-next-name { font-family: var(--font-display); font-size: var(--step-lead); line-height: 1.15; }
+  .note-next-list a:hover .note-next-name { color: var(--shu); }
+  .note-head { padding-top: clamp(2.5rem, 5vw, 4.5rem); row-gap: 2rem; align-items: start; }
+  .note-side { grid-column: 1 / span 4; display: grid; gap: 1.5rem; font-size: var(--step-small); }
+  .note-meta { color: var(--ink-soft); line-height: 1.5; }
+  .note-draft { color: var(--shu); font-weight: 500; }
+  .note-ja { background: var(--paper-2); padding: 1rem 1.1rem; max-width: 26em; }
+  .note-ja-label { font-weight: 500; margin-bottom: 0.4rem; }
+  .note-ja p:last-child { font-family: var(--font-jp); font-size: 0.9375rem; line-height: 1.85; }
+  .note-title { grid-column: 6 / -1; grid-row: 1; }
+  .note-title h1 { font-size: var(--step-head); max-width: 18ch; }
+  .note-standfirst { margin-top: 1.25rem; font-family: var(--font-display); font-size: var(--step-lead); line-height: 1.25; max-width: 46ch; }
+  .note-body { grid-column: 6 / -1; grid-row: 1; margin-top: clamp(2.5rem, 4vw, 3.5rem); max-width: 66ch; }
+  .note-aside { grid-column: 1 / span 4; grid-row: 1; align-self: start; position: sticky; top: calc(var(--nav-h) + 2rem); margin-top: clamp(2.5rem, 4vw, 3.5rem); overflow: hidden; }
+  .note-aside :global(img) { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; }
+  .note-body :global(p) { margin-top: 1.1em; }
+  .note-body :global(h2) { margin-top: 2.2em; font-size: var(--step-lead); line-height: 1.15; }
+  .note-body :global(h3) { margin-top: 1.8em; font-size: var(--step-body); font-family: var(--font-text); font-weight: 500; letter-spacing: 0.01em; }
+  .note-body :global(ul), .note-body :global(ol) { margin-top: 1em; padding-left: 1.25em; list-style: disc; }
+  .note-body :global(ol) { list-style: decimal; }
+  .note-body :global(li) { margin-top: 0.4em; }
+  .note-body :global(blockquote) { margin-top: 1.5em; padding-left: 1.25em; font-family: var(--font-display); font-size: var(--step-lead); line-height: 1.3; }
+  .note-body :global(.editor-prompt) {
+    background: var(--shu);
+    color: var(--on-shu);
+    padding: 0.9rem 1.1rem;
+    font-weight: 500;
+  }
+  .note-body :global(.editor-prompt)::before { content: 'Editor prompt. '; }
+  .note-body :global(h2:last-of-type + ul), .note-body :global(h2:last-of-type + ol) { font-size: var(--step-small); }
+  .note-end { margin-block: var(--section); align-items: center; row-gap: 1.5rem; }
+  .note-end-side { grid-column: 1 / span 5; }
+  .note-end-main { grid-column: 6 / -1; }
+  .note-end-line { font-family: var(--font-display); font-size: var(--step-lead); line-height: 1.25; }
+  .note-end-actions { margin-top: 1.5rem; display: flex; gap: 1rem 1.75rem; flex-wrap: wrap; align-items: center; }
+  @media (max-width: 52rem) {
+    .note-aside { display: none; }
+    .note-side, .note-title, .note-body, .note-end-side, .note-end-main, .note-next-title, .note-next-list { grid-column: 1 / -1; }
+    .note-next-list { grid-template-columns: 1fr; }
+    .note-title, .note-body { grid-row: auto; }
+    .note-side { order: 2; }
+  }
+</style>

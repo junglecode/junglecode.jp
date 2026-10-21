@@ -1,0 +1,156 @@
+---
+import Seal from './Seal.astro';
+import type { SiteCopy } from '../data/en';
+
+interface Props {
+  copy: SiteCopy;
+  links?: { label: string; href: string }[];
+  switchHref: string;
+}
+const { copy, switchHref } = Astro.props;
+const home = copy.locale === 'ja' ? '/ja/' : '/';
+// Pages pass their own links. Otherwise the home page's anchors point back home from every other page.
+const onHome = Astro.url.pathname === home;
+const resolve = (href: string) => (href.startsWith('#') && !onHome ? `${home}${href}` : href);
+const links = Astro.props.links ?? copy.nav.links.map((l) => ({ ...l, href: resolve(l.href) }));
+const hasContact = Astro.url.pathname === home || Astro.url.pathname.endsWith('/healthcare/');
+const actionHref = hasContact ? '#contact' : `${home}#contact`;
+---
+<header class="nav">
+  <div class="nav-bar wrap">
+    <a class="wordmark" href={home} aria-label={copy.nav.home}>
+      <Seal size="2.25rem" />
+      <span class="wordmark-text" aria-hidden="true">JungleCode</span>
+    </a>
+    <nav class="nav-links" aria-label="Primary">
+      <ul>
+        {links.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
+      </ul>
+    </nav>
+    <div class="nav-end">
+      <a class="nav-lang" href={switchHref} lang={copy.locale === 'ja' ? 'en' : 'ja'} hreflang={copy.locale === 'ja' ? 'en' : 'ja'} aria-label={copy.nav.switchAria}>{copy.nav.switchLabel}</a>
+      <a class="button nav-action" href={actionHref}>{copy.nav.action}</a>
+      <button class="nav-menu" type="button" aria-expanded="false" aria-controls="nav-sheet">
+        <span class="nav-menu-open">{copy.nav.menu}</span>
+        <span class="nav-menu-close">{copy.nav.close}</span>
+      </button>
+    </div>
+  </div>
+  <div class="nav-sheet" id="nav-sheet" hidden>
+    <ul class="wrap">
+      {links.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
+      <li><a href={switchHref} lang={copy.locale === 'ja' ? 'en' : 'ja'}>{copy.nav.switchLabel}</a></li>
+    </ul>
+  </div>
+</header>
+
+<script>
+  const button = document.querySelector<HTMLButtonElement>('.nav-menu');
+  const sheet = document.getElementById('nav-sheet');
+  if (button && sheet) {
+    const set = (open: boolean) => {
+      button.setAttribute('aria-expanded', String(open));
+      sheet.hidden = !open;
+      document.documentElement.classList.toggle('nav-open', open);
+    };
+    button.addEventListener('click', () => set(button.getAttribute('aria-expanded') !== 'true'));
+    sheet.addEventListener('click', (e) => {
+      if ((e.target as HTMLElement).closest('a')) set(false);
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && button.getAttribute('aria-expanded') === 'true') {
+        set(false);
+        button.focus();
+      }
+    });
+  }
+</script>
+
+<style>
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: var(--paper);
+  }
+  .nav-bar {
+    display: flex;
+    align-items: center;
+    gap: var(--gutter);
+    min-height: var(--nav-h);
+  }
+  .wordmark {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+    text-decoration: none;
+    margin-right: auto;
+  }
+  .wordmark-text {
+    font-family: 'Bodoni Moda Variable', var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 500;
+    letter-spacing: -0.015em;
+    line-height: 1;
+  }
+  .wordmark:hover { color: inherit; }
+  .wordmark :global(.seal) { transition: transform var(--dur) var(--ease-out); }
+  .wordmark:hover :global(.seal) { transform: rotate(-6deg) scale(1.06); }
+
+  .nav-links ul { display: flex; gap: clamp(1rem, 2vw, 2rem); }
+  .nav-links a, .nav-lang {
+    font-size: var(--step-body);
+    font-weight: 400;
+    padding-block: 0.5rem;
+    text-decoration-line: underline;
+    text-decoration-color: transparent;
+    text-underline-offset: 0.35em;
+    transition: text-decoration-color var(--dur) var(--ease-out), text-underline-offset var(--dur) var(--ease-out);
+  }
+  .nav-links a:hover, .nav-lang:hover { text-decoration-color: currentColor; text-underline-offset: 0.22em; color: var(--ink); }
+  .nav-lang { font-family: var(--font-jp); }
+  :global(:root[lang='ja']) .nav-lang { font-family: var(--font-text); }
+  .nav-end { display: flex; align-items: center; gap: clamp(1rem, 2vw, 1.75rem); }
+  .nav-action { min-height: 2.75rem; padding-block: 0.55rem; }
+
+  .nav-menu {
+    display: none;
+    background: none;
+    border: 0;
+    padding: 0.6rem 0;
+    font-size: var(--step-body);
+    font-weight: 500;
+  }
+  .nav-menu-close { display: none; }
+  .nav-menu[aria-expanded='true'] .nav-menu-open { display: none; }
+  .nav-menu[aria-expanded='true'] .nav-menu-close { display: inline; }
+
+  .nav-sheet {
+    position: fixed;
+    inset: var(--nav-h) 0 0 0;
+    background: var(--paper);
+    overflow-y: auto;
+  }
+  .nav-sheet ul { padding-block: 2rem 4rem; display: grid; gap: 0.25rem; }
+  .nav-sheet a {
+    display: block;
+    font-family: var(--font-display);
+    font-size: var(--step-head);
+    line-height: 1.15;
+    text-decoration: none;
+    padding-block: 0.35rem;
+  }
+
+  @media (max-width: 64rem) {
+    .nav-links { display: none; }
+    .nav-menu { display: inline-block; }
+  }
+  @media (max-width: 40rem) {
+    .nav-lang { display: none; }
+    .wordmark-text { font-size: 1.3rem; }
+    .nav-action { padding-inline: 0.9rem; font-size: 0.95rem; }
+  }
+  @media (max-width: 26rem) {
+    .wordmark-text { display: none; }
+  }
+</style>

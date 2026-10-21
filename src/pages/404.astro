@@ -1,0 +1,67 @@
+---
+import { Picture } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import { plates, focus } from '../components/Plates';
+import { en } from '../data/en';
+import { ja } from '../data/ja';
+const n = en.notFound;
+---
+<Base copy={en} title={n.meta.title} description={n.meta.description} enPath="/404/" hasJa={false} noindex>
+  <section class="lost" aria-labelledby="lost-title">
+    <figure class="lost-plate">
+      <Picture src={plates.kanbara} alt="Two travelers walking through deep snow at night in a village below the mountains" formats={['avif', 'webp']} widths={[960, 1440, 1920]} sizes="(max-width: 52rem) 100vw, 58vw" loading="eager" style={`object-position:${focus.kanbara}`} />
+      <figcaption>Utagawa Hiroshige, Kanbara, Night Snow, about 1833 to 1834.</figcaption>
+    </figure>
+    <div class="lost-text" data-reveal>
+      <h1 id="lost-title">{n.title}</h1>
+      <p>{n.text}</p>
+      <p lang="ja" class="lost-ja">{ja.notFound.text}</p>
+      <p class="lost-actions">
+        <a class="button" href="/">{n.home} <span class="arrow" aria-hidden="true">→</span></a>
+        <a class="text-link" href="/ja/" lang="ja">{ja.notFound.home}</a>
+      </p>
+    </div>
+  </section>
+  <nav class="wrap stations" aria-labelledby="stations-title">
+    <h2 id="stations-title">{n.pick}</h2>
+    <ul>
+      {n.stations.map((s) => (
+        <li data-reveal>
+          <a href={s.href}>
+            <Picture src={plates[s.plate as keyof typeof plates]} alt="" formats={['avif', 'webp']} widths={[400, 640]} sizes="(max-width: 52rem) 50vw, 24vw" style={`object-position:${focus[s.plate as keyof typeof focus]}`} />
+            <span>{s.label} <span aria-hidden="true">→</span></span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </nav>
+</Base>
+
+<style>
+  .lost { display: grid; grid-template-columns: 7fr 5fr; min-height: calc(100svh - var(--nav-h)); }
+  .lost-plate { position: relative; overflow: hidden; background: var(--paper-2); }
+  .lost-plate :global(picture), .lost-plate :global(img) { width: 100%; height: 100%; object-fit: cover; }
+  .lost-plate figcaption { position: absolute; left: var(--margin); bottom: var(--margin); background: var(--paper); font-size: var(--step-small); padding: 0.5rem 0.75rem; }
+  .lost-text { padding: clamp(2rem, 5vw, 5rem) var(--margin); align-self: center; }
+  .lost-text h1 { font-size: var(--step-head); max-width: 12ch; }
+  .lost-text p { margin-top: 1.25rem; max-width: 44ch; }
+  @media (prefers-reduced-motion: no-preference) {
+    .lost-plate :global(img) { animation: drift 14s ease-out both; }
+  }
+  @keyframes drift { from { transform: scale(1.08); } to { transform: none; } }
+  .stations { padding-block: var(--section); }
+  .stations h2 { font-size: var(--step-head); }
+  .stations ul { margin-top: 2rem; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--gutter); }
+  .stations a { display: grid; gap: 0.75rem; text-decoration: none; font-weight: 500; }
+  .stations :global(picture) { overflow: hidden; }
+  .stations :global(img) { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; transition: transform 1.2s var(--ease-out); }
+  .stations a:hover :global(img) { transform: scale(1.05); }
+  .stations a:hover { color: var(--shu); }
+  .lost-ja { font-family: var(--font-jp); }
+  .lost-actions { display: flex; flex-wrap: wrap; gap: 1rem 1.5rem; align-items: center; margin-top: 2rem !important; }
+  @media (max-width: 52rem) {
+    .lost { grid-template-columns: 1fr; }
+    .lost-plate { height: 40svh; }
+    .stations ul { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+</style>

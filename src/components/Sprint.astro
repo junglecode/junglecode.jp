@@ -1,0 +1,200 @@
+---
+import { Image } from 'astro:assets';
+import jet from '../assets/people/jet-villegas.jpg';
+import aditya from '../assets/people/aditya-pandya.jpg';
+
+interface Session { day: string; title: string; note: string; people: string[] }
+interface Week { tab: string; label: string; sessions: Session[] }
+interface Props {
+  id: string;
+  titleSoft: string;
+  titleStrong: string;
+  action: { label: string; href: string };
+  youLabel: string;
+  weeks: Week[];
+  note: string;
+  names: { jet: string; aditya: string };
+}
+const { id, titleSoft, titleStrong, action, youLabel, weeks, note, names } = Astro.props;
+const faces = { jet, aditya } as const;
+---
+<section class="sprint section" id={id} aria-labelledby={`${id}-title`} data-tabs>
+  <div class="wrap">
+    <div class="sprint-head">
+      <h2 id={`${id}-title`}><span class="sprint-soft">{titleSoft}</span> {titleStrong}</h2>
+      <a class="button" href={action.href}>{action.label}</a>
+    </div>
+    <div class="sprint-body">
+      <div class="sprint-tabs" role="tablist" aria-labelledby={`${id}-title`}>
+        {weeks.map((w, i) => (
+          <button
+            type="button"
+            role="tab"
+            id={`${id}-tab-${i}`}
+            aria-controls={`${id}-panel-${i}`}
+            aria-selected={i === 0 ? 'true' : 'false'}
+            tabindex={i === 0 ? 0 : -1}
+          >
+            <span class="tab-week">{w.tab}</span>
+            <span class="tab-label">{w.label}</span>
+          </button>
+        ))}
+      </div>
+      <div class="sprint-panels">
+        {weeks.map((w, i) => (
+          <div class="sprint-panel" role="tabpanel" id={`${id}-panel-${i}`} aria-labelledby={`${id}-tab-${i}`} data-index={i}>
+            <h3 class="sprint-panel-title">{w.tab}, {w.label}</h3>
+            <ol class="bands">
+              {w.sessions.map((s) => (
+                <li class="band">
+                  <span class="band-day">{s.day}</span>
+                  <span class="band-what">
+                    <span class="band-title">{s.title}</span>
+                    <span class="band-note">{s.note}</span>
+                  </span>
+                  <span class="band-people">
+                    <span class="band-names">{s.people.map((p) => (p === 'you' ? youLabel : names[p as 'jet' | 'aditya'].split(' ')[0])).join(', ')}</span>
+                    <span class="band-faces" aria-hidden="true">
+                      {s.people.map((p) =>
+                        p === 'you' ? (
+                          <span class="face face--you">{youLabel}</span>
+                        ) : (
+                          <Image class="face" src={faces[p as 'jet' | 'aditya']} alt="" width={64} height={64} />
+                        ),
+                      )}
+                    </span>
+                  </span>
+                </li>
+              ))}
+            </ol>
+          </div>
+        ))}
+      </div>
+    </div>
+    <p class="sprint-note">{note}</p>
+  </div>
+</section>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-tabs]').forEach((root) => {
+    const tabs = [...root.querySelectorAll<HTMLButtonElement>('[role="tab"]')];
+    const panels = [...root.querySelectorAll<HTMLElement>('[role="tabpanel"]')];
+    const select = (i: number, focus = false) => {
+      tabs.forEach((t, j) => {
+        t.setAttribute('aria-selected', String(i === j));
+        t.tabIndex = i === j ? 0 : -1;
+      });
+      panels.forEach((p, j) => {
+        p.hidden = i !== j;
+        p.classList.toggle('is-shown', i === j);
+      });
+      if (focus) tabs[i].focus();
+    };
+    tabs.forEach((t, i) => {
+      t.addEventListener('click', () => select(i));
+      t.addEventListener('keydown', (e) => {
+        const k = e.key;
+        let n = -1;
+        if (k === 'ArrowDown' || k === 'ArrowRight') n = (i + 1) % tabs.length;
+        if (k === 'ArrowUp' || k === 'ArrowLeft') n = (i - 1 + tabs.length) % tabs.length;
+        if (k === 'Home') n = 0;
+        if (k === 'End') n = tabs.length - 1;
+        if (n >= 0) { e.preventDefault(); select(n, true); }
+      });
+    });
+    select(0);
+  });
+</script>
+
+<style>
+  .sprint-head {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.75rem;
+  }
+  .sprint-head h2 { font-size: var(--step-head); }
+  .sprint-soft { color: var(--ink-soft); display: block; }
+  .sprint-body {
+    margin-top: 3.5rem;
+    display: grid;
+    grid-template-columns: 11rem minmax(0, 1fr);
+    gap: 2.5rem;
+    align-items: start;
+  }
+  .sprint-tabs { display: none; }
+  :global(.js) .sprint-tabs { display: grid; gap: 6px; }
+  .sprint-tabs button {
+    display: grid;
+    gap: 0.1rem;
+    text-align: left;
+    min-height: 4.25rem;
+    padding: 0.7rem 1rem;
+    border: 0;
+    border-radius: var(--radius);
+    background: var(--paper-2);
+    color: var(--ink);
+    transition: background-color var(--dur-fast) ease, color var(--dur-fast) ease, transform var(--dur-fast) var(--ease-out);
+  }
+  .sprint-tabs button:hover { background: var(--paper-3); }
+  .sprint-tabs button:active { transform: scale(0.98); }
+  .sprint-tabs button[aria-selected='true'] { background: var(--ink); color: var(--paper); }
+  .tab-week { font-size: var(--step-small); }
+  .tab-label { font-family: var(--font-display); font-size: var(--step-lead); line-height: 1.1; }
+  .sprint-panels { display: grid; gap: 3rem; }
+  :global(.js) .sprint-panels { grid-column: 2; }
+  :global(html:not(.js)) .sprint-panels { grid-column: 1 / -1; }
+  :global(.js) .sprint-panel-title { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .sprint-panel-title { font-size: var(--step-lead); margin-bottom: 1rem; }
+  .bands { display: grid; gap: 4px; }
+  .band {
+    display: grid;
+    grid-template-columns: 4.5rem minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 1rem 1.5rem;
+    min-height: 5rem;
+    padding: 0.85rem 1.25rem;
+    background: var(--paper-2);
+  }
+  .band:nth-child(even) { background: var(--paper-3); }
+  @media (prefers-reduced-motion: no-preference) {
+    :global(.js) .sprint-panel.is-shown .band { animation: band-in var(--dur-slow) var(--ease-out) both; }
+    :global(.js) .sprint-panel.is-shown .band:nth-child(2) { animation-delay: 70ms; }
+    :global(.js) .sprint-panel.is-shown .band:nth-child(3) { animation-delay: 140ms; }
+  }
+  @keyframes band-in { from { opacity: 0; transform: translateX(18px); } to { opacity: 1; transform: none; } }
+  .band-day { font-family: var(--font-display); font-variant-numeric: tabular-nums; }
+  .band-what { display: grid; gap: 0.15rem; }
+  .band-title { font-weight: 500; line-height: 1.3; }
+  .band-note { font-size: var(--step-small); color: var(--ink-soft); line-height: 1.4; }
+  .band-people { display: flex; align-items: center; gap: 0.85rem; }
+  .band-names { font-size: var(--step-small); text-align: right; }
+  .band-faces { display: flex; }
+  .band-faces > :global(*) + :global(*) { margin-left: -8px; }
+  .band-faces :global(.face) {
+    width: 2.25rem;
+    height: 2.25rem;
+    object-fit: cover;
+  }
+  .face--you {
+    display: grid;
+    place-items: center;
+    background: var(--shu);
+    color: var(--on-shu);
+    font-size: var(--step-small);
+    font-weight: 500;
+  }
+  .sprint-note { margin-top: 2rem; color: var(--ink-soft); font-size: var(--step-small); }
+
+  @media (max-width: 52rem) {
+    .sprint-body { grid-template-columns: 1fr; gap: 1.5rem; }
+    :global(.js) .sprint-tabs { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .sprint-tabs button { min-height: 3.75rem; padding: 0.5rem 0.6rem; }
+    :global(.js) .sprint-panels { grid-column: 1; }
+    .band { grid-template-columns: 1fr auto; padding: 1rem; }
+    .band-day { grid-column: 1; }
+    .band-what { grid-column: 1 / -1; grid-row: 2; }
+    .band-people { grid-column: 2; grid-row: 1; }
+    .band-names { display: none; }
+  }
+</style>

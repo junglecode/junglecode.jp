@@ -1,0 +1,62 @@
+---
+// A text page on the axis. The Japanese word for each friction is set large in the side zone,
+// so the reader learns the term a Japanese buyer would use.
+interface Props {
+  id: string;
+  title: string;
+  intro: string;
+  items: { term: string; reading: string; title: string; text: string }[];
+}
+const { id, title, intro, items } = Astro.props;
+---
+<section class="stalls section" id={id} aria-labelledby={`${id}-title`}>
+  <div class="wrap grid stalls-head" data-reveal>
+    <h2 id={`${id}-title`}>{title}</h2>
+    <p class="stalls-intro">{intro}</p>
+  </div>
+  <ol class="stalls-list wrap">
+    {items.map((item) => (
+      <li class="grid stall" data-reveal>
+        <p class="stall-term" lang="ja">
+          <span class="stall-kanji">{item.term}</span>
+          <span class="stall-reading" lang="en">{item.reading}</span>
+        </p>
+        <div class="stall-body">
+          <h3>{item.title}</h3>
+          <p>{item.text}</p>
+        </div>
+      </li>
+    ))}
+  </ol>
+</section>
+
+<style>
+  .stalls-head { row-gap: 1.25rem; }
+  .stalls-head h2, .stalls-intro { grid-column: 6 / -1; }
+  .stalls-head h2 { font-size: var(--step-head); max-width: 14ch; }
+  .stalls-intro { font-size: var(--step-lead); font-family: var(--font-display); line-height: 1.28; max-width: 34ch; }
+  :global(:root[lang='ja']) .stalls-intro { line-height: 1.7; max-width: 26em; }
+  .stalls-list { margin-top: clamp(3.5rem, 7vw, 6.5rem); display: grid; gap: clamp(3rem, 6vw, 5.5rem); }
+  .stall { align-items: baseline; row-gap: 0.75rem; }
+  .stall-term { grid-column: 1 / span 5; display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.4rem 1rem; }
+  .stall-kanji {
+    font-family: var(--font-jp);
+    font-weight: 500;
+    font-size: var(--step-head);
+    line-height: 1;
+    letter-spacing: 0.04em;
+  }
+  .stall-reading { font-size: var(--step-body); color: var(--ink-soft); font-style: italic; }
+  :global(:root[lang='ja']) .stall-reading { font-style: normal; }
+  .stall-body { grid-column: 6 / -1; }
+  .stall-body h3 {
+    font-size: var(--step-lead);
+    line-height: 1.15;
+    max-width: 26ch;
+  }
+  :global(:root[lang='ja']) .stall-body h3 { line-height: 1.5; max-width: 22em; }
+  .stall-body p { margin-top: 0.9rem; max-width: 60ch; }
+  @media (max-width: 52rem) {
+    .stalls-head h2, .stalls-intro, .stall-term, .stall-body { grid-column: 1 / -1; }
+  }
+</style>

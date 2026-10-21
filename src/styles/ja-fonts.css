@@ -1,0 +1,5 @@
+/* Full Japanese faces, loaded on Japanese pages only. Each is split by unicode-range,
+   so a page downloads only the slices its characters need. */
+@import '@fontsource/shippori-mincho-b1/500.css';
+@import '@fontsource/zen-kaku-gothic-new/400.css';
+@import '@fontsource/zen-kaku-gothic-new/500.css';
