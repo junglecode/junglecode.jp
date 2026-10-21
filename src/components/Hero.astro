@@ -72,13 +72,15 @@ const lines = title.split(/<br\s*\/?>/i).map((l) => l.trim()).filter(Boolean);
   }
   @keyframes drift { to { transform: translateY(14%); } }
 
-  .hero-line { display: block; overflow: hidden; padding-bottom: 0.08em; margin-bottom: -0.08em; }
+  /* Each line rises out of its own clipped box. The box reaches well past the ascenders and descenders
+     (padding), and the matching negative margins keep the lines where the line height puts them. */
+  .hero-line { display: block; overflow: hidden; padding-block: 0.14em 0.32em; margin-block: -0.14em -0.32em; }
   .hero-line > span { display: inline-block; }
   @media (prefers-reduced-motion: no-preference) {
     .hero-line > span { animation: line-in 1.2s var(--ease) both; animation-delay: calc(200ms + var(--i) * 110ms); }
     .hero-standfirst, .hero-actions, .hero-side { animation: fade-in 1s var(--ease) 560ms both; }
   }
-  @keyframes line-in { from { transform: translateY(105%); } }
+  @keyframes line-in { from { transform: translateY(150%); } }
   @keyframes fade-in { from { opacity: 0; transform: translateY(12px); } }
 
   .hero-text { flex: none; width: 100%; padding-block: clamp(2rem, 4vw, 3.5rem) clamp(2rem, 3.5vw, 3rem); row-gap: clamp(1.25rem, 2.5vw, 2rem); align-items: end; }
