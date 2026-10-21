@@ -16,7 +16,7 @@ const jobs = [
 
 for (const { src, out } of jobs) {
   await sharp(src)
-    .resize(960, 1200, { fit: 'cover', position: 'north', kernel: 'lanczos3' })
+    .resize(960, 1200, { kernel: 'lanczos3' })
     .modulate({ saturation: 0.92 })
     .jpeg({ quality: 86, mozjpeg: true })
     .toFile(out);
