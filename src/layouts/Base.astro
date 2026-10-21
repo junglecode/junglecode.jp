@@ -76,7 +76,7 @@ const ogImage = new URL(copy.locale === 'ja' ? '/og-ja.jpg' : '/og.jpg', SITE_UR
           for (const entry of entries) {
             if (!entry.isIntersecting) continue;
             entry.target.classList.add('is-in');
-            entry.target.querySelectorAll('.seal--stamp').forEach((s) => s.classList.add('is-stamped'));
+            entry.target.querySelectorAll('.seal--stamp:not(.station-seal)').forEach((s) => s.classList.add('is-stamped'));
             reveal.unobserve(entry.target);
           }
         },
@@ -84,7 +84,8 @@ const ogImage = new URL(copy.locale === 'ja' ? '/og-ja.jpg' : '/og.jpg', SITE_UR
       );
       document.querySelectorAll('[data-reveal]').forEach((el) => reveal.observe(el));
 
-      // Stamps outside reveal blocks press in as they arrive.
+      // Stamps outside reveal blocks press in as they arrive. The route map stamps its own
+      // stations as the line reaches them, so its seals are left out here.
       const stamps = new IntersectionObserver(
         (entries) => {
           for (const entry of entries) {
@@ -95,7 +96,7 @@ const ogImage = new URL(copy.locale === 'ja' ? '/og-ja.jpg' : '/og.jpg', SITE_UR
         },
         { threshold: 0.6 },
       );
-      document.querySelectorAll('.seal--stamp:not([data-reveal] .seal--stamp)').forEach((el) => stamps.observe(el));
+      document.querySelectorAll('.seal--stamp:not([data-reveal] .seal--stamp):not(.station-seal)').forEach((el) => stamps.observe(el));
 
       // Local times for Tokyo and New York, refreshed each minute.
       const clocks = document.querySelectorAll<HTMLElement>('[data-clock]');
