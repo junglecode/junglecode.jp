@@ -18,7 +18,7 @@ for (const { src, out } of jobs) {
   await sharp(src)
     .resize(960, 1200, { kernel: 'lanczos3' })
     .modulate({ saturation: 0.92 })
-    .jpeg({ quality: 86, mozjpeg: true })
+    .jpeg({ quality: 90, mozjpeg: true })
     .toFile(out);
   console.log('wrote', out);
 }
