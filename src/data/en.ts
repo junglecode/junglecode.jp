@@ -31,7 +31,7 @@ export const en = {
   hero: {
     title: 'Take your AI<br /> company to Japan',
     standfirst:
-      'We’re two operators who, in Tokyo, built the way people apply for jobs on Indeed, the world’s largest job site. Now we help AI companies find Japanese customers, partners and hires.',
+      'We’re two operators who, in Tokyo, built the way people apply for jobs on Indeed, the world’s largest job marketplace. Now we help AI companies find Japanese customers, partners and hires.',
     action: 'Book an intro call',
     secondary: 'How we work',
     echo: '海外のAI企業を、日本市場へ。',
@@ -150,7 +150,7 @@ export const en = {
     id: 'team',
     title: 'Who you’d work with',
     headline: 'We built how people apply for jobs on Indeed',
-    origin: 'Indeed Apply is the system behind the Apply now button on the world’s largest job site. We built it together in Tokyo, Aditya on product and Jet on engineering. JungleCode is that partnership, pointed at your company.',
+    origin: 'Indeed Apply is the system behind the Apply now button on the world’s largest job marketplace. We built it together in Tokyo, Aditya on product and Jet on engineering. JungleCode is that partnership, pointed at your company.',
     people: [
       {
         key: 'jet',

@@ -11,7 +11,7 @@ export const ja: SiteCopy = {
   meta: {
     title: 'JungleCode｜海外AI企業の日本市場参入支援',
     description:
-      'JungleCodeは、海外のAI企業の日本市場参入を支援します。世界最大の求人サイトIndeedの応募の仕組みを東京で共に築いた2人が、日本での顧客、パートナー、人材との出会いをつくります。',
+      'JungleCodeは、海外のAI企業の日本市場参入を支援します。世界最大の求人マーケットプレイスIndeedの応募の仕組みを東京で共に築いた2人が、日本での顧客、パートナー、人材との出会いをつくります。',
   },
   skip: '本文へ移動',
   nav: {
@@ -32,7 +32,7 @@ export const ja: SiteCopy = {
   hero: {
     title: '海外のAI企業を、<br />日本市場へ。',
     standfirst:
-      '私たちは、世界最大の求人サイトIndeedの応募の仕組みを、東京で共に築いた2人です。海外のAI企業が日本で顧客、パートナー、人材と出会い、事業を根付かせるまでを支援します。',
+      '私たちは、世界最大の求人マーケットプレイスIndeedの応募の仕組みを、東京で共に築いた2人です。海外のAI企業が日本で顧客、パートナー、人材と出会い、事業を根付かせるまでを支援します。',
     action: '相談を予約',
     secondary: '進め方を見る',
     echo: 'Take your AI company to Japan',
@@ -151,7 +151,7 @@ export const ja: SiteCopy = {
     id: 'team',
     title: '担当する2人',
     headline: 'Indeedの応募の仕組みを、東京で築きました',
-    origin: 'Indeed Applyは、世界最大の求人サイトの「今すぐ応募」ボタンを支える仕組みです。Adityaがプロダクトを、Jetがエンジニアリングを担い、東京で共に築きました。その協働を、御社のために活かします。',
+    origin: 'Indeed Applyは、世界最大の求人マーケットプレイスの「今すぐ応募」ボタンを支える仕組みです。Adityaがプロダクトを、Jetがエンジニアリングを担い、東京で共に築きました。その協働を、御社のために活かします。',
     people: [
       {
         key: 'jet',
