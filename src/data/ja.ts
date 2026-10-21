@@ -285,7 +285,7 @@ export const ja: SiteCopy = {
         { label: 'PMDA「IDATEN」', href: 'https://www.pmda.go.jp/files/000266836.pdf' },
         { label: '厚生労働省 中医協資料（CureApp）', href: 'https://www.mhlw.go.jp/content/12404000/001197876.pdf' },
       ],
-      photoAlt: '東京の高層ビルにあるオフィスフロアと、その先に広がる街並み',
+      photoAlt: '街を見下ろす明るいデイルームで、窓辺の高齢の入居者のそばにひざまずく介護職員',
     },
     frictions: {
       id: 'stalls',

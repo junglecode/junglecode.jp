@@ -7,7 +7,7 @@ summary_ja: "日本の臨床現場向けAIを手がける企業に向けて、PM
 draft: true
 order: 3
 plate: clinic
-aside: office-floor
+aside: reading-room
 ---
 
 If you're building AI for clinical settings and Japan is on your roadmap, the first formal step is usually a consultation with the PMDA, the Pharmaceuticals and Medical Devices Agency, which reviews medical devices for the Ministry of Health, Labour and Welfare (MHLW). It works best as a checkpoint, because the questions that decide whether a clinical AI product succeeds here start earlier and run longer than the review.

@@ -284,7 +284,7 @@ export const en = {
         { label: 'PMDA, IDATEN', href: 'https://www.pmda.go.jp/files/000266836.pdf' },
         { label: 'MHLW, Chuikyo materials on CureApp', href: 'https://www.mhlw.go.jp/content/12404000/001197876.pdf' },
       ],
-      photoAlt: 'An open-plan office floor in a Tokyo tower with the skyline beyond',
+      photoAlt: 'A care worker kneels beside an older resident by the window of a bright day room above the city',
     },
     frictions: {
       id: 'stalls',

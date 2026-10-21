@@ -51,7 +51,7 @@ Headlines rise in on load, text rises and photographs unmask as they arrive, fig
 
 ## Images
 
-The photographs of Tokyo (`src/assets/photos/`) are generated placeholders, made to set the art direction. Replace them with licensed or commissioned photography before launch, keeping the same file names and roughly the same framing. `src/components/Photos.ts` holds each one's focal point.
+The photographs of Tokyo, its hospitals and a care home (`src/assets/photos/`) are generated placeholders, made to set the art direction. Replace them with licensed or commissioned photography before launch, keeping the same file names and roughly the same framing. `src/components/Photos.ts` holds each one's focal point.
 
 Founder portraits start from colour masters in `assets-source/portraits/`. Each was made by editing that founder's own photo into one consistent studio session (the same grey backdrop, soft light and framing) while keeping the face unchanged. They were checked against the source photos side by side and with Apple Vision face geometry, landing within about 2% of the source on average. Both share one pose, light, backdrop and lens, and were cropped so the eyes sit level at the same height with the same head size. A final retouch, which never redraws a face, removed white specks from the hair and put back natural skin texture. `scripts/portraits.mjs` scales both to 640 × 800 in colour, since the site shows them small. Each founder should approve their portrait before launch, and real studio photos can replace the masters at any time.
 

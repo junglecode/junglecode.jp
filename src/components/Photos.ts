@@ -1,4 +1,4 @@
-// Photographs of contemporary Tokyo used across the site.
+// Photographs of contemporary Tokyo, and of Japanese hospitals and care for the healthcare page.
 // LAUNCH: these are generated placeholders. Replace them with licensed or commissioned photography.
 import heroMorning from '../assets/photos/hero-morning.jpg';
 import towerMorning from '../assets/photos/tower-morning.jpg';
@@ -9,6 +9,9 @@ import facade from '../assets/photos/facade.jpg';
 import streetEvening from '../assets/photos/street-evening.jpg';
 import clinic from '../assets/photos/clinic.jpg';
 import officeFloor from '../assets/photos/office-floor.jpg';
+import care from '../assets/photos/care.jpg';
+import readingRoom from '../assets/photos/reading-room.jpg';
+import wardMeeting from '../assets/photos/ward-meeting.jpg';
 
 export const photos = {
   'hero-morning': heroMorning,
@@ -20,6 +23,9 @@ export const photos = {
   'street-evening': streetEvening,
   clinic,
   'office-floor': officeFloor,
+  care,
+  'reading-room': readingRoom,
+  'ward-meeting': wardMeeting,
 } as const;
 export type { PhotoKey } from '../data/photoKeys';
 import type { PhotoKey } from '../data/photoKeys';
@@ -35,4 +41,7 @@ export const focus: Record<PhotoKey, string> = {
   'street-evening': '50% 60%',
   clinic: '45% 50%',
   'office-floor': '50% 50%',
+  care: '30% 70%',
+  'reading-room': '40% 35%',
+  'ward-meeting': '72% 55%',
 };

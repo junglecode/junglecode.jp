@@ -23,9 +23,9 @@ const h = copy.healthcare;
     photo={{ light: 'clinic', alt: h.hero.photoAlt }}
   />
   <Intro lead={h.intro.lead} columns={h.intro.columns} />
-  <Figures id="healthcare-why" {...h.whyNow} sourcesLabel={copy.whyNow.sourcesLabel} photo="office-floor" />
-  <Stalls {...h.frictions} photo="facade" photoAlt="" />
-  <Stages {...h.route} label={copy.route.label} />
+  <Figures id="healthcare-why" {...h.whyNow} sourcesLabel={copy.whyNow.sourcesLabel} photo="care" />
+  <Stalls {...h.frictions} photo="reading-room" photoAlt="" />
+  <Stages {...h.route} label={copy.route.label} photo="ward-meeting" photoAlt="" />
   <Roles {...h.roles} />
   <Contact copy={copy} stages={copy.route.chooser.options.map((o) => o.label)} />
 </Base>
