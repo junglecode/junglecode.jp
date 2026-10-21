@@ -51,7 +51,7 @@ Headlines rise in on load, text rises and photographs unmask as they arrive, fig
 
 ## Images
 
-Four photographs are real, openly licensed work from Wikimedia Commons: the home page hero's day and night views of Roppongi with Tokyo Tower behind, by David Kernan (the day one is cropped so the towers lead), Tokyo Station's Marunouchi side by 掬茶, and a Shinkansen at Tokyo by David Kernan. Their licences (CC BY 4.0 and CC BY-SA 4.0) need a visible credit, so the credits page at `/credits/` lists each one, and a small "Photo credits" link at the foot of every page leads there. The list lives in `src/data/credits.ts`. Add any new real photo there.
+Four photographs are real, openly licensed work from Wikimedia Commons: the home page hero's day and night views of Roppongi with Tokyo Tower behind, by David Kernan (the day one is cropped so the towers lead, with a light contrast and clarity grade to cut the haze), Tokyo Station's Marunouchi side by 掬茶, and a Shinkansen at Tokyo by David Kernan. Their licences (CC BY 4.0 and CC BY-SA 4.0) need a visible credit, so the credits page at `/credits/` lists each one, and a small "Photo credits" link at the foot of every page leads there. The list lives in `src/data/credits.ts`. Add any new real photo there.
 
 The hero shows its night photo from 6pm to 6am on the visitor's own clock. Add `?daypart=day` or `?daypart=night` to pin it for review.
 

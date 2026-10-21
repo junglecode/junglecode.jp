@@ -327,7 +327,7 @@ export const en = {
     by: 'Photograph by',
     licence: 'Licence',
     source: 'Original on Wikimedia Commons',
-    adapted: 'Cropped and resized for this site.',
+    adapted: 'Cropped, resized or colour graded for this site.',
     shareAlike: 'Our version is shared under the same licence.',
   },
   privacy: {

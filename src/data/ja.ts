@@ -328,7 +328,7 @@ export const ja: SiteCopy = {
     by: '撮影',
     licence: 'ライセンス',
     source: 'ウィキメディア・コモンズの元画像',
-    adapted: 'このサイト用にトリミングと縮小をしています。',
+    adapted: 'このサイト用にトリミング、縮小、色調の調整をしています。',
     shareAlike: '加工した画像も同じライセンスで公開しています。',
   },
   privacy: {
