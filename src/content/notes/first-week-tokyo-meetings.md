@@ -6,7 +6,7 @@ authors: ["Jet Villegas"]
 summary_ja: "東京で初めて商談に臨む海外AI企業の創業者に向けて、同席者の顔ぶれ、名刺交換、沈黙の意味、日本語資料と通訳の準備、会議後すぐに送る書面での要約、そして「検討します」の受け止め方を実務的に解説する。"
 draft: true
 order: 2
-plate: platform
+plate: shinkansen
 aside: tower-morning
 ---
 

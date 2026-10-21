@@ -10,7 +10,7 @@ export const en = {
   meta: {
     title: 'JungleCode | Japan market entry for AI companies',
     description:
-      'JungleCode helps AI companies enter Japan. Two operators who built Indeed Apply together in Tokyo help you find Japanese customers, partners and hires.',
+      'JungleCode helps AI companies enter Japan. Two operators who built the way people apply for jobs on Indeed, from Tokyo, help you find Japanese customers, partners and hires.',
   },
   skip: 'Skip to content',
   nav: {
@@ -31,21 +31,21 @@ export const en = {
   hero: {
     title: 'Take your AI<br /> company to Japan',
     standfirst:
-      'We’re two operators who built Indeed Apply together in Tokyo. We help AI companies find Japanese customers, partners and hires.',
+      'We’re two operators who, in Tokyo, built the way people apply for jobs on Indeed, the world’s largest job site. Now we help AI companies find Japanese customers, partners and hires.',
     action: 'Book an intro call',
     secondary: 'How we work',
     echo: '海外のAI企業を、日本市場へ。',
     echoLang: 'ja',
     place: 'Tokyo and New York',
-    photoAlt: 'Central Tokyo from Ebisu on a clear day, low-rise streets running out to the towers of Roppongi and Toranomon',
-    photoAltDark: 'The towers of Shinjuku at dusk, seen across Shibuya from Ebisu',
+    photoAlt: 'Office towers in Roppongi and Toranomon in late afternoon sun, with Tokyo Tower behind them',
+    photoAltNight: 'The towers of Roppongi at night, with Tokyo Tower lit beyond them',
     builtAtLabel: 'Built at',
   },
   intro: {
     lead:
       'Most AI companies that try Japan stall between the first meeting and the first contract. We spent years building products in Tokyo for Japanese companies and the people who work in them, and we know where the stalls happen.',
     columns: [
-      { runIn: 'Who we are.', text: 'Jet Villegas and Aditya Pandya. Jet ran engineering for Indeed Apply and then Search Advertising from Tokyo. Aditya ran product for Indeed Apply from Tokyo and later led product at Red Ventures.' },
+      { runIn: 'Who we are.', text: 'Jet Villegas and Aditya Pandya. In Tokyo, Jet ran engineering and Aditya ran product for Indeed Apply, the system behind the Apply now button on Indeed. Jet went on to lead Search Advertising, and Aditya to lead product at Red Ventures.' },
       { runIn: 'What we do.', text: 'We help AI companies decide whether Japan is right for them now. Then we find the first customers, partners and hires, adapt the product and the pitch, and get through procurement.' },
       { runIn: 'Where we are.', text: 'Tokyo and New York. Jet is on the ground in Tokyo for meetings, partners and hiring. Aditya works from New York, in your hours if you’re in the Americas.' },
       { runIn: 'How to start.', text: 'A 30-minute intro call. Tell us what you’re building and why Japan, and we’ll tell you honestly whether now is the time.' },
@@ -66,7 +66,7 @@ export const en = {
       { label: 'Cabinet Office, AI Promotion Act', href: 'https://www8.cao.go.jp/cstp/ai/ai_act/ai_act.html' },
     ],
     sourcesLabel: 'Sources',
-    photoAlt: 'Commuters on a Tokyo Metro platform as a train pulls in',
+    photoAlt: 'People crossing the plaza in front of Tokyo Station, between the office towers of Marunouchi',
   },
   frictions: {
     id: 'stalls',
@@ -149,8 +149,8 @@ export const en = {
   team: {
     id: 'team',
     title: 'Who you’d work with',
-    headline: 'We built Indeed Apply together in Tokyo',
-    origin: 'Aditya on product, Jet on engineering. JungleCode is that partnership, pointed at your company.',
+    headline: 'We built how people apply for jobs on Indeed',
+    origin: 'Indeed Apply is the system behind the Apply now button on the world’s largest job site. We built it together in Tokyo, Aditya on product and Jet on engineering. JungleCode is that partnership, pointed at your company.',
     people: [
       {
         key: 'jet',
@@ -238,13 +238,6 @@ export const en = {
       { title: 'Company', links: [{ label: 'Team', href: '/#team' }, { label: 'Privacy', href: '/privacy/' }, { label: '日本語', href: '/ja/' }, { label: 'junglecode.net', href: 'https://junglecode.net' }] },
     ],
     credits: 'The yellow tiles on this site are tenji blocks, the tactile paving first laid in Okayama in 1967 that now guides people through every station in Japan.',
-    photoCredits: {
-      label: 'Photographs',
-      items: [
-        { what: 'Tokyo from Ebisu by day', by: 'Supanut Arunoprayote', href: 'https://commons.wikimedia.org/wiki/File:Panoramic_View_of_Minato_20241020.jpg', licence: 'CC BY 4.0', licenceHref: 'https://creativecommons.org/licenses/by/4.0/' },
-        { what: 'Shinjuku at dusk', by: 'Ximonic (Simo Räsänen)', href: 'https://commons.wikimedia.org/wiki/File:Shibuya_and_Shinjuku_from_Yebisu_Garden_Place_Tower,_Ebisu,_Tokyo,_Japan,_2024_May.jpg', licence: 'CC BY-SA 4.0', licenceHref: 'https://creativecommons.org/licenses/by-sa/4.0/' },
-      ],
-    },
     top: 'Back to top',
     copyright: (y: number) => `© ${y} JungleCode`,
   },
@@ -325,6 +318,17 @@ export const en = {
       we: { title: 'We lead', text: 'The commercial and product side of entry, start to finish.', lines: ['Market and segment strategy', 'Positioning and Japanese clinical messaging', 'Product, content and EMR localization', 'Hospital partnerships and pilot design', 'Distribution and channel partners', 'Hiring your first team in Japan'] },
       partners: { title: 'Specialist partners lead', text: 'The regulated work, with us coordinating so it fits the plan.', lines: ['PMDA consultations and applications', 'Reimbursement and health economics dossiers', 'Clinical studies in Japan', 'Legal and data protection opinions'] },
     },
+  },
+  credits: {
+    meta: { title: 'Photo credits | JungleCode', description: 'The photographers whose work appears on the JungleCode site, and their licences.' },
+    link: 'Photo credits',
+    title: 'Photo credits',
+    lead: 'These photographs are shared by their photographers under Creative Commons licences. Thank you to each of them.',
+    by: 'Photograph by',
+    licence: 'Licence',
+    source: 'Original on Wikimedia Commons',
+    adapted: 'Cropped and resized for this site.',
+    shareAlike: 'Our version is shared under the same licence.',
   },
   privacy: {
     meta: { title: 'Privacy | JungleCode', description: 'How JungleCode handles what you send us.' },

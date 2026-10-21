@@ -51,14 +51,9 @@ Headlines rise in on load, text rises and photographs unmask as they arrive, fig
 
 ## Images
 
-The home page hero uses two real photographs taken from Yebisu Garden Place Tower in Ebisu, cropped and resized for the site. They are credited in one small line at the foot of every page:
+Four photographs are real, openly licensed work from Wikimedia Commons: the home page hero's day and night views of Roppongi with Tokyo Tower behind, by David Kernan (the day one is cropped so the towers lead), Tokyo Station's Marunouchi side by 掬茶, and a Shinkansen at Tokyo by David Kernan. Their licences (CC BY 4.0 and CC BY-SA 4.0) need a visible credit, so the credits page at `/credits/` lists each one, and a small "Photo credits" link at the foot of every page leads there. The list lives in `src/data/credits.ts`. Add any new real photo there.
 
-| Image | Photographer and licence | Source |
-| --- | --- | --- |
-| `ebisu-minato.jpg`, central Tokyo by day (light mode) | Supanut Arunoprayote, [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) | [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Panoramic_View_of_Minato_20241020.jpg) |
-| `ebisu-shinjuku-dusk.jpg`, Shinjuku at dusk (dark mode) | Ximonic (Simo Räsänen), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) | [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Shibuya_and_Shinjuku_from_Yebisu_Garden_Place_Tower,_Ebisu,_Tokyo,_Japan,_2024_May.jpg) |
-
-Both licences require that visible credit, so keep the footer line while these photos are used. The cropped dusk photo is shared under CC BY-SA 4.0 like its source. Supanut Arunoprayote asks on the file page for a short message when the photo is used, which is a courtesy and not a licence term.
+The hero shows its night photo from 6pm to 6am on the visitor's own clock. Add `?daypart=day` or `?daypart=night` to pin it for review.
 
 The other photographs of Tokyo, its hospitals and a care home (`src/assets/photos/`) are generated placeholders, made to set the art direction. Replace them with licensed or commissioned photography before launch, keeping the same file names and roughly the same framing. `src/components/Photos.ts` holds each one's focal point.
 
@@ -74,7 +69,7 @@ Founder portraits start from colour masters in `assets-source/portraits/`. Each 
 - [ ] Paste the real booking link into `BOOKING_URL` in `src/data/config.ts` (until then, "Book 30 minutes" opens a prepared email)
 - [ ] Native-speaker review of everything in `src/data/ja.ts` and the `summary_ja` lines in the notes
 - [ ] Jet and Aditya review their bios, their portraits, the origin story and the sample Readiness Sprint agenda
-- [ ] Replace the generated photographs (everything in `src/assets/photos/` except the two views from Ebisu) with licensed or commissioned ones
+- [ ] Replace the generated photographs (everything in `src/assets/photos/` except `tokyo-day`, `tokyo-night`, `marunouchi` and `shinkansen`) with licensed or commissioned ones
 - [ ] Edit the three draft notes, replace the editor prompts with real examples, set `draft: false`
 - [ ] Confirm the anonymized engagement line ("a North American AI visual-inspection company")
 - [ ] Confirm the healthcare framing (specialist partners lead PMDA filings and reimbursement dossiers)

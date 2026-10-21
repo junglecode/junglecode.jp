@@ -11,7 +11,7 @@ export const ja: SiteCopy = {
   meta: {
     title: 'JungleCode｜海外AI企業の日本市場参入支援',
     description:
-      'JungleCodeは、海外のAI企業の日本市場参入を支援します。東京でIndeed Applyを共に築いた2人が、日本での顧客、パートナー、人材との出会いをつくります。',
+      'JungleCodeは、海外のAI企業の日本市場参入を支援します。世界最大の求人サイトIndeedの応募の仕組みを東京で共に築いた2人が、日本での顧客、パートナー、人材との出会いをつくります。',
   },
   skip: '本文へ移動',
   nav: {
@@ -32,21 +32,21 @@ export const ja: SiteCopy = {
   hero: {
     title: '海外のAI企業を、<br />日本市場へ。',
     standfirst:
-      '私たちは、東京でIndeed Applyを共に築いた2人です。海外のAI企業が日本で顧客、パートナー、人材と出会い、事業を根付かせるまでを支援します。',
+      '私たちは、世界最大の求人サイトIndeedの応募の仕組みを、東京で共に築いた2人です。海外のAI企業が日本で顧客、パートナー、人材と出会い、事業を根付かせるまでを支援します。',
     action: '相談を予約',
     secondary: '進め方を見る',
     echo: 'Take your AI company to Japan',
     echoLang: 'en',
     place: '東京とニューヨーク',
-    photoAlt: '晴れた日に恵比寿から望む東京都心。低層の街並みの先に六本木と虎ノ門の高層ビル',
-    photoAltDark: '恵比寿から渋谷越しに望む、夕暮れの新宿の高層ビル群',
+    photoAlt: '午後の日差しを受ける六本木と虎ノ門の高層ビル、その奥に立つ東京タワー',
+    photoAltNight: '夜の六本木の高層ビルと、その先に灯る東京タワー',
     builtAtLabel: '2人が携わってきた企業',
   },
   intro: {
     lead:
       '日本に挑むAI企業の多くは、最初の商談と最初の契約のあいだで足踏みします。私たちは東京で、日本企業とそこで働く人々のためのプロダクトを長年つくってきたので、どこで止まりやすいかを知っています。',
     columns: [
-      { runIn: '私たちについて。', text: 'Jet VillegasとAditya Pandya。Jetは東京でIndeed Applyと検索広告のエンジニアリングを率いました。Adityaは東京でIndeed Applyのプロダクトを率い、その後Red Venturesでプロダクト部門を統括しました。' },
+      { runIn: '私たちについて。', text: 'Jet VillegasとAditya Pandya。2人は東京で、Indeedの「今すぐ応募」ボタンを支える仕組み、Indeed Applyを築きました。Jetはエンジニアリングを率い、その後は検索広告を担当。Adityaはプロダクトを率い、その後Red Venturesでプロダクト部門を統括しました。' },
       { runIn: '支援内容。', text: '日本市場に今参入すべきかの判断から始め、最初の顧客、パートナー、採用候補を見つけ、プロダクトと提案を日本向けに整え、調達のプロセスを乗り越えるまでを支援します。' },
       { runIn: '拠点。', text: '東京とニューヨーク。Jetは東京で商談、パートナー、採用を担当し、Adityaはニューヨークから米州の営業時間に合わせて対応します。' },
       { runIn: '始め方。', text: 'まずは30分のご相談から。何をつくっていて、なぜ日本なのかをお聞かせください。今が適切な時期かどうかを率直にお伝えします。' },
@@ -67,7 +67,7 @@ export const ja: SiteCopy = {
       { label: '内閣府「AI法」', href: 'https://www8.cao.go.jp/cstp/ai/ai_act/ai_act.html' },
     ],
     sourcesLabel: '出典',
-    photoAlt: '電車が到着する東京メトロのホームと通勤客',
+    photoAlt: '丸の内のオフィスビルに囲まれた東京駅前の広場を行き交う人々',
   },
   frictions: {
     id: 'stalls',
@@ -150,8 +150,8 @@ export const ja: SiteCopy = {
   team: {
     id: 'team',
     title: '担当する2人',
-    headline: '東京で、Indeed Applyを共に築きました',
-    origin: 'Adityaがプロダクトを、Jetがエンジニアリングを担いました。その協働を、御社のために活かします。',
+    headline: 'Indeedの応募の仕組みを、東京で築きました',
+    origin: 'Indeed Applyは、世界最大の求人サイトの「今すぐ応募」ボタンを支える仕組みです。Adityaがプロダクトを、Jetがエンジニアリングを担い、東京で共に築きました。その協働を、御社のために活かします。',
     people: [
       {
         key: 'jet',
@@ -239,13 +239,6 @@ export const ja: SiteCopy = {
       { title: '会社', links: [{ label: 'チーム', href: '/ja/#team' }, { label: 'プライバシー', href: '/ja/privacy/' }, { label: 'English', href: '/' }, { label: 'junglecode.net', href: 'https://junglecode.net' }] },
     ],
     credits: 'このサイトの黄色いタイルは点字ブロックです。1967年に岡山で初めて敷かれ、いまでは日本中の駅で人を導いています。',
-    photoCredits: {
-      label: '写真',
-      items: [
-        { what: '恵比寿から望む東京の昼景', by: 'Supanut Arunoprayote', href: 'https://commons.wikimedia.org/wiki/File:Panoramic_View_of_Minato_20241020.jpg', licence: 'CC BY 4.0', licenceHref: 'https://creativecommons.org/licenses/by/4.0/' },
-        { what: '夕暮れの新宿', by: 'Ximonic (Simo Räsänen)', href: 'https://commons.wikimedia.org/wiki/File:Shibuya_and_Shinjuku_from_Yebisu_Garden_Place_Tower,_Ebisu,_Tokyo,_Japan,_2024_May.jpg', licence: 'CC BY-SA 4.0', licenceHref: 'https://creativecommons.org/licenses/by-sa/4.0/' },
-      ],
-    },
     top: 'ページの先頭へ',
     copyright: (y: number) => `© ${y} JungleCode`,
   },
@@ -326,6 +319,17 @@ export const ja: SiteCopy = {
       we: { title: '私たちが担うこと', text: '参入の事業面とプロダクト面を、最初から最後まで。', lines: ['市場とセグメントの戦略', 'ポジショニングと日本語の臨床メッセージ', 'プロダクト、コンテンツ、電子カルテ連携のローカライズ', '病院との提携とPoCの設計', '流通と販売のパートナー', '日本での最初のチームの採用'] },
       partners: { title: '専門パートナーが担うこと', text: '規制に関わる業務を、計画に沿うよう私たちが調整します。', lines: ['PMDAへの相談と申請', '診療報酬と医療経済の資料', '国内での臨床研究', '法務と個人情報保護に関する意見書'] },
     },
+  },
+  credits: {
+    meta: { title: '写真のクレジット | JungleCode', description: 'JungleCodeのサイトに掲載している写真の撮影者とライセンス。' },
+    link: '写真のクレジット',
+    title: '写真のクレジット',
+    lead: 'これらの写真は、撮影者の皆さんがクリエイティブ・コモンズ・ライセンスで公開しているものです。心より感謝します。',
+    by: '撮影',
+    licence: 'ライセンス',
+    source: 'ウィキメディア・コモンズの元画像',
+    adapted: 'このサイト用にトリミングと縮小をしています。',
+    shareAlike: '加工した画像も同じライセンスで公開しています。',
   },
   privacy: {
     meta: { title: 'プライバシー｜JungleCode', description: 'お送りいただいた情報の取り扱いについて。' },

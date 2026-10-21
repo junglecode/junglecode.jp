@@ -36,9 +36,7 @@ const showEmail = !/^\/(ja\/)?(healthcare\/|privacy\/)?$/.test(path);
       {copy.footer.credits && <p class="footer-credits">{copy.footer.credits}</p>}
       <a class="footer-top" href="#main">{copy.footer.top}</a>
     </div>
-    <p class="footer-photos">
-      {copy.footer.photoCredits.label}: {copy.footer.photoCredits.items.map((p, i) => <>{i > 0 && ' · '}<a href={p.href} rel="noopener">{p.what}</a>, {p.by}, <a href={p.licenceHref} rel="noopener license">{p.licence}</a></>)}
-    </p>
+    <p class="footer-photos"><a href={copy.locale === 'ja' ? '/ja/credits/' : '/credits/'}>{copy.credits.link}</a></p>
   </div>
 </footer>
 

@@ -30,7 +30,7 @@ const navLinks = copy.nav.links
     secondary={{ label: copy.hero.secondary, href: '#approach' }}
     echo={{ text: copy.hero.echo, lang: copy.hero.echoLang }}
     place={copy.hero.place}
-    photo={{ light: 'tokyo-day', dark: 'tokyo-dusk', alt: copy.hero.photoAlt, altDark: copy.hero.photoAltDark }}
+    photo={{ day: 'tokyo-day', night: 'tokyo-night', alt: copy.hero.photoAlt, altNight: copy.hero.photoAltNight }}
     builtAt={{ label: copy.hero.builtAtLabel, names: copy.team.builtAt }}
   />
   <Intro lead={copy.intro.lead} columns={copy.intro.columns} />
@@ -44,7 +44,7 @@ const navLinks = copy.nav.links
     nameText={copy.team.nameText}
     nameInBio={ja}
   />
-  <Figures {...copy.whyNow} photo="platform" />
+  <Figures {...copy.whyNow} photo="marunouchi" />
   <Stalls {...copy.frictions} photo="street-evening" photoAlt="" />
   <Stages {...copy.route} photo="meeting" photoAlt="" />
   <Engagements

@@ -59,6 +59,13 @@ const ogImage = new URL(copy.locale === 'ja' ? '/og-ja.jpg' : '/og.jpg', SITE_UR
       document.documentElement.classList.add('js');
       // ?theme=light or ?theme=dark pins the palette, for review and screenshots.
       try { const t = new URLSearchParams(location.search).get('theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch {}
+      // Night from 6pm to 6am on the visitor's own clock swaps in the hero's night photograph.
+      // ?daypart=day or ?daypart=night pins it for review.
+      try {
+        const q = new URLSearchParams(location.search).get('daypart');
+        const h = new Date().getHours();
+        document.documentElement.dataset.daypart = q === 'day' || q === 'night' ? q : h >= 18 || h < 6 ? 'night' : 'day';
+      } catch {}
     </script>
   </head>
   <body>

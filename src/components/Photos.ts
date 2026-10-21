@@ -1,10 +1,11 @@
 // Photographs of contemporary Tokyo, and of Japanese hospitals and care for the healthcare page.
-// The two hero views from Ebisu are real photographs, credited at the foot of every page and in the
-// README. LAUNCH: the rest are generated placeholders. Replace them with licensed or commissioned photography.
-import tokyoDay from '../assets/photos/ebisu-minato.jpg';
-import tokyoDusk from '../assets/photos/ebisu-shinjuku-dusk.jpg';
+// tokyo-day, tokyo-night, marunouchi and shinkansen are real photographs, credited on the credits
+// page (src/data/credits.ts). LAUNCH: the rest are generated placeholders. Replace them with licensed or commissioned photography.
+import tokyoDay from '../assets/photos/tokyo-day.jpg';
+import tokyoNight from '../assets/photos/tokyo-night.jpg';
+import marunouchi from '../assets/photos/marunouchi.jpg';
+import shinkansen from '../assets/photos/shinkansen.jpg';
 import towerMorning from '../assets/photos/tower-morning.jpg';
-import platform from '../assets/photos/platform.jpg';
 import meeting from '../assets/photos/meeting.jpg';
 import facade from '../assets/photos/facade.jpg';
 import streetEvening from '../assets/photos/street-evening.jpg';
@@ -16,9 +17,10 @@ import wardMeeting from '../assets/photos/ward-meeting.jpg';
 
 export const photos = {
   'tokyo-day': tokyoDay,
-  'tokyo-dusk': tokyoDusk,
+  'tokyo-night': tokyoNight,
+  marunouchi,
+  shinkansen,
   'tower-morning': towerMorning,
-  platform,
   meeting,
   facade,
   'street-evening': streetEvening,
@@ -33,10 +35,11 @@ import type { PhotoKey } from '../data/photoKeys';
 
 // Where each picture's subject sits, so crops keep it in frame.
 export const focus: Record<PhotoKey, string> = {
-  'tokyo-day': '50% 20%',
-  'tokyo-dusk': '55% 50%',
+  'tokyo-day': '40% 36%',
+  'tokyo-night': '60% 42%',
+  marunouchi: '50% 62%',
+  shinkansen: '70% 60%',
   'tower-morning': '50% 40%',
-  platform: '55% 55%',
   meeting: '45% 55%',
   facade: '50% 50%',
   'street-evening': '50% 60%',

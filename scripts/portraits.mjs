@@ -8,15 +8,16 @@
 // Usage: node scripts/portraits.mjs
 import sharp from 'sharp';
 
-// Eye centre (from Apple Vision) of each master. The avatar square is centred a little below the
-// eyes and is wide enough that the whole head, hair included, sits inside the circle.
-const AVATAR = { size: 1320, below: 20, out: 240 };
+// Each head's outline in the master (hair top, chin and horizontal centre), measured with Apple Vision
+// person segmentation. The avatar square is centred on the head itself, not on the eyes, since a
+// turned head puts the eyes off its middle, and sized from the head's height so both heads match.
+const AVATAR = { scale: 1.42, drop: 0.55, out: 240 };
 const people = [
-  { name: 'jet-villegas', eye: [615, 588] },
-  { name: 'aditya-pandya', eye: [506, 591] },
+  { name: 'jet-villegas', head: { top: 97, chin: 1056, cx: 510 } },
+  { name: 'aditya-pandya', head: { top: 47, chin: 1060, cx: 535 } },
 ];
 
-for (const { name, eye } of people) {
+for (const { name, head } of people) {
   const src = `assets-source/portraits/${name}-color.jpg`;
   await sharp(src)
     .resize(640, 800, { kernel: 'lanczos3' })
@@ -25,13 +26,14 @@ for (const { name, eye } of people) {
     .toFile(`src/assets/people/${name}.jpg`);
 
   const { width, height } = await sharp(src).metadata();
-  const half = AVATAR.size / 2;
-  const left = Math.round(eye[0] - half), top = Math.round(eye[1] + AVATAR.below - half);
-  // Past the edges is plain backdrop at head height, so the edge pixels are repeated outward.
-  const pad = { left: Math.max(0, -left), top: Math.max(0, -top), right: Math.max(0, left + AVATAR.size - width), bottom: Math.max(0, top + AVATAR.size - height) };
+  const h = head.chin - head.top;
+  const size = Math.round(h * AVATAR.scale), half = size / 2;
+  const left = Math.round(head.cx - half), top = Math.round(head.top + h * AVATAR.drop - half);
+  // Past the edges is plain backdrop at head height, so the edge pixels are repeated outward to fill it.
+  const pad = { left: Math.max(0, -left), top: Math.max(0, -top), right: Math.max(0, left + size - width), bottom: Math.max(0, top + size - height) };
   const grown = await sharp(src).extend({ ...pad, extendWith: 'copy' }).toBuffer();
   await sharp(grown)
-    .extract({ left: left + pad.left, top: top + pad.top, width: AVATAR.size, height: AVATAR.size })
+    .extract({ left: left + pad.left, top: top + pad.top, width: size, height: size })
     .resize(AVATAR.out, AVATAR.out, { kernel: 'lanczos3' })
     .modulate({ saturation: 0.92 })
     .jpeg({ quality: 90, mozjpeg: true })

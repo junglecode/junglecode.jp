@@ -1,7 +1,8 @@
 ---
 // The opening: a photograph of Tokyo today, and the headline, standfirst and actions, all within the
 // first screen. In light mode the headline sits below the picture, which takes whatever height is
-// left. In dark mode the picture fills the screen and the headline sits over it.
+// left. In dark mode the picture fills the screen and the headline sits over it. Pages can give a
+// night photograph too, shown when it's night where the visitor is (see Base.astro).
 import { Picture } from 'astro:assets';
 import { photos, focus, type PhotoKey } from './Photos';
 
@@ -12,20 +13,20 @@ interface Props {
   secondary?: { label: string; href: string };
   echo?: { text: string; lang: string };
   place?: string;
-  photo: { light: PhotoKey; dark?: PhotoKey; alt: string; altDark?: string };
+  photo: { day: PhotoKey; night?: PhotoKey; alt: string; altNight?: string };
   builtAt?: { label: string; names: string[] };
 }
 const { title, standfirst, action, secondary, echo, place, photo, builtAt } = Astro.props;
-const dark = photo.dark ?? photo.light;
-const hasDark = dark !== photo.light;
+const night = photo.night ?? photo.day;
+const hasNight = night !== photo.day;
 const lines = title.split(/<br\s*\/?>/i).map((l) => l.trim()).filter(Boolean);
 ---
 <section class="hero" aria-labelledby="hero-title">
-  <div class:list={['hero-stage', { 'has-dark': hasDark }]}>
+  <div class:list={['hero-stage', { 'has-night': hasNight }]}>
   <div class="hero-photo">
-    <Picture class="photo-light" src={photos[photo.light]} alt={photo.alt} formats={['avif', 'webp']} widths={[960, 1440, 1920, 2560]} sizes="100vw" loading="eager" fetchpriority="high" style={`object-position:${focus[photo.light]}`} />
-    {hasDark && (
-      <Picture class="photo-dark" src={photos[dark]} alt={photo.altDark ?? photo.alt} formats={['avif', 'webp']} widths={[960, 1440, 1920, 2560]} sizes="100vw" loading="lazy" style={`object-position:${focus[dark]}`} />
+    <Picture class="photo-day" src={photos[photo.day]} alt={photo.alt} formats={['avif', 'webp']} widths={[960, 1440, 1920, 2560, 3200]} sizes="100vw" loading="eager" fetchpriority="high" style={`object-position:${focus[photo.day]}`} />
+    {hasNight && (
+      <Picture class="photo-night" src={photos[night]} alt={photo.altNight ?? photo.alt} formats={['avif', 'webp']} widths={[960, 1440, 1920, 2560, 3200]} sizes="100vw" loading="lazy" style={`object-position:${focus[night]}`} />
     )}
     <span class="hero-scrim" aria-hidden="true"></span>
   </div>
@@ -56,7 +57,9 @@ const lines = title.split(/<br\s*\/?>/i).map((l) => l.trim()).filter(Boolean);
   .hero-stage { display: flex; flex-direction: column; min-height: min(100svh, 64rem); }
   .hero-photo { position: relative; flex: 1 1 auto; min-height: clamp(14rem, 40svh, 30rem); overflow: hidden; background: var(--surface); }
   .hero-photo :global(picture), .hero-photo :global(img) { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-  .hero-photo :global(.photo-dark) { display: none; }
+  .hero-photo :global(.photo-night) { display: none; }
+  :global(html[data-daypart='night']) .has-night .hero-photo :global(.photo-day) { display: none; }
+  :global(html[data-daypart='night']) .has-night .hero-photo :global(.photo-night) { display: block; }
   .hero-scrim { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0, 0, 0, 0.42) 0%, rgba(0, 0, 0, 0) 32%); pointer-events: none; }
   @media (prefers-reduced-motion: no-preference) {
     .hero-photo :global(img) { animation: settle 2.4s var(--ease) both; }
@@ -100,8 +103,6 @@ const lines = title.split(/<br\s*\/?>/i).map((l) => l.trim()).filter(Boolean);
   @media (prefers-color-scheme: dark) {
     :global(:root:not([data-theme='light'])) .hero-stage { position: relative; display: block; min-height: 0; height: max(100svh, 36rem); }
     :global(:root:not([data-theme='light'])) .hero-photo { position: absolute; inset: 0; min-height: 0; }
-    :global(:root:not([data-theme='light'])) .has-dark .hero-photo :global(.photo-light) { display: none; }
-    :global(:root:not([data-theme='light'])) .has-dark .hero-photo :global(.photo-dark) { display: block; }
     :global(:root:not([data-theme='light'])) .hero-scrim { background: linear-gradient(to top, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0.25) 55%, rgba(0, 0, 0, 0.35) 100%); }
     :global(:root:not([data-theme='light'])) .hero-text { position: absolute; left: 0; right: 0; bottom: 0; padding-block: 0 clamp(2rem, 4.5vw, 3.5rem); color: #fff; }
     :global(:root:not([data-theme='light'])) .hero-place { color: rgba(255, 255, 255, 0.75); }
@@ -111,8 +112,6 @@ const lines = title.split(/<br\s*\/?>/i).map((l) => l.trim()).filter(Boolean);
   }
   :global(:root[data-theme='dark']) .hero-stage { position: relative; display: block; min-height: 0; height: max(100svh, 36rem); }
   :global(:root[data-theme='dark']) .hero-photo { position: absolute; inset: 0; min-height: 0; }
-  :global(:root[data-theme='dark']) .has-dark .hero-photo :global(.photo-light) { display: none; }
-  :global(:root[data-theme='dark']) .has-dark .hero-photo :global(.photo-dark) { display: block; }
   :global(:root[data-theme='dark']) .hero-scrim { background: linear-gradient(to top, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0.25) 55%, rgba(0, 0, 0, 0.35) 100%); }
   :global(:root[data-theme='dark']) .hero-text { position: absolute; left: 0; right: 0; bottom: 0; padding-block: 0 clamp(2rem, 4.5vw, 3.5rem); color: #fff; }
   :global(:root[data-theme='dark']) .hero-place { color: rgba(255, 255, 255, 0.75); }
