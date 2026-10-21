@@ -3,7 +3,7 @@ title: "Healthcare AI in Japan, before the paperwork"
 description: "What founders building clinical AI for Japan should work out before the first PMDA consultation, from SaMD status to reimbursement and EMRs."
 date: 2026-10-20
 authors: ["Jet Villegas", "Aditya Pandya"]
-summary_ja: "日本の臨床現場向けAIを手がける企業に向けて、PMDAへの最初の相談の前に整理しておくべき医療機器該当性とクラス分類、DASH for SaMDやIDATENなどの制度、承認とは別に2年ごとに改定される診療報酬、そして導入を左右する病院の業務フローと電子カルテ連携について解説する。"
+summary_ja: "日本の臨床現場向けAIを手がける企業に向けて、PMDAへの初回相談前に整理すべき医療機器該当性とクラス分類、DASH for SaMDやIDATEN、承認とは別に2年ごとに改定される診療報酬、導入を左右する病院の業務フローと電子カルテ連携を解説します。"
 draft: true
 order: 3
 plate: clinic

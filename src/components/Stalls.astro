@@ -48,7 +48,7 @@ const { id, label, title, intro, items, photo, photoAlt } = Astro.props;
   .stalls-body { grid-column: 7 / -1; }
   .stalls-head { display: grid; gap: 1rem; }
   .stalls-head h2 { max-width: 14ch; }
-  :global(:root[lang='ja']) .stalls-head h2 { max-width: 12em; }
+  :global(:root[lang='ja']) .stalls-head h2 { max-width: none; }
   .stalls-intro { color: var(--soft); max-width: 46ch; }
   .stalls-list { margin-top: clamp(2.5rem, 5vw, 4rem); }
   .stalls-list li { display: grid; grid-template-columns: 4.5rem minmax(0, 1fr); gap: 1rem; padding-block: 1.75rem; border-top: 1px solid var(--rule); }

@@ -107,7 +107,7 @@ const follow = cut > 0 ? c.statement.slice(cut).trim() : '';
     document.addEventListener('jc:engagement', (e) => {
       const name = (e as CustomEvent<string>).detail;
       if (field) field.value = name;
-      if (note) { note.textContent = (lang === 'ja' ? 'ご関心のある形は' : 'Interested in ') + name; note.hidden = false; }
+      if (note) { note.textContent = (lang === 'ja' ? 'ご関心のある支援：' : 'Interested in ') + name; note.hidden = false; }
     });
   }
 </script>

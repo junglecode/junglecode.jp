@@ -3,7 +3,7 @@ title: "Japan buys slowly. Then it stays."
 description: "Why Japanese enterprises take longer to buy, why they stay once they do, and how AI founders should plan around both."
 date: 2026-10-20
 authors: ["Aditya Pandya"]
-summary_ja: "日本企業の購買は稟議や根回しを経るため時間がかかるが、一度採用されると長く使い続けられるため、AI企業は長い商談期間を前提に、社内の推進者を見つけ、本番導入までの道筋を明記したPoCを設計し、日本語の資料とサポート体制を用意すべきだ。"
+summary_ja: "日本企業の購買には稟議や根回しがあるため時間がかかりますが、一度導入されると長く使われる傾向があります。AI企業が長い商談期間を見込み、社内の推進者を見つけ、本番導入までの条件を定めたPoCと日本語の資料、サポート体制を用意すべき理由を解説します。"
 draft: true
 order: 1
 plate: facade

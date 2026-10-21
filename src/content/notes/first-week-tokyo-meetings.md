@@ -3,7 +3,7 @@ title: "Your first week of Tokyo meetings"
 description: "Practical notes for a founder's first week of meetings in Tokyo, from business cards and silence to interpreters and the follow-up that counts."
 date: 2026-10-20
 authors: ["Jet Villegas"]
-summary_ja: "東京で初めて商談に臨む海外AI企業の創業者に向けて、同席者の顔ぶれ、名刺交換、沈黙の意味、日本語資料と通訳の準備、会議後すぐに送る書面での要約、そして「検討します」の受け止め方を実務的に解説する。"
+summary_ja: "東京で初めて商談に臨む海外AI企業の創業者に向けて、同席者の顔ぶれ、名刺交換、沈黙の受け止め方、日本語資料と通訳の準備、会議後の書面による要約、「検討します」の読み解き方を実務的に解説します。"
 draft: true
 order: 2
 plate: shinkansen

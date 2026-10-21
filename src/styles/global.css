@@ -88,6 +88,8 @@
 }
 
 :root[lang='ja'] {
+  /* Japanese glyphs fill the whole em, so section headings are set a step smaller than the Latin ones */
+  --step-head: clamp(1.75rem, 1.1rem + 2.3vw, 3rem);
   --font-display: 'Noto Serif JP', 'Hiragino Mincho ProN', 'Yu Mincho', serif;
   --font-text: 'IBM Plex Sans JP', 'IBM Plex Sans Variable', 'Hiragino Sans', 'Yu Gothic', system-ui, sans-serif;
 }

@@ -46,7 +46,7 @@ const allCredits: PhotoCredit[] = [
   },
   {
     photo: 'shinkansen',
-    title: { en: 'N700 Series Shinkansen on the Tokaido Line, Tokyo', ja: '東海道新幹線のN700系、東京' },
+    title: { en: 'N700 Series Shinkansen on the Tokaido Line, Tokyo', ja: '東京を走る東海道新幹線N700系' },
     by: 'David Kernan',
     source: 'https://commons.wikimedia.org/wiki/File:N700_Series_Shinkansen_on_Tokaido_Line_Tokyo_March_2015.jpg',
     licence: 'CC BY 4.0',
