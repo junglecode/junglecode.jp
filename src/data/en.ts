@@ -10,7 +10,7 @@ export const en = {
   meta: {
     title: 'JungleCode | Japan market entry for AI companies',
     description:
-      'JungleCode helps AI companies enter Japan. Two operators who built the way people apply for jobs on Indeed, from Tokyo, help you find Japanese customers, partners and hires.',
+      'JungleCode helps AI companies enter Japan. Two operators who built how job seekers and employers connect on Indeed, the world’s largest job marketplace, help you find Japanese customers, partners and hires.',
   },
   skip: 'Skip to content',
   nav: {
@@ -31,7 +31,7 @@ export const en = {
   hero: {
     title: 'Take your AI<br /> company to Japan',
     standfirst:
-      'We’re two operators who, in Tokyo, built the way people apply for jobs on Indeed, the world’s largest job marketplace. Now we help AI companies find Japanese customers, partners and hires.',
+      'We’re two operators who, in Tokyo, built how job seekers and employers connect on Indeed, the world’s largest job marketplace. Now we help AI companies find Japanese customers, partners and hires.',
     action: 'Book an intro call',
     secondary: 'How we work',
     echo: '海外のAI企業を、日本市場へ。',
@@ -45,7 +45,7 @@ export const en = {
     lead:
       'Most AI companies that try Japan stall between the first meeting and the first contract. We spent years building products in Tokyo for Japanese companies and the people who work in them, and we know where the stalls happen.',
     columns: [
-      { runIn: 'Who we are.', text: 'Jet Villegas and Aditya Pandya. In Tokyo, Jet ran engineering and Aditya ran product for Indeed Apply, the system behind the Apply now button on Indeed. Jet went on to lead Search Advertising, and Aditya to lead product at Red Ventures.' },
+      { runIn: 'Who we are.', text: 'Jet Villegas and Aditya Pandya. In Tokyo, Jet ran engineering and Aditya ran product for Indeed Apply, how job seekers and employers connect on Indeed. Jet went on to lead Search Advertising, and Aditya to lead product at Red Ventures.' },
       { runIn: 'What we do.', text: 'We help AI companies decide whether Japan is right for them now. Then we find the first customers, partners and hires, adapt the product and the pitch, and get through procurement.' },
       { runIn: 'Where we are.', text: 'Tokyo and New York. Jet is on the ground in Tokyo for meetings, partners and hiring. Aditya works from New York, in your hours if you’re in the Americas.' },
       { runIn: 'How to start.', text: 'A 30-minute intro call. Tell us what you’re building and why Japan, and we’ll tell you honestly whether now is the time.' },
@@ -149,8 +149,8 @@ export const en = {
   team: {
     id: 'team',
     title: 'Who you’d work with',
-    headline: 'We built how people apply for jobs on Indeed',
-    origin: 'Indeed Apply is the system behind the Apply now button on the world’s largest job marketplace. We built it together in Tokyo, Aditya on product and Jet on engineering. JungleCode is that partnership, pointed at your company.',
+    headline: 'We built the core of Indeed’s job marketplace',
+    origin: 'Indeed Apply is how job seekers express interest in a job and how employers hear from them, at the heart of Indeed’s mission to help people get jobs. We built it together in Tokyo, Aditya on product and Jet on engineering. JungleCode is that partnership, pointed at your company.',
     people: [
       {
         key: 'jet',
