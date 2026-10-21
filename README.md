@@ -58,7 +58,7 @@ All archival images are public domain. They show Japan's world, never JungleCode
 | Hiroshige, Kanbara, Night Snow | [Library of Congress via Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Kanbara_LCCN2009615519.jpg) |
 | Preface to Kaitai Shinsho, 1774 | [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Chiikigakusaga_kaitaishinsho1-0001.jpg) |
 
-Founder portraits are processed from the originals by `scripts/portraits.mjs` (matched crop, monochrome, warmed toward the paper tone). Higher-resolution originals will drop straight in.
+Founder portraits start from colour masters in `assets-source/portraits/`. Each was made by editing that founder's own original photo into one consistent studio session (the same backdrop, light, framing and shirt) while keeping the face unchanged. They were checked against the originals side by side and with Apple Vision face geometry, landing within about 2% of the source on every measure. `scripts/portraits.mjs` then applies the same crop and monochrome grade to both. Each founder should approve his portrait before launch, and real studio photos can replace the masters at any time.
 
 ## Deploy
 
@@ -69,7 +69,7 @@ Founder portraits are processed from the originals by `scripts/portraits.mjs` (m
 - [ ] Create the `hello@junglecode.jp` mailbox or alias in Google Workspace
 - [ ] Paste the real booking link into `BOOKING_URL` in `src/data/config.ts` (until then, "Book 30 minutes" opens a prepared email)
 - [ ] Native-speaker review of everything in `src/data/ja.ts` and the `summary_ja` lines in the notes
-- [ ] Jet and Aditya review their bios, the origin story and the sample Readiness Sprint agenda
+- [ ] Jet and Aditya review their bios, their portraits, the origin story and the sample Readiness Sprint agenda
 - [ ] Edit the three draft notes, replace the editor prompts with real examples, set `draft: false`
 - [ ] Confirm the anonymized engagement line ("a North American AI visual-inspection company")
 - [ ] Confirm the healthcare framing (specialist partners lead PMDA filings and reimbursement dossiers)
