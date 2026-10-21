@@ -1,5 +1,8 @@
 ---
 import NotesIndex from '../../components/NotesIndex.astro';
 import { en } from '../../data/en';
+import { NOTES_ENABLED } from '../../data/config';
+
+if (!NOTES_ENABLED) return Astro.redirect('/');
 ---
 <NotesIndex copy={en} />

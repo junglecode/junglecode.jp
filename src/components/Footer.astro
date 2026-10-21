@@ -1,5 +1,5 @@
 ---
-import { EMAIL } from '../data/config';
+import { EMAIL, NOTES_ENABLED } from '../data/config';
 import type { SiteCopy } from '../data/en';
 
 interface Props { copy: SiteCopy }
@@ -21,7 +21,7 @@ const showEmail = !/^\/(ja\/)?(healthcare\/|privacy\/)?$/.test(path);
           <nav aria-label={col.title}>
             <p class="footer-col-title">{col.title}</p>
             <ul>
-              {col.links.map((l) => (
+              {col.links.filter((l) => NOTES_ENABLED || !l.href.endsWith('/notes/')).map((l) => (
                 <li><a href={l.href} lang={l.label === '日本語' ? 'ja' : l.label === 'English' ? 'en' : undefined}>{l.label}</a></li>
               ))}
             </ul>

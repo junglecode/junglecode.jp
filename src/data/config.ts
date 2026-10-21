@@ -16,5 +16,7 @@ export const PEOPLE = {
   aditya: { name: 'Aditya Pandya', city: 'New York', tz: 'America/New_York', linkedin: 'https://www.linkedin.com/in/adityapandya/' },
 } as const;
 
+export { NOTES_ENABLED } from './features';
+
 // Draft notes are shown in development and in preview builds (SHOW_DRAFTS=1), never in production.
 export const SHOW_DRAFTS = import.meta.env.DEV || import.meta.env.SHOW_DRAFTS === '1' || process.env.SHOW_DRAFTS === '1';

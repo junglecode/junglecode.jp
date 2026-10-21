@@ -1,6 +1,7 @@
 // Real photographs used on the site, with what their licences ask for. The credits page lists them,
 // and a small link at the foot of every page leads there.
 import type { PhotoKey } from './photoKeys';
+import { NOTES_ENABLED } from './features';
 
 export interface PhotoCredit {
   photo: PhotoKey;
@@ -11,9 +12,11 @@ export interface PhotoCredit {
   licenceUrl: string;
   /** True when the site shows a cropped or resized version, which the licences ask us to say. */
   adapted: boolean;
+  /** Set when the photo only appears in the notes, so it's listed only while they're shown. */
+  notesOnly?: boolean;
 }
 
-export const photoCredits: PhotoCredit[] = [
+const allCredits: PhotoCredit[] = [
   {
     photo: 'tokyo-day',
     title: { en: 'Minato City, Tokyo, Japan', ja: '東京都港区の街並み' },
@@ -49,5 +52,8 @@ export const photoCredits: PhotoCredit[] = [
     licence: 'CC BY 4.0',
     licenceUrl: 'https://creativecommons.org/licenses/by/4.0/',
     adapted: true,
+    notesOnly: true,
   },
 ];
+
+export const photoCredits = allCredits.filter((c) => NOTES_ENABLED || !c.notesOnly);

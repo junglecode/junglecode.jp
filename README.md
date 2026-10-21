@@ -31,6 +31,8 @@ Add `?theme=light` or `?theme=dark` to any URL to pin the palette for review. Ot
 
 ## Notes
 
+Notes are switched off for now: `NOTES_ENABLED` in `src/data/features.ts` is `false`, which hides the home page section, the nav and footer links and every note page (`/notes/` sends visitors home), and drops the notes-only photo credit. Set it to `true` to bring them back.
+
 Each note is a Markdown file with `draft: true` until it's approved. Drafts appear in development and in `SHOW_DRAFTS=1` builds with a yellow "Draft for review" marker and `noindex`, and they're left out of production builds entirely. When there are no published notes, the Notes section and its nav link disappear and the notes page says the first ones are on their way.
 
 Places where a founder's own example belongs are marked in the drafts as yellow editor prompts (`<p class="editor-prompt">`). Replace each one with the real story, or delete it, then set `draft: false`.
@@ -70,7 +72,7 @@ Founder portraits start from colour masters in `assets-source/portraits/`. Each 
 - [ ] Native-speaker review of everything in `src/data/ja.ts` and the `summary_ja` lines in the notes
 - [ ] Jet and Aditya review their bios, their portraits, the origin story and the sample Readiness Sprint agenda
 - [ ] Replace the generated photographs (everything in `src/assets/photos/` except `tokyo-day`, `tokyo-night`, `marunouchi` and `shinkansen`) with licensed or commissioned ones
-- [ ] Edit the three draft notes, replace the editor prompts with real examples, set `draft: false`
+- [ ] When the notes are ready: edit the three drafts, replace the editor prompts with real examples, set `draft: false`, and set `NOTES_ENABLED` to `true`
 - [ ] Confirm the anonymized engagement line ("a North American AI visual-inspection company")
 - [ ] Confirm the healthcare framing (specialist partners lead PMDA filings and reimbursement dossiers)
 - [ ] Send a test submission through the form and confirm it arrives in Formspree

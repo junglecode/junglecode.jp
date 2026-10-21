@@ -1,5 +1,6 @@
 ---
 import type { SiteCopy } from '../data/en';
+import { NOTES_ENABLED } from '../data/config';
 
 interface Props {
   copy: SiteCopy;
@@ -13,7 +14,8 @@ const home = copy.locale === 'ja' ? '/ja/' : '/';
 // Pages pass their own links. Otherwise the home page's anchors point back home from every other page.
 const onHome = Astro.url.pathname === home;
 const resolve = (href: string) => (href.startsWith('#') && !onHome ? `${home}${href}` : href);
-const links = Astro.props.links ?? copy.nav.links.map((l) => ({ ...l, href: resolve(l.href) }));
+const links = (Astro.props.links ?? copy.nav.links.map((l) => ({ ...l, href: resolve(l.href) })))
+  .filter((l) => NOTES_ENABLED || !/#notes$|\/notes\/$/.test(l.href));
 const hasContact = onHome || Astro.url.pathname.endsWith('/healthcare/');
 const actionHref = hasContact ? '#contact' : `${home}#contact`;
 ---
