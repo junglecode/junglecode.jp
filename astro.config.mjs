@@ -3,7 +3,8 @@ import sitemap from '@astrojs/sitemap';
 import { NOTES_ENABLED } from './src/data/features.ts';
 
 export default defineConfig({
-  site: 'https://junglecode.jp',
+  site: 'https://junglecode.github.io',
+  base: '/junglecode.jp',
   trailingSlash: 'ignore',
   build: { format: 'directory' },
   integrations: [
