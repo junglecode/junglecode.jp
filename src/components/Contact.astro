@@ -1,0 +1,196 @@
+---
+import { Image } from 'astro:assets';
+import jet from '../assets/people/jet-villegas-avatar.jpg';
+import aditya from '../assets/people/aditya-pandya-avatar.jpg';
+import { EMAIL, FORM_ENDPOINT, PEOPLE, bookingHref } from '../data/config';
+import type { SiteCopy } from '../data/en';
+
+interface Props { copy: SiteCopy; stages: string[] }
+const { copy, stages } = Astro.props;
+const c = copy.contact;
+const f = c.form;
+const people = [
+  { ...PEOPLE.jet, img: jet, first: copy.team.people[0].name, place: copy.team.people[0].facts[0] },
+  { ...PEOPLE.aditya, img: aditya, first: copy.team.people[1].name, place: copy.team.people[1].facts[0] },
+];
+const ja = copy.locale === 'ja';
+// The statement's first sentence is the heading; the rest follows as a lead.
+const cut = ja ? c.statement.indexOf('。') + 1 : c.statement.indexOf('. ') + 1;
+const head = cut > 0 ? c.statement.slice(0, cut) : c.statement;
+const follow = cut > 0 ? c.statement.slice(cut).trim() : '';
+---
+<section class="contact section" id="contact" aria-labelledby="contact-title">
+  <span class="dotfield contact-dots" aria-hidden="true"></span>
+  <div class="wrap grid contact-grid">
+    <div class="contact-words" data-reveal>
+      <span class="label">{c.title}</span>
+      <h2 id="contact-title" class="contact-statement">{head}</h2>
+      {follow && <p class="lead contact-follow">{follow}</p>}
+      <ul class="contact-people">
+        {people.map((p) => (
+          <li>
+            <Image src={p.img} alt="" width={112} height={112} />
+            <span><b>{p.first}</b><span class="contact-time"><span class="live" aria-hidden="true"></span>{p.place}{ja ? '、' : ', '}<span data-clock={p.tz}></span>{ja ? '' : ` ${c.localTime}`}</span></span>
+          </li>
+        ))}
+      </ul>
+      <div class="contact-links">
+        <p class="contact-question">{c.question}</p>
+        <p><a href={`mailto:${EMAIL}`}>{EMAIL}</a></p>
+        <p><a href={bookingHref(c.bookSubject)}>{c.bookLabel}</a></p>
+        <p class="contact-reply">{c.reply}</p>
+      </div>
+    </div>
+
+    <form class="contact-form" action={FORM_ENDPOINT} method="POST" data-form data-sending={f.sending} data-error={f.error}>
+      <input type="hidden" name="_subject" value={f.subject} />
+      <input type="hidden" name="engagement" value="" data-engagement-field />
+      <input type="hidden" name="language" value={copy.locale} />
+      <p class="hp" aria-hidden="true"><label>Leave empty <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" /></label></p>
+      <div class="field-row">
+        <label class="field"><span>{f.name}</span><input name="name" type="text" autocomplete="name" required /></label>
+        <label class="field"><span>{f.email}</span><input name="email" type="email" autocomplete="email" required /></label>
+      </div>
+      <label class="field"><span>{f.company}</span><input name="company" type="text" autocomplete="organization" required /></label>
+      <label class="field"><span>{f.message}</span><textarea name="message" rows="4" required></textarea></label>
+      <p class="engagement-note" data-engagement-note hidden></p>
+      <fieldset class="chips">
+        <legend>{f.stage} <span class="optional">({f.optional})</span></legend>
+        {stages.map((s) => <label class="chip"><input type="radio" name="stage" value={s} /><span>{s}</span></label>)}
+      </fieldset>
+      <fieldset class="chips">
+        <legend>{f.timeline} <span class="optional">({f.optional})</span></legend>
+        {f.timelines.map((t) => <label class="chip"><input type="radio" name="timeline" value={t} /><span>{t}</span></label>)}
+      </fieldset>
+      <div class="form-end">
+        <button class="button" type="submit" data-submit>{f.submit} <span class="arrow" aria-hidden="true">→</span></button>
+        <p class="form-privacy">{f.privacy} <a href={ja ? '/ja/privacy/' : '/privacy/'}>{f.privacyLink}</a></p>
+      </div>
+      <p class="form-status" role="status" aria-live="polite" data-status></p>
+      <div class="form-done" data-done hidden><p>{f.success}</p></div>
+    </form>
+  </div>
+</section>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>('[data-form]');
+  if (form) {
+    const status = form.querySelector<HTMLElement>('[data-status]');
+    const done = form.querySelector<HTMLElement>('[data-done]');
+    const submit = form.querySelector<HTMLButtonElement>('[data-submit]');
+    const lang = document.documentElement.lang;
+    const msgs = { sending: form.dataset.sending ?? '', error: form.dataset.error ?? '' };
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (!form.reportValidity()) return;
+      if (submit) submit.disabled = true;
+      if (status) status.textContent = msgs.sending;
+      try {
+        const res = await fetch(form.action, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } });
+        if (!res.ok) throw new Error(String(res.status));
+        form.querySelectorAll<HTMLElement>(':scope > :not([data-done])').forEach((el) => (el.hidden = true));
+        if (done) { done.hidden = false; requestAnimationFrame(() => done.classList.add('is-in')); }
+        if (status) status.textContent = '';
+      } catch {
+        if (status) status.textContent = msgs.error;
+        if (submit) submit.disabled = false;
+      }
+    });
+    // Choices made elsewhere on the page arrive here.
+    document.addEventListener('jc:stage', (e) => {
+      const label = (e as CustomEvent<string>).detail;
+      const input = [...form.querySelectorAll<HTMLInputElement>('input[name="stage"]')].find((i) => i.value === label);
+      if (input) input.checked = true;
+    });
+    const note = form.querySelector<HTMLElement>('[data-engagement-note]');
+    const field = form.querySelector<HTMLInputElement>('[data-engagement-field]');
+    document.addEventListener('jc:engagement', (e) => {
+      const name = (e as CustomEvent<string>).detail;
+      if (field) field.value = name;
+      if (note) { note.textContent = (lang === 'ja' ? 'ご関心のある支援：' : 'Interested in ') + name; note.hidden = false; }
+    });
+  }
+</script>
+
+<style>
+  /* The page ends on the yellow field. Its tokens are set here so everything inside follows. */
+  .contact {
+    --bg: var(--signal);
+    --surface: color-mix(in srgb, var(--signal-ink) 6%, var(--signal));
+    --ink: var(--signal-ink);
+    --soft: color-mix(in srgb, var(--signal-ink) 76%, var(--signal));
+    --rule: color-mix(in srgb, var(--signal-ink) 24%, var(--signal));
+    --button: var(--signal-ink);
+    --button-ink: var(--signal);
+    --focus: var(--signal-ink);
+    position: relative;
+    overflow: hidden;
+    background: var(--bg);
+    color: var(--ink);
+  }
+  .contact-dots { top: 0; right: 0; width: min(46rem, 60%); height: 80%; color: var(--signal-deep); }
+  .contact-grid { position: relative; z-index: 1; }
+  .contact :global(::selection) { background: var(--signal-ink); color: var(--signal); }
+  .contact a:hover { text-decoration-color: currentColor; }
+  .contact .button:hover { background: #fff; color: var(--signal-ink); }
+  .contact :global(:focus-visible) { box-shadow: none; }
+  .contact-grid { row-gap: 3rem; align-items: start; }
+  .contact-words { grid-column: 1 / span 5; display: grid; gap: 1.5rem; }
+  .contact-statement { font-size: clamp(2rem, 1.4rem + 1.9vw, 3rem); line-height: 1.04; letter-spacing: -0.035em; max-width: 17ch; }
+  .contact-follow { color: var(--soft); max-width: 26ch; }
+  :global(:root[lang='ja']) .contact-statement { font-size: clamp(1.6rem, 1.1rem + 1.8vw, 2.6rem); line-height: 1.45; max-width: 13em; }
+  .contact-people { display: grid; gap: 0.85rem; margin-top: 0.5rem; }
+  .contact-people li { display: flex; align-items: center; gap: 0.9rem; }
+  .contact-people :global(img) { width: 3.5rem; height: 3.5rem; border-radius: 999px; object-fit: cover; border: 2px solid var(--signal-ink); }
+  .contact-people b { display: block; font-weight: 500; }
+  .contact-time { font-size: var(--step-small); color: var(--soft); }
+  .live { display: inline-block; width: 0.5rem; height: 0.5rem; margin-right: 0.45rem; border-radius: 999px; background: var(--signal-ink); vertical-align: 0.05em; }
+  @media (prefers-reduced-motion: no-preference) { .live { animation: live 2.4s ease-out infinite; } }
+  @keyframes live { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--signal-ink) 45%, transparent); } 70%, 100% { box-shadow: 0 0 0 0.4rem transparent; } }
+  .contact-links { display: grid; gap: 0.35rem; }
+  .contact-question { font-weight: 500; margin-bottom: 0.25rem; }
+  .contact-reply { margin-top: 0.5rem; font-size: var(--step-small); color: var(--soft); }
+
+  .contact-form { grid-column: 7 / -1; display: grid; gap: 1.5rem; }
+  .hp { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .field-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--gutter); }
+  .field { display: grid; gap: 0.5rem; }
+  .field span { font-size: var(--step-small); font-weight: 500; }
+  .field input, .field textarea {
+    width: 100%;
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid var(--ink);
+    border-radius: 0;
+    padding: 0.6rem 0;
+    font-size: var(--step-body);
+    line-height: 1.4;
+    transition: border-color var(--dur) var(--ease);
+  }
+  .field textarea { resize: vertical; min-height: 6rem; }
+  .field input:focus, .field textarea:focus { outline: none; border-bottom: 2px solid var(--ink); padding-bottom: calc(0.6rem - 1px); }
+  .engagement-note { font-weight: 500; }
+  .chips { border: 0; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .chips legend { font-size: var(--step-small); font-weight: 500; margin-bottom: 0.75rem; padding: 0; }
+  .optional { font-weight: 400; color: var(--soft); }
+  .chip { position: relative; }
+  .chip input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+  .chip span { display: inline-block; padding: 0.5rem 0.95rem; border: 1px solid var(--rule); border-radius: 999px; font-size: 0.9375rem; transition: background-color var(--dur) var(--ease), border-color var(--dur) var(--ease), color var(--dur) var(--ease); }
+  .chip:hover span { border-color: var(--ink); }
+  .chip span { border-color: var(--rule); }
+  .chip input:checked + span { background: var(--ink); border-color: var(--ink); color: var(--signal); }
+  .chip input:focus-visible + span { outline: 2px solid var(--focus); outline-offset: 2px; }
+  .form-end { display: flex; align-items: center; gap: 1rem 1.5rem; flex-wrap: wrap; }
+  .form-privacy { font-size: var(--step-small); color: var(--soft); max-width: 40ch; }
+  .form-status { min-height: 1.5em; }
+  .form-done { font-family: var(--font-display); font-size: var(--step-lead); line-height: 1.3; }
+  .form-done[hidden] { display: none; }
+  @media (prefers-reduced-motion: no-preference) {
+    .form-done { opacity: 0; transform: translateY(12px); }
+    .form-done.is-in { opacity: 1; transform: none; transition: opacity var(--dur-slow) var(--ease), transform var(--dur-slow) var(--ease); }
+  }
+  @media (max-width: 52rem) {
+    .contact-words, .contact-form { grid-column: 1 / -1; }
+  }
+  @media (max-width: 40rem) { .field-row { grid-template-columns: 1fr; } }
+</style>

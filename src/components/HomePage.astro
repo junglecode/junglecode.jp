@@ -1,0 +1,78 @@
+---
+import Base from '../layouts/Base.astro';
+import Hero from './Hero.astro';
+import Intro from './Intro.astro';
+import Team from './Team.astro';
+import Figures from './Figures.astro';
+import Stalls from './Stalls.astro';
+import Stages from './Stages.astro';
+import Engagements from './Engagements.astro';
+import HealthFeature from './HealthFeature.astro';
+import NotesList from './NotesList.astro';
+import Contact from './Contact.astro';
+import { getNotes, formatDate } from '../data/notes';
+import type { SiteCopy } from '../data/en';
+
+interface Props { copy: SiteCopy }
+const { copy } = Astro.props;
+const ja = copy.locale === 'ja';
+const prefix = ja ? '/ja' : '';
+const notes = await getNotes();
+const navLinks = copy.nav.links
+  .filter((l) => notes.length > 0 || l.href !== '#notes')
+  .map((l) => (l.href === '/healthcare/' ? { ...l, href: `${prefix}/healthcare/` } : l));
+---
+<Base copy={copy} title={copy.meta.title} description={copy.meta.description} enPath="/" navLinks={navLinks} overPhoto>
+  <Hero
+    title={copy.hero.title}
+    standfirst={copy.hero.standfirst}
+    action={{ label: copy.hero.action, href: '#contact' }}
+    secondary={{ label: copy.hero.secondary, href: '#approach' }}
+    echo={{ text: copy.hero.echo, lang: copy.hero.echoLang }}
+    place={copy.hero.place}
+    photo={{ day: 'tokyo-day', night: 'tokyo-night', alt: copy.hero.photoAlt, altNight: copy.hero.photoAltNight }}
+    builtAt={{ label: copy.hero.builtAtLabel, names: copy.team.builtAt }}
+  />
+  <Intro lead={copy.intro.lead} columns={copy.intro.columns} />
+  <Team
+    id={copy.team.id}
+    label={copy.team.title}
+    headline={copy.team.headline}
+    origin={copy.team.origin}
+    people={copy.team.people}
+    nameTitle={copy.team.nameTitle}
+    nameText={copy.team.nameText}
+    nameInBio={ja}
+  />
+  <Figures {...copy.whyNow} photo="marunouchi" />
+  <Stalls {...copy.frictions} photo="street-evening" photoAlt="" />
+  <Stages {...copy.route} photo="meeting" photoAlt="" />
+  <Engagements
+    {...copy.engagements}
+    ctaHref="#contact"
+    weeks={copy.sprint.weeks}
+    sprintNote={copy.sprint.note}
+    youLabel={copy.sprint.youLabel}
+    names={{ jet: copy.team.people[0].name, aditya: copy.team.people[1].name }}
+  />
+  <HealthFeature {...copy.healthTeaser} href={`${prefix}/healthcare/`} />
+  {notes.length > 0 && (
+    <NotesList
+      id={copy.notes.id}
+      label={copy.notes.label}
+      title={copy.notes.title}
+      notes={notes.slice(0, 3).map((n) => ({
+        title: n.data.title,
+        excerpt: ja ? n.data.summary_ja : n.data.description,
+        date: formatDate(n.data.date, copy.locale as 'en' | 'ja'),
+        href: `/notes/${n.id}/`,
+        draft: n.data.draft,
+        photo: n.data.plate,
+      }))}
+      read={copy.notes.read}
+      allNotes={{ label: copy.notes.allNotes, href: `${prefix}/notes/` }}
+      draftLabel={copy.notes.draft}
+    />
+  )}
+  <Contact copy={copy} stages={copy.route.chooser.options.map((o) => o.label)} />
+</Base>

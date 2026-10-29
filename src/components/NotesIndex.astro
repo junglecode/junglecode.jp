@@ -1,0 +1,63 @@
+---
+import { Picture } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import { photos, focus } from './Photos';
+import { getNotes, formatDate } from '../data/notes';
+import type { SiteCopy } from '../data/en';
+
+interface Props { copy: SiteCopy }
+const { copy } = Astro.props;
+const ja = copy.locale === 'ja';
+const notes = await getNotes();
+---
+<Base copy={copy} title={`${copy.notes.indexTitle} | JungleCode`} description={copy.notes.indexIntro} enPath="/notes/">
+  <section class="notes-index section" aria-labelledby="notes-title">
+    <div class="wrap grid notes-head" data-reveal>
+      <h1 id="notes-title">{copy.notes.indexTitle}</h1>
+      <p class="lead notes-intro">{copy.notes.indexIntro}</p>
+    </div>
+    <ol class="wrap notes-list">
+      {notes.map((n) => (
+        <li class="grid note-row" data-reveal>
+          <a class="note-photo" href={`/notes/${n.id}/`} tabindex="-1" aria-hidden="true">
+            <Picture src={photos[n.data.plate]} alt="" formats={['avif', 'webp']} widths={[480, 800]} sizes="(max-width: 52rem) 100vw, 34vw" style={`object-position:${focus[n.data.plate]}`} />
+          </a>
+          <div class="note-text">
+            <h2 lang="en"><a href={`/notes/${n.id}/`}>{n.data.title}</a></h2>
+            <p class="note-summary" lang={ja ? 'ja' : 'en'}>{ja ? n.data.summary_ja : n.data.description}</p>
+            <p class="note-meta">
+              {formatDate(n.data.date, copy.locale as 'en' | 'ja')} · {copy.notes.byline} {n.data.authors.join(ja ? '、' : ' and ')}
+              {n.data.draft && <span class="note-draft"> · {copy.notes.draft}</span>}
+            </p>
+          </div>
+        </li>
+      ))}
+    </ol>
+    {notes.length === 0 && <p class="wrap lead notes-empty">{copy.notes.empty}</p>}
+    <p class="wrap notes-elsewhere">{copy.notes.elsewhere} <a href="https://junglecode.net" rel="noopener">junglecode.net</a>{copy.notes.end}</p>
+  </section>
+</Base>
+
+<style>
+  .notes-head { row-gap: 1.25rem; align-items: end; }
+  .notes-head h1 { grid-column: 1 / span 6; font-size: var(--step-display); }
+  .notes-intro { grid-column: 8 / -1; color: var(--soft); max-width: 34ch; justify-self: end; }
+  .notes-list { margin-top: clamp(3.5rem, 7vw, 6rem); display: grid; }
+  .note-row { align-items: start; row-gap: 1.25rem; padding-block: clamp(2rem, 4vw, 3rem); border-top: 1px solid var(--rule); }
+  .note-row:last-child { border-bottom: 1px solid var(--rule); }
+  .note-photo { grid-column: 1 / span 5; display: block; overflow: hidden; }
+  .note-photo :global(img) { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; transition: transform 1.2s var(--ease); }
+  .note-row:hover .note-photo :global(img) { transform: scale(1.04); }
+  .note-text { grid-column: 7 / -1; }
+  .note-text h2 { font-size: var(--step-head); max-width: 18ch; }
+  .note-text h2 a { text-decoration-color: transparent; }
+  .note-text h2 a:hover { text-decoration-color: currentColor; }
+  .note-summary { margin-top: 1rem; max-width: 56ch; color: var(--soft); }
+  .note-meta { margin-top: 1rem; font-size: var(--step-small); color: var(--soft); }
+  .note-draft { color: var(--ink); font-weight: 500; }
+  .notes-empty { margin-top: 2rem; }
+  .notes-elsewhere { margin-top: clamp(3rem, 6vw, 5rem); color: var(--soft); }
+  @media (max-width: 52rem) {
+    .notes-head h1, .notes-intro, .note-photo, .note-text { grid-column: 1 / -1; justify-self: start; }
+  }
+</style>
